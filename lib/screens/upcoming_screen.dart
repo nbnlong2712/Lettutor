@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class UpcomingScreen extends StatelessWidget {
+  static const router = "/upcoming-screen";
+
   const UpcomingScreen({Key? key}) : super(key: key);
 
   @override

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatelessWidget {
+  static const router = "/setting-screen";
+
   const SettingScreen({Key? key}) : super(key: key);
 
   @override
