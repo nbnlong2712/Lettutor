@@ -56,7 +56,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: AuthButton(
-                    onPressed: () {},
+                    onPressed: () {Navigator.pop(context);},
                     label: const Text(
                       "Reset Password",
                       style: TextStyle(fontSize: 16),

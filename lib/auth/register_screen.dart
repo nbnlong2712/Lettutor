@@ -91,7 +91,9 @@ class RegisterScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.11,
                   child: AuthButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     label: const Text(
                       "Register",
                       style: TextStyle(fontSize: 16),

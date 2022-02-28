@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/forget_password_screen.dart';
 import 'package:flutter_lettutor/auth/register_screen.dart';
+import '../home_page.dart';
 import 'components/auth_button.dart';
 import 'components/auth_textfield.dart';
 import 'components/third_auth_button.dart';
@@ -71,7 +72,8 @@ class LoginScreen extends StatelessWidget {
                                   style: TextStyle(color: Colors.green),
                                 ),
                                 onTap: () {
-                                  Navigator.pushNamed(context, RegisterScreen.router);
+                                  Navigator.pushNamed(
+                                      context, RegisterScreen.router);
                                 },
                               ),
                             ],
@@ -82,7 +84,8 @@ class LoginScreen extends StatelessWidget {
                               style: TextStyle(color: Colors.green),
                             ),
                             onTap: () {
-                              Navigator.pushNamed(context, ForgetPasswordScreen.router);
+                              Navigator.pushNamed(
+                                  context, ForgetPasswordScreen.router);
                             },
                           ),
                         ],
@@ -93,7 +96,9 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.11,
                   child: AuthButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(context, HomePage.router, (route) => false);
+                    },
                     label: const Text(
                       "Login",
                       style: TextStyle(fontSize: 16),
