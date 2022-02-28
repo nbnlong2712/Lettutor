@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/forget_password_screen.dart';
-import 'package:flutter_lettutor/auth/register_screen.dart';
 import 'components/auth_button.dart';
 import 'components/auth_textfield.dart';
 import 'components/third_auth_button.dart';
 
-class LoginScreen extends StatelessWidget {
-  static const String router = "/login-screen";
+class RegisterScreen extends StatelessWidget {
+  static const String router = "/register-screen";
 
-  const LoginScreen({Key? key}) : super(key: key);
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.4,
                   child: Column(
                     children: <Widget>[
                       AuthTextField(
@@ -59,31 +57,31 @@ class LoginScreen extends StatelessWidget {
                         onSaved: (value) {},
                         isPassword: true,
                       ),
+                      AuthTextField(
+                        label: "Re-enter Password",
+                        hint: "Re-enter you password...",
+                        icon: Icons.password,
+                        inputType: TextInputType.visiblePassword,
+                        validator: (value) => "",
+                        onSaved: (value) {},
+                        isPassword: true,
+                      ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              const Text("Not a member yet?"),
+                              const Text("Already have account!"),
                               GestureDetector(
                                 child: const Text(
-                                  " Sign up",
+                                  " Sign in",
                                   style: TextStyle(color: Colors.green),
                                 ),
                                 onTap: () {
-                                  Navigator.pushNamed(context, RegisterScreen.router);
+                                  Navigator.pop(context);
                                 },
                               ),
                             ],
-                          ),
-                          GestureDetector(
-                            child: const Text(
-                              "Forgot password",
-                              style: TextStyle(color: Colors.green),
-                            ),
-                            onTap: () {
-                              Navigator.pushNamed(context, ForgetPasswordScreen.router);
-                            },
                           ),
                         ],
                       ),
@@ -95,32 +93,11 @@ class LoginScreen extends StatelessWidget {
                   child: AuthButton(
                     onPressed: () {},
                     label: const Text(
-                      "Login",
+                      "Register",
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: Column(
-                    children: <Widget>[
-                      const Text("Or continue with"),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          ThirdAuthButton(
-                            thirdParty: ThirdParty.Google,
-                            onPressed: () {},
-                          ),
-                          ThirdAuthButton(
-                            thirdParty: ThirdParty.Facebook,
-                            onPressed: () {},
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           ),
