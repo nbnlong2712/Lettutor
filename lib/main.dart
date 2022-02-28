@@ -1,4 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/screens/course_screen.dart';
+import 'package:flutter_lettutor/screens/home_screen.dart';
+import 'package:flutter_lettutor/screens/setting_screen.dart';
+import 'package:flutter_lettutor/screens/tutors_screen.dart';
+import 'package:flutter_lettutor/screens/upcoming_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -6,6 +13,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,52 +21,60 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: LoginScreen(),
+      initialRoute: LoginScreen.router,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _HomePageState extends State<HomePage> {
+  static const _screensList = [
+    HomeScreen(),
+    CourseScreen(),
+    UpcomingScreen(),
+    TutorsScreen(),
+    SettingScreen(),
+  ];
 
-  void _incrementCounter() {
+  static const _iconList = [
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+    BottomNavigationBarItem(icon: Icon(Icons.video_collection_outlined), label: "Course"),
+    BottomNavigationBarItem(icon: Icon(Icons.watch_later_outlined), label: "Upcoming"),
+    BottomNavigationBarItem(icon: Icon(Icons.people), label: "Tutors"),
+    BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Setting"),
+  ];
+
+  var _currentIndex = 0;
+
+  void _selectItem(index) {
     setState(() {
-      _counter++;
+      _currentIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 3,
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          items: _iconList,
+          currentIndex: _currentIndex,
+          onTap: _selectItem,
+          selectedItemColor: Colors.green,
+          unselectedItemColor: Colors.grey,
+          showUnselectedLabels: true,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        body: _screensList.elementAt(_currentIndex),
       ),
     );
   }
