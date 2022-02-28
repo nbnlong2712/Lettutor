@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/screens/course_screen.dart';
 import 'package:flutter_lettutor/screens/home_screen.dart';
 import 'package:flutter_lettutor/screens/setting_screen.dart';
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: LoginScreen(),
+      initialRoute: LoginScreen.router,
     );
   }
 }
