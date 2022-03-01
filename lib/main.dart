@@ -5,7 +5,7 @@ import 'package:flutter_lettutor/home_page.dart';
 import 'package:flutter_lettutor/screens/course_screen.dart';
 import 'package:flutter_lettutor/screens/home/home_screen.dart';
 import 'package:flutter_lettutor/screens/setting_screen.dart';
-import 'package:flutter_lettutor/screens/tutors_screen.dart';
+import 'package:flutter_lettutor/screens/tutors/tutors_screen.dart';
 import 'package:flutter_lettutor/screens/upcoming_screen.dart';
 
 import 'auth/forget_password_screen.dart';
