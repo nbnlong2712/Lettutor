@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class SelectionSkillTag extends StatefulWidget {
-  SelectionSkillTag({Key? key, required this.isSelected, required this.skillName})
+class SelectionSkillChip extends StatefulWidget {
+  SelectionSkillChip({Key? key, required this.isSelected, required this.skillName})
       : super(key: key);
 
   String skillName;
   bool isSelected;
 
   @override
-  _ProfileSkillTagState createState() => _ProfileSkillTagState();
+  _SelectionSkillChipState createState() => _SelectionSkillChipState();
 }
 
-class _ProfileSkillTagState extends State<SelectionSkillTag> {
+class _SelectionSkillChipState extends State<SelectionSkillChip> {
   Text _selectedText(text, color, fontWeight) => Text(
         text,
         style: TextStyle(color: color, fontWeight: fontWeight),

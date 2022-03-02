@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/comment/comment_card.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_video.dart';
-import 'package:flutter_lettutor/widget/skill_tag.dart';
+import 'package:flutter_lettutor/widget/skill_chip.dart';
 import 'package:video_player/video_player.dart';
 
 class TutorDetailScreen extends StatefulWidget {
@@ -131,8 +131,8 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             children: <Widget>[
-                              SkillTag(skillName: "Vietnamese"),
-                              SkillTag(skillName: "English"),
+                              SkillChip(skillName: "Vietnamese"),
+                              SkillChip(skillName: "English"),
                             ],
                           ),
                         ),
@@ -177,11 +177,11 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             children: <Widget>[
-                              SkillTag(skillName: "TOEFL"),
-                              SkillTag(skillName: "IELTS"),
-                              SkillTag(skillName: "Business English"),
-                              SkillTag(skillName: "TOEIC"),
-                              SkillTag(skillName: "Millionaire"),
+                              SkillChip(skillName: "TOEFL"),
+                              SkillChip(skillName: "IELTS"),
+                              SkillChip(skillName: "Business English"),
+                              SkillChip(skillName: "TOEIC"),
+                              SkillChip(skillName: "Millionaire"),
                             ],
                           ),
                         ),

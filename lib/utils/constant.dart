@@ -71,3 +71,17 @@ const List<String> levels = [
   "Advanced",
   "Proficiency"
 ];
+
+const List<String> skills = [
+  "Business English",
+  "English for kids",
+  "Conversation English",
+  "STARTERS",
+  "MOVERS",
+  "FLYERS",
+  "KET",
+  "PET",
+  "IETLS",
+  "TOEFL",
+  "TOEIC",
+];

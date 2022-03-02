@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/screens/home/tutor_card.dart';
+import 'package:flutter_lettutor/home_page.dart';
+import 'package:flutter_lettutor/screens/home/recommend_tutor_card.dart';
 import 'package:flutter_lettutor/screens/home/upcoming_banner.dart';
 import 'package:flutter_lettutor/screens/profile/profile_screen.dart';
+import 'package:flutter_lettutor/screens/tutors/tutors_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const router = "/home-screen";
@@ -58,15 +61,10 @@ class HomeScreen extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 19),
                         ),
-                        GestureDetector(
-                          child: const Text("See all  >",
-                              style: TextStyle(color: Colors.green)),
-                          onTap: () {},
-                        )
                       ],
                     ),
                   ),
-                  TutorCard(
+                  RecommendTutorCard(
                     describe:
                     "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
@@ -74,7 +72,7 @@ class HomeScreen extends StatelessWidget {
                     tutorName: "Nhat long",
                     isFavourite: false,
                   ),
-                  TutorCard(
+                  RecommendTutorCard(
                     describe:
                     "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
@@ -82,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                     tutorName: "Nhat long",
                     isFavourite: true,
                   ),
-                  TutorCard(
+                  RecommendTutorCard(
                     describe:
                     "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
@@ -90,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                     tutorName: "Nhat long",
                     isFavourite: false,
                   ),
-                  TutorCard(
+                  RecommendTutorCard(
                     describe:
                     "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
@@ -98,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                     tutorName: "Nhat long",
                     isFavourite: true,
                   ),
-                  TutorCard(
+                  RecommendTutorCard(
                     describe:
                     "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",

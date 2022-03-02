@@ -4,12 +4,12 @@ import 'package:flutter_lettutor/screens/profile/profile_component_label.dart';
 import 'package:flutter_lettutor/screens/profile/profile_dropdown.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
-import 'package:flutter_lettutor/widget/selection_skill_tag.dart';
-import 'package:flutter_lettutor/widget/selection_skill_tag.dart';
-import 'package:flutter_lettutor/widget/selection_skill_tag.dart';
-import 'package:flutter_lettutor/widget/selection_skill_tag.dart';
-import 'package:flutter_lettutor/widget/selection_skill_tag.dart';
-import 'package:flutter_lettutor/widget/selection_skill_tag.dart';
+import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
+import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
+import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
+import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
+import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
+import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen(
@@ -177,13 +177,13 @@ class ProfileScreen extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               children: <Widget>[
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false,
                                     skillName: "English for Kids"),
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false,
                                     skillName: "Business English"),
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false,
                                     skillName: "Conversational English"),
                               ],
@@ -206,21 +206,21 @@ class ProfileScreen extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               children: <Widget>[
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false, skillName: "STARTERS"),
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false, skillName: "MOVERS"),
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false, skillName: "FLYERS"),
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false, skillName: "KET"),
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false, skillName: "PET"),
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false, skillName: "IELTS"),
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false, skillName: "TOEFL"),
-                                SelectionSkillTag(
+                                SelectionSkillChip(
                                     isSelected: false, skillName: "TOEIC"),
                               ],
                             ),
