@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/screens/home/tutor_card.dart';
 import 'package:flutter_lettutor/screens/home/upcoming_banner.dart';
+import 'package:flutter_lettutor/screens/profile/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const router = "/home-screen";
@@ -20,11 +21,23 @@ class HomeScreen extends StatelessWidget {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              backgroundImage: AssetImage("assets/images/avatar_long.png"),
-              backgroundColor: Colors.black12,
+            child: GestureDetector(
+              child: CircleAvatar(
+                backgroundImage: AssetImage("assets/images/avatar_long.png"),
+                backgroundColor: Colors.black12,
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    ProfileScreen(email: "nhatlonghn1203@gmail.com",
+                      avatar: "assets/images/avatar_long.png",
+                      name: "Nhat Long",
+                      birthDay: "12/03/2000",
+                      country: "Vietnam",
+                      level: "Advanced",
+                      phoneNumber: "0943290648",)));
+              },
             ),
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(

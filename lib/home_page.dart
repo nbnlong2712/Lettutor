@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/screens/course_screen.dart';
+import 'package:flutter_lettutor/screens/course/course_screen.dart';
 import 'package:flutter_lettutor/screens/home/home_screen.dart';
-import 'package:flutter_lettutor/screens/setting_screen.dart';
+import 'package:flutter_lettutor/screens/setting/setting_screen.dart';
 import 'package:flutter_lettutor/screens/tutors/tutors_screen.dart';
-import 'package:flutter_lettutor/screens/upcoming_screen.dart';
+import 'package:flutter_lettutor/screens/upcoming/upcoming_screen.dart';
 class HomePage extends StatefulWidget {
   static const router = "/home-page";
 

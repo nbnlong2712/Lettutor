@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/home_page.dart';
-import 'package:flutter_lettutor/screens/course_screen.dart';
+import 'package:flutter_lettutor/screens/course/course_screen.dart';
 import 'package:flutter_lettutor/screens/home/home_screen.dart';
-import 'package:flutter_lettutor/screens/setting_screen.dart';
+import 'package:flutter_lettutor/screens/profile/profile_screen.dart';
+import 'package:flutter_lettutor/screens/setting/setting_screen.dart';
 import 'package:flutter_lettutor/screens/tutors/tutors_screen.dart';
-import 'package:flutter_lettutor/screens/upcoming_screen.dart';
+import 'package:flutter_lettutor/screens/upcoming/upcoming_screen.dart';
 
 import 'auth/forget_password_screen.dart';
 import 'auth/register_screen.dart';

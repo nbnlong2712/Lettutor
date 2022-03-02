@@ -19,7 +19,7 @@ class LongFloatingButton extends StatelessWidget {
         child: label,
         style: ElevatedButton.styleFrom(
             primary: Colors.green,
-            fixedSize: Size(MediaQuery.of(context).size.width, 40),
+            fixedSize: Size(MediaQuery.of(context).size.width, 45),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             )

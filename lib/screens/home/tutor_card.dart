@@ -120,7 +120,7 @@ class _TutorCardState extends State<TutorCard> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                   child: Text(widget.describe),
                 ),
               ],
@@ -130,12 +130,15 @@ class _TutorCardState extends State<TutorCard> {
       ),
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => TutorDetailScreen(
-                      isFavourite: widget.isFavourite,
-                  describe: widget.describe,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => TutorDetailScreen(
+              isFavourite: widget.isFavourite,
+              describe: widget.describe,
+              avatar: widget.avatar,
+            ),
+          ),
+        );
       },
     );
   }

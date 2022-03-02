@@ -10,10 +10,12 @@ class TutorDetailScreen extends StatefulWidget {
     Key? key,
     required this.isFavourite,
     required this.describe,
+    required this.avatar
   }) : super(key: key);
 
   bool isFavourite;
   String describe;
+  String avatar;
 
   @override
   State<TutorDetailScreen> createState() => _TutorDetailScreenState();
@@ -41,7 +43,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                           children: <Widget>[
                             CircleAvatar(
                               backgroundImage:
-                              AssetImage("assets/images/avatar_long.png"),
+                              AssetImage(widget.avatar),
                               radius: 30,
                             ),
                             Padding(
