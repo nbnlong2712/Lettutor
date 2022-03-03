@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/screens/course/course_screen.dart';
+import 'package:flutter_lettutor/screens/course/course_page.dart';
 import 'package:flutter_lettutor/screens/home/home_screen.dart';
 import 'package:flutter_lettutor/screens/setting/setting_screen.dart';
 import 'package:flutter_lettutor/screens/tutors/tutors_screen.dart';
@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const _screensList = [
     HomeScreen(),
-    CourseScreen(),
+    CoursePage(),
     UpcomingScreen(),
     TutorsScreen(),
     SettingScreen(),

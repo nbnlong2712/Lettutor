@@ -21,11 +21,10 @@ class _ProfileDropDownState extends State<ProfileDropDown> {
       padding: const EdgeInsets.symmetric(vertical: 14),
       child: InputDecorator(
         decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black26),
-            borderRadius: BorderRadius.circular(12),
-          )
-        ),
+            border: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.black26),
+          borderRadius: BorderRadius.circular(12),
+        )),
         child: DropdownButton<String?>(
           value: widget.value,
           items: widget.listItem.map<DropdownMenuItem<String>>((String value) {

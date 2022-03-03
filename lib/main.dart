@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/home_page.dart';
-import 'package:flutter_lettutor/screens/course/course_screen.dart';
+import 'package:flutter_lettutor/screens/course/course_page.dart';
 import 'package:flutter_lettutor/screens/home/home_screen.dart';
 import 'package:flutter_lettutor/screens/profile/profile_screen.dart';
 import 'package:flutter_lettutor/screens/setting/setting_screen.dart';
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         ForgetPasswordScreen.router:(context) => ForgetPasswordScreen(),
         //main
         HomeScreen.router: (context) => HomeScreen(),
-        CourseScreen.router: (context) => CourseScreen(),
+        CoursePage.router: (context) => CoursePage(),
         SettingScreen.router:(context) => SettingScreen(),
         TutorsScreen.router: (context) => TutorsScreen(),
         UpcomingScreen.router: (context) => UpcomingScreen(),

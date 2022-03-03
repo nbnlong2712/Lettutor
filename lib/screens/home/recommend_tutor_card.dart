@@ -28,8 +28,7 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
       child: Container(
         padding: const EdgeInsets.all(10),
         child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 10,
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -52,23 +51,17 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                                 children: <Widget>[
                                   Text(
                                     widget.tutorName,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 5),
+                                    padding: const EdgeInsets.symmetric(horizontal: 5),
                                     child: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.05,
+                                      height: MediaQuery.of(context).size.height * 0.05,
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         shrinkWrap: true,
                                         itemCount: 5,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
+                                        itemBuilder: (BuildContext context, int index) {
                                           return const Icon(
                                             Icons.star,
                                             color: Colors.yellow,
@@ -81,9 +74,7 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                               ),
                               GestureDetector(
                                 child: Icon(
-                                  widget.isFavourite
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
+                                  widget.isFavourite ? Icons.favorite : Icons.favorite_border,
                                   color: Colors.red,
                                   size: 30,
                                 ),

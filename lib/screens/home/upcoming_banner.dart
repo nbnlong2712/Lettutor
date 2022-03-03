@@ -15,7 +15,8 @@ class UpcomingBanner extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text("Total lesson time are 83 hours 20 minutes", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700)),
+            Text("Total lesson time are 83 hours 20 minutes",
+                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w700)),
             Text("Upcoming lesson", style: textWhiteStyle),
             Text("Thu, 3/3/2022 - 23:00", style: textWhiteStyle),
             Padding(

@@ -3,12 +3,7 @@ import 'package:flutter_lettutor/screens/tutors/tutor_detail_screen.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
 
 class TutorCard extends StatelessWidget {
-  TutorCard(
-      {Key? key,
-      required this.avatar,
-      required this.describe,
-      required this.tutorName})
-      : super(key: key);
+  TutorCard({Key? key, required this.avatar, required this.describe, required this.tutorName}) : super(key: key);
 
   String describe;
   String avatar;
@@ -20,8 +15,7 @@ class TutorCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(10),
         child: Card(
-          shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 10,
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -44,23 +38,17 @@ class TutorCard extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     tutorName,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 5),
+                                    padding: const EdgeInsets.symmetric(horizontal: 5),
                                     child: SizedBox(
-                                      height:
-                                      MediaQuery.of(context).size.height *
-                                          0.05,
+                                      height: MediaQuery.of(context).size.height * 0.05,
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         shrinkWrap: true,
                                         itemCount: 5,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
+                                        itemBuilder: (BuildContext context, int index) {
                                           return const Icon(
                                             Icons.star,
                                             color: Colors.yellow,
@@ -115,6 +103,7 @@ class TutorCard extends StatelessWidget {
           ),
         );
       },
-    );;
+    );
+    ;
   }
 }

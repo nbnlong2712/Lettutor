@@ -8,11 +8,11 @@ class ProfileComponentLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2.0),
-        child: Text(
-          label,
-          style: const TextStyle(fontSize: 17),
-        ),
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 17),
+      ),
     );
   }
 }

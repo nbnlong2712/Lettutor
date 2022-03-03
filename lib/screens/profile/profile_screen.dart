@@ -66,7 +66,12 @@ class ProfileScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.white10,
         elevation: 0,
-        leading: GestureDetector(child: Icon(Icons.arrow_back, color: Colors.black), onTap: (){Navigator.pop(context);},),
+        leading: GestureDetector(
+          child: Icon(Icons.arrow_back, color: Colors.black),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -87,10 +92,7 @@ class ProfileScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(4.0),
                           child: Text(
                             email,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black54),
+                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54),
                           ),
                         ),
                       ],
@@ -151,8 +153,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -177,15 +178,9 @@ class ProfileScreen extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               children: <Widget>[
-                                SelectionSkillChip(
-                                    isSelected: false,
-                                    skillName: "English for Kids"),
-                                SelectionSkillChip(
-                                    isSelected: false,
-                                    skillName: "Business English"),
-                                SelectionSkillChip(
-                                    isSelected: false,
-                                    skillName: "Conversational English"),
+                                SelectionSkillChip(isSelected: false, skillName: "English for Kids"),
+                                SelectionSkillChip(isSelected: false, skillName: "Business English"),
+                                SelectionSkillChip(isSelected: false, skillName: "Conversational English"),
                               ],
                             ),
                           ),
@@ -193,8 +188,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -206,22 +200,14 @@ class ProfileScreen extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               children: <Widget>[
-                                SelectionSkillChip(
-                                    isSelected: false, skillName: "STARTERS"),
-                                SelectionSkillChip(
-                                    isSelected: false, skillName: "MOVERS"),
-                                SelectionSkillChip(
-                                    isSelected: false, skillName: "FLYERS"),
-                                SelectionSkillChip(
-                                    isSelected: false, skillName: "KET"),
-                                SelectionSkillChip(
-                                    isSelected: false, skillName: "PET"),
-                                SelectionSkillChip(
-                                    isSelected: false, skillName: "IELTS"),
-                                SelectionSkillChip(
-                                    isSelected: false, skillName: "TOEFL"),
-                                SelectionSkillChip(
-                                    isSelected: false, skillName: "TOEIC"),
+                                SelectionSkillChip(isSelected: false, skillName: "STARTERS"),
+                                SelectionSkillChip(isSelected: false, skillName: "MOVERS"),
+                                SelectionSkillChip(isSelected: false, skillName: "FLYERS"),
+                                SelectionSkillChip(isSelected: false, skillName: "KET"),
+                                SelectionSkillChip(isSelected: false, skillName: "PET"),
+                                SelectionSkillChip(isSelected: false, skillName: "IELTS"),
+                                SelectionSkillChip(isSelected: false, skillName: "TOEFL"),
+                                SelectionSkillChip(isSelected: false, skillName: "TOEIC"),
                               ],
                             ),
                           ),

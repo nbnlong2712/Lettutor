@@ -6,12 +6,8 @@ import 'package:flutter_lettutor/widget/skill_chip.dart';
 import 'package:video_player/video_player.dart';
 
 class TutorDetailScreen extends StatefulWidget {
-  TutorDetailScreen({
-    Key? key,
-    required this.isFavourite,
-    required this.describe,
-    required this.avatar
-  }) : super(key: key);
+  TutorDetailScreen({Key? key, required this.isFavourite, required this.describe, required this.avatar})
+      : super(key: key);
 
   bool isFavourite;
   String describe;
@@ -42,8 +38,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                         Row(
                           children: <Widget>[
                             CircleAvatar(
-                              backgroundImage:
-                              AssetImage(widget.avatar),
+                              backgroundImage: AssetImage(widget.avatar),
                               radius: 30,
                             ),
                             Padding(
@@ -87,9 +82,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                             ),
                             GestureDetector(
                               child: Icon(
-                                widget.isFavourite
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
+                                widget.isFavourite ? Icons.favorite : Icons.favorite_border,
                                 color: Colors.red,
                                 size: 30,
                               ),
@@ -119,10 +112,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       children: <Widget>[
                         Text(
                           "Languages",
-                          style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
+                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.045,
@@ -146,10 +136,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       children: <Widget>[
                         Text(
                           "Interest",
-                          style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
+                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600),
                         ),
                         Text(
                           "First, you need a data source. For example, your data source might be a list of messages, search result,...",
@@ -165,10 +152,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       children: <Widget>[
                         Text(
                           "Specialties",
-                          style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
+                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.045,
@@ -190,13 +174,41 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                   ),
                   Column(
                     children: <Widget>[
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Hay", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Hay qua", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Qua hay ban oi", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Good", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Tot", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Comment", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Good job", time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(
+                          avatar: "assets/images/avatar_long.png",
+                          name: "Nhat Long",
+                          comment: "Hay",
+                          time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(
+                          avatar: "assets/images/avatar_long.png",
+                          name: "Nhat Long",
+                          comment: "Hay qua",
+                          time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(
+                          avatar: "assets/images/avatar_long.png",
+                          name: "Nhat Long",
+                          comment: "Qua hay ban oi",
+                          time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(
+                          avatar: "assets/images/avatar_long.png",
+                          name: "Nhat Long",
+                          comment: "Good",
+                          time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(
+                          avatar: "assets/images/avatar_long.png",
+                          name: "Nhat Long",
+                          comment: "Tot",
+                          time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(
+                          avatar: "assets/images/avatar_long.png",
+                          name: "Nhat Long",
+                          comment: "Comment",
+                          time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(
+                          avatar: "assets/images/avatar_long.png",
+                          name: "Nhat Long",
+                          comment: "Good job",
+                          time: "Wed, 1/5/2022 12:00 AM"),
                     ],
                   ),
                 ],
