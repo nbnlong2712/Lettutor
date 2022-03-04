@@ -37,8 +37,8 @@ class CourseHeader extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.4,
-            height: MediaQuery.of(context).size.height * 0.095,
+            width: MediaQuery.of(context).size.width * 0.44,
+            height: MediaQuery.of(context).size.height * 0.12,
             child: Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               elevation: 7,
@@ -47,15 +47,15 @@ class CourseHeader extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text(totalLessons.toString(), style: _style(Colors.green, 24.0, FontWeight.w800)),
-                      Text("Topic", style: _style(Colors.green, 18.0, FontWeight.w500))
+                      Text(totalLessons.toString(), style: _style(Colors.green, 28.0, FontWeight.w800)),
+                      Text("Topic", style: _style(Colors.green, 22.0, FontWeight.w500))
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,
                   ),
                   Column(
                     children: <Widget>[
-                      Text(totalTutors.toString(), style: _style(Colors.black87, 24.0, FontWeight.w800)),
-                      Text("Tutor", style: _style(Colors.black87, 18.0, FontWeight.w500))
+                      Text(totalTutors.toString(), style: _style(Colors.black87, 28.0, FontWeight.w800)),
+                      Text("Tutor", style: _style(Colors.black87, 22.0, FontWeight.w500))
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,
                   ),
