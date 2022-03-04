@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LongFloatingButton extends StatelessWidget {
-  LongFloatingButton({
-    Key? key,
-    required this.onPressed,
-    required this.label,
-  }) : super(key: key);
+  LongFloatingButton({Key? key, required this.onPressed, required this.child, required this.color}) : super(key: key);
 
   final Function() onPressed;
-  final Text label;
+  final Widget child;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +13,13 @@ class LongFloatingButton extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       child: ElevatedButton(
         onPressed: onPressed,
-        child: label,
+        child: child,
         style: ElevatedButton.styleFrom(
-            primary: Colors.green,
-            fixedSize: Size(MediaQuery.of(context).size.width, 45),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            )
+          primary: color,
+          fixedSize: Size(MediaQuery.of(context).size.width, 45),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
         ),
       ),
     );

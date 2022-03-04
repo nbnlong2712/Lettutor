@@ -104,7 +104,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       ],
                     ),
                   ),
-                  LongFloatingButton(onPressed: () {}, label: const Text("Book")),
+                  LongFloatingButton(onPressed: () {}, child: const Text("Book"), color: Colors.green,),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(

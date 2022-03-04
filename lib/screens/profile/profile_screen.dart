@@ -213,7 +213,8 @@ class ProfileScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      label: const Text("Save"),
+                      child: const Text("Save"),
+                      color: Colors.green,
                     )
                   ],
                 ),
