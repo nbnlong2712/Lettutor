@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/comment/comment_card.dart';
+import 'package:flutter_lettutor/widget/report_chip.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_video.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
@@ -18,13 +19,15 @@ class TutorDetailScreen extends StatefulWidget {
 }
 
 class _TutorDetailScreenState extends State<TutorDetailScreen> {
+  final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Center(
           child: Flex(
-            //height: MediaQuery.of(context).size.height,
             direction: Axis.vertical,
             children: <Widget>[
               Column(
@@ -88,10 +91,11 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                               ),
                               onTap: () {
                                 setState(() {
-                                  if (widget.isFavourite)
+                                  if (widget.isFavourite) {
                                     widget.isFavourite = false;
-                                  else
+                                  } else {
                                     widget.isFavourite = true;
+                                  }
                                 });
                               },
                             ),
@@ -100,7 +104,90 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       ],
                     ),
                   ),
-                  LongFloatingButton(onPressed: () {}, label: Text("Book")),
+                  LongFloatingButton(onPressed: () {}, label: const Text("Book")),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(primary: Colors.transparent, elevation: 0),
+                            onPressed: () {},
+                            child: Column(
+                              children: const <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.message, color: Colors.green),
+                                ),
+                                Text("Message", style: TextStyle(color: Colors.green)),
+                              ],
+                            )),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(primary: Colors.transparent, elevation: 0),
+                            onPressed: () => showDialog(
+                                  context: context,
+                                  builder: (BuildContext context1) => AlertDialog(
+                                    actions: [
+                                      Center(
+                                        child: TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text("Report this tutor!")),
+                                      )
+                                    ],
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                                    title: const Text("Report Nhat Long"),
+                                    content: SizedBox(
+                                      height: MediaQuery.of(context).size.height * 0.5,
+                                      child: Column(
+                                        children: <Widget>[
+                                          const Text("Help us understand what's happening?"),
+                                          TextField(
+                                            maxLines: 5,
+                                            controller: _controller,
+                                            decoration: InputDecoration(
+                                              hintText: "Enter report...",
+                                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                                              focusedBorder:
+                                                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                                            ),
+                                          ),
+                                          ReportChip(
+                                            label: "This tutor is too handsome",
+                                            onTap: (label) {
+                                              _controller.text = "This tutor is too handsome";
+                                            },
+                                          ),
+                                          ReportChip(
+                                            label: "This tutor is handsome too",
+                                            onTap: (label) {
+                                              _controller.text = "This tutor is handsome, too";
+                                            },
+                                          ),
+                                          ReportChip(
+                                            label: "This tutor is too tall",
+                                            onTap: (label) {
+                                              _controller.text = "This tutor is too tall";
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            child: Column(
+                              children: const <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.report_gmailerrorred_outlined, color: Colors.green),
+                                ),
+                                Text("Report", style: TextStyle(color: Colors.green)),
+                              ],
+                            )),
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(widget.describe),
@@ -110,7 +197,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Languages",
                           style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600),
                         ),
@@ -133,14 +220,14 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text(
                           "Interest",
                           style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600),
                         ),
                         Text(
                           "First, you need a data source. For example, your data source might be a list of messages, search result,...",
-                          style: TextStyle(color: Colors.black45),
+                          style: TextStyle(color: Colors.black54),
                         )
                       ],
                     ),

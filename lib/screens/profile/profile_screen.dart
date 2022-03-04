@@ -5,11 +5,6 @@ import 'package:flutter_lettutor/screens/profile/profile_dropdown.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
-import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
-import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
-import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
-import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
-import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen(
@@ -67,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: Colors.white10,
         elevation: 0,
         leading: GestureDetector(
-          child: Icon(Icons.arrow_back, color: Colors.black),
+          child: const Icon(Icons.arrow_back, color: Colors.black),
           onTap: () {
             Navigator.pop(context);
           },
