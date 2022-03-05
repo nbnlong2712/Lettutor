@@ -5,6 +5,7 @@ import 'package:flutter_lettutor/home_page.dart';
 import 'package:flutter_lettutor/screens/course/course_page.dart';
 import 'package:flutter_lettutor/screens/home/home_screen.dart';
 import 'package:flutter_lettutor/screens/profile/profile_screen.dart';
+import 'package:flutter_lettutor/screens/setting/change_password_screen.dart';
 import 'package:flutter_lettutor/screens/setting/setting_screen.dart';
 import 'package:flutter_lettutor/screens/tutors/tutors_screen.dart';
 import 'package:flutter_lettutor/screens/upcoming/upcoming_screen.dart';
@@ -35,11 +36,12 @@ class MyApp extends StatelessWidget {
         //auth
         LoginScreen.router: (context) => LoginScreen(),
         RegisterScreen.router: (context) => RegisterScreen(),
-        ForgetPasswordScreen.router:(context) => ForgetPasswordScreen(),
+        ForgetPasswordScreen.router: (context) => ForgetPasswordScreen(),
+        ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
         //main
         HomeScreen.router: (context) => HomeScreen(),
         CoursePage.router: (context) => CoursePage(),
-        SettingScreen.router:(context) => SettingScreen(),
+        SettingScreen.router: (context) => SettingScreen(),
         TutorsScreen.router: (context) => TutorsScreen(),
         UpcomingScreen.router: (context) => UpcomingScreen(),
       },

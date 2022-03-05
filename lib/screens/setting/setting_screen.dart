@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/screens/setting/change_password_screen.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -62,7 +63,9 @@ class SettingScreen extends StatelessWidget {
                 ],
               ),
               LongFloatingButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, ChangePasswordScreen.router);
+                  },
                   child: _widget(Icons.vpn_key_outlined, "Change password", Icons.arrow_forward_ios),
                   color: Colors.white),
               LongFloatingButton(
