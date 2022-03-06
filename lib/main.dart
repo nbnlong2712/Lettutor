@@ -4,8 +4,8 @@ import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/home_page.dart';
 import 'package:flutter_lettutor/screens/course/course_page.dart';
 import 'package:flutter_lettutor/screens/home/home_screen.dart';
-import 'package:flutter_lettutor/screens/profile/profile_screen.dart';
 import 'package:flutter_lettutor/screens/setting/change_password_screen.dart';
+import 'package:flutter_lettutor/screens/setting/history_screen.dart';
 import 'package:flutter_lettutor/screens/setting/setting_screen.dart';
 import 'package:flutter_lettutor/screens/tutors/tutors_screen.dart';
 import 'package:flutter_lettutor/screens/upcoming/upcoming_screen.dart';
@@ -44,6 +44,9 @@ class MyApp extends StatelessWidget {
         SettingScreen.router: (context) => SettingScreen(),
         TutorsScreen.router: (context) => TutorsScreen(),
         UpcomingScreen.router: (context) => UpcomingScreen(),
+        //setting
+        ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
+        HistoryScreen.router: (context) => HistoryScreen(),
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/screens/setting/change_password_screen.dart';
+import 'package:flutter_lettutor/screens/setting/history_screen.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -52,11 +53,17 @@ class SettingScreen extends StatelessWidget {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(6.0),
-                        child: Text("Nhat Long", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+                        child: Text(
+                          "Nhat Long",
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(6.0),
-                        child: Text("nhatlonghn1203@gmail.com", style: TextStyle(color: Colors.black54),),
+                        child: Text(
+                          "nhatlonghn1203@gmail.com",
+                          style: TextStyle(color: Colors.black54),
+                        ),
                       ),
                     ],
                   ),
@@ -69,7 +76,9 @@ class SettingScreen extends StatelessWidget {
                   child: _widget(Icons.vpn_key_outlined, "Change password", Icons.arrow_forward_ios),
                   color: Colors.white),
               LongFloatingButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, HistoryScreen.router);
+                  },
                   child: _widget(Icons.history, "Session history", Icons.arrow_forward_ios),
                   color: Colors.white),
               LongFloatingButton(
