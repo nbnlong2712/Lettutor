@@ -5,11 +5,16 @@ import 'package:flutter_lettutor/screens/profile/profile_dropdown.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 
-class BecomeTeacherScreen extends StatelessWidget {
+class BecomeTeacherScreen extends StatefulWidget {
   BecomeTeacherScreen({Key? key}) : super(key: key);
 
   static const String router = "/become-teacher-screen";
 
+  @override
+  State<BecomeTeacherScreen> createState() => _BecomeTeacherScreenState();
+}
+
+class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
@@ -73,10 +78,24 @@ class BecomeTeacherScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      ProfileComponentLabel(label: "Phone"),
+                      TextField(
+                        controller: _nameController,
+                        decoration: _decoration(false),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
                       ProfileComponentLabel(label: "Country"),
                       ProfileDropDown(
                         listItem: countries,
                         value: countries[0],
+                        onChanged: (value){},
                       ),
                     ],
                   ),
@@ -105,6 +124,7 @@ class BecomeTeacherScreen extends StatelessWidget {
                       ProfileDropDown(
                         listItem: interests,
                         value: interests[0],
+                        onChanged: (value){},
                       ),
                     ],
                   ),
@@ -118,6 +138,7 @@ class BecomeTeacherScreen extends StatelessWidget {
                       ProfileDropDown(
                         listItem: educations,
                         value: educations[0],
+                        onChanged: (value){},
                       ),
                     ],
                   ),
@@ -145,6 +166,7 @@ class BecomeTeacherScreen extends StatelessWidget {
                       ProfileDropDown(
                         listItem: educations,
                         value: educations[0],
+                        onChanged: (value){},
                       ),
                     ],
                   ),
@@ -172,6 +194,7 @@ class BecomeTeacherScreen extends StatelessWidget {
                       ProfileDropDown(
                         listItem: levels,
                         value: levels[0],
+                        onChanged: (value){},
                       ),
                     ],
                   ),

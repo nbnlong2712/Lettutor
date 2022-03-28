@@ -30,18 +30,7 @@ class HomeScreen extends StatelessWidget {
                 backgroundColor: Colors.black12,
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProfileScreen(
-                              email: "nhatlonghn1203@gmail.com",
-                              avatar: "assets/images/avatar_long.png",
-                              name: "Nhat Long",
-                              birthDay: "12/03/2000",
-                              country: "Vietnam",
-                              level: "Advanced",
-                              phoneNumber: "0943290648",
-                            )));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
               },
             ),
           ),
@@ -68,40 +57,35 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   RecommendTutorCard(
-                    describe:
-                        "First, you need a data source. For example, your data source might be a list of messages,"
+                    describe: "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
                     avatar: "assets/images/avatar_long.png",
                     tutorName: "Nhat long",
                     isFavourite: false,
                   ),
                   RecommendTutorCard(
-                    describe:
-                        "First, you need a data source. For example, your data source might be a list of messages,"
+                    describe: "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
                     avatar: "assets/images/avatar_long.png",
                     tutorName: "Nhat long",
                     isFavourite: true,
                   ),
                   RecommendTutorCard(
-                    describe:
-                        "First, you need a data source. For example, your data source might be a list of messages,"
+                    describe: "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
                     avatar: "assets/images/avatar_long.png",
                     tutorName: "Nhat long",
                     isFavourite: false,
                   ),
                   RecommendTutorCard(
-                    describe:
-                        "First, you need a data source. For example, your data source might be a list of messages,"
+                    describe: "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
                     avatar: "assets/images/avatar_long.png",
                     tutorName: "Nhat long",
                     isFavourite: true,
                   ),
                   RecommendTutorCard(
-                    describe:
-                        "First, you need a data source. For example, your data source might be a list of messages,"
+                    describe: "First, you need a data source. For example, your data source might be a list of messages,"
                         " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
                     avatar: "assets/images/avatar_long.png",
                     tutorName: "Nhat long",

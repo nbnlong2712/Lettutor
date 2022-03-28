@@ -4,6 +4,7 @@
 
    <application
         android:label="flutter_lettutor"
+        android:allowBackup="false"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

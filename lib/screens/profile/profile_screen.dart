@@ -1,31 +1,23 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/home_page.dart';
+import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/user.dart';
 import 'package:flutter_lettutor/screens/profile/profile_component_label.dart';
 import 'package:flutter_lettutor/screens/profile/profile_dropdown.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
 
-class ProfileScreen extends StatelessWidget {
-  ProfileScreen(
-      {Key? key,
-      required this.email,
-      required this.avatar,
-      required this.name,
-      required this.birthDay,
-      required this.country,
-      required this.level,
-      required this.phoneNumber})
-      : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  ProfileScreen({Key? key}) : super(key: key);
 
-  String email;
-  String avatar;
-  String name;
-  String phoneNumber;
-  String birthDay;
-  String country;
-  String level;
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
 
+class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
@@ -49,10 +41,15 @@ class ProfileScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    _nameController.text = name;
-    _phoneController.text = phoneNumber;
+  void initState() {
+    super.initState();
+    dao.openDB();
+    _nameController.text = mainUser.name;
+    _phoneController.text = mainUser.phone!;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -80,13 +77,13 @@ class ProfileScreen extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         CircleAvatar(
-                          backgroundImage: AssetImage(avatar),
+                          backgroundImage: AssetImage(mainUser.avatar),
                           radius: 55,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Text(
-                            email,
+                            mainUser.email,
                             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54),
                           ),
                         ),
@@ -112,10 +109,13 @@ class ProfileScreen extends StatelessWidget {
                         children: <Widget>[
                           ProfileComponentLabel(label: "Birthday"),
                           DateTimePicker(
-                            initialValue: birthDay,
+                            initialValue: mainUser.birthDay.toString(),
                             firstDate: DateTime(1900),
                             lastDate: DateTime(2023),
                             decoration: _decoration(false),
+                            onChanged: (value) {
+                              mainUser.birthDay = DateTime.parse(value);
+                            },
                           ),
                         ],
                       ),
@@ -142,7 +142,12 @@ class ProfileScreen extends StatelessWidget {
                           ProfileComponentLabel(label: "Country"),
                           ProfileDropDown(
                             listItem: countries,
-                            value: country,
+                            value: mainUser.country,
+                            onChanged: (value) {
+                              setState(() {
+                                mainUser.country = value!;
+                              });
+                            },
                           ),
                         ],
                       ),
@@ -155,7 +160,12 @@ class ProfileScreen extends StatelessWidget {
                           ProfileComponentLabel(label: "Level"),
                           ProfileDropDown(
                             listItem: levels,
-                            value: level,
+                            value: mainUser.level,
+                            onChanged: (value) {
+                              setState(() {
+                                mainUser.level = value!;
+                              });
+                            },
                           ),
                         ],
                       ),
@@ -176,28 +186,6 @@ class ProfileScreen extends StatelessWidget {
                                 SelectionSkillChip(isSelected: false, skillName: "English for Kids"),
                                 SelectionSkillChip(isSelected: false, skillName: "Business English"),
                                 SelectionSkillChip(isSelected: false, skillName: "Conversational English"),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          ProfileComponentLabel(label: "Test preparation"),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              children: <Widget>[
-                                SelectionSkillChip(isSelected: false, skillName: "STARTERS"),
-                                SelectionSkillChip(isSelected: false, skillName: "MOVERS"),
-                                SelectionSkillChip(isSelected: false, skillName: "FLYERS"),
                                 SelectionSkillChip(isSelected: false, skillName: "KET"),
                                 SelectionSkillChip(isSelected: false, skillName: "PET"),
                                 SelectionSkillChip(isSelected: false, skillName: "IELTS"),
@@ -211,7 +199,13 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     LongFloatingButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        mainUser.name = _nameController.text;
+                        dao.updateUser(mainUser);
+                        List<User> users = dao.getAllUserFromDb();
+                        users.forEach((element) {
+                          print(element.toString());
+                        });
+                        Navigator.popAndPushNamed(context, HomePage.router);
                       },
                       child: const Text("Save"),
                       color: Colors.green,

@@ -7,6 +7,10 @@ class ChangePasswordScreen extends StatelessWidget {
 
   ChangePasswordScreen({Key? key}) : super(key: key);
 
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController newController = TextEditingController();
+  TextEditingController reEnterNewController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +43,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       AuthTextField(
+                        controller: passwordController,
                         label: "Password",
                         hint: "Password",
                         icon: Icons.password,
@@ -48,6 +53,7 @@ class ChangePasswordScreen extends StatelessWidget {
                         isPassword: true,
                       ),
                       AuthTextField(
+                        controller: newController,
                         label: "New password",
                         hint: "Enter your new password...",
                         icon: Icons.password,
@@ -57,6 +63,7 @@ class ChangePasswordScreen extends StatelessWidget {
                         isPassword: true,
                       ),
                       AuthTextField(
+                        controller: reEnterNewController,
                         label: "Re-enter your new password",
                         hint: "Re-enter your new password...",
                         icon: Icons.password,

@@ -9,7 +9,13 @@ class AdvancedSettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ProfileDropDown(listItem: ["Vietnamese", "Enghlish"], value: "English"),
+      body: ProfileDropDown(
+        listItem: ["Vietnamese", "Enghlish"],
+        value: "English",
+        onChanged: (value){
+
+        },
+      ),
     );
   }
 }

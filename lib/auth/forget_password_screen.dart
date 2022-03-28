@@ -8,7 +8,9 @@ import 'components/third_auth_button.dart';
 class ForgetPasswordScreen extends StatelessWidget {
   static const router = "/forget-password-screen";
 
-  const ForgetPasswordScreen({Key? key}) : super(key: key);
+  ForgetPasswordScreen({Key? key}) : super(key: key);
+
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       AuthTextField(
+                        controller: emailController,
                         label: "Email",
                         hint: "Enter you email...",
                         icon: Icons.person,

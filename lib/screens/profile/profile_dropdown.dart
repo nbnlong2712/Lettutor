@@ -5,10 +5,12 @@ class ProfileDropDown extends StatefulWidget {
     Key? key,
     required this.listItem,
     required this.value,
+    required this.onChanged
   }) : super(key: key);
 
   List<String> listItem;
   String value;
+  Function(String?)? onChanged;
 
   @override
   _ProfileDropDownState createState() => _ProfileDropDownState();
@@ -33,11 +35,7 @@ class _ProfileDropDownState extends State<ProfileDropDown> {
               child: Text(value),
             );
           }).toList(),
-          onChanged: (value) {
-            setState(() {
-              widget.value = value!;
-            });
-          },
+          onChanged: widget.onChanged,
           borderRadius: BorderRadius.circular(12),
           underline: Text(""),
           isExpanded: true,

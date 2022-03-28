@@ -9,12 +9,14 @@ class AuthTextField extends StatelessWidget {
       required this.inputType,
       required this.validator,
       required this.onSaved,
-      required this.isPassword})
+      required this.isPassword,
+      required this.controller})
       : super(key: key);
 
   String label;
   String hint;
   IconData icon;
+  TextEditingController controller;
   TextInputType inputType;
   String? Function(String?)? validator;
   void Function(String?)? onSaved;
@@ -25,6 +27,7 @@ class AuthTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
             labelText: label,
             labelStyle: const TextStyle(color: Colors.green),
