@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/home_page.dart';
+import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/screens/home/recommend_tutor_card.dart';
 import 'package:flutter_lettutor/screens/home/upcoming_banner.dart';
 import 'package:flutter_lettutor/screens/profile/profile_screen.dart';
@@ -30,6 +31,9 @@ class HomeScreen extends StatelessWidget {
                 backgroundColor: Colors.black12,
               ),
               onTap: () {
+                dao.getAllTutorFromDb().forEach((element) {
+                  print(element.toString());
+                });
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
               },
             ),

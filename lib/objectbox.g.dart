@@ -246,7 +246,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(5, 4632999306716687045),
       name: 'Tutor',
-      lastPropertyId: const IdUid(21, 95278223573282372),
+      lastPropertyId: const IdUid(22, 7200051391875985672),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -353,6 +353,11 @@ final _entities = <ModelEntity>[
             id: const IdUid(21, 95278223573282372),
             name: 'price',
             type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(22, 7200051391875985672),
+            name: 'education',
+            type: 9,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -665,7 +670,8 @@ ModelDefinition getObjectBoxModel() {
           final bioOffset = fbb.writeString(object.bio);
           final targetStudentOffset = fbb.writeString(object.targetStudent);
           final videoUrlOffset = fbb.writeString(object.videoUrl);
-          fbb.startTable(22);
+          final educationOffset = fbb.writeString(object.education);
+          fbb.startTable(23);
           fbb.addInt64(0, object.id);
           fbb.addFloat64(1, object.stars);
           fbb.addBool(2, object.isFavorite);
@@ -687,6 +693,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.addOffset(18, targetStudentOffset);
           fbb.addOffset(19, videoUrlOffset);
           fbb.addInt64(20, object.price);
+          fbb.addOffset(21, educationOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -717,9 +724,10 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 40, ''),
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 42, ''),
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 46, ''),
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 44, 0),
-              const fb.ListReader<String>(fb.StringReader(asciiOptimization: true), lazy: false)
-                  .vTableGet(buffer, rootOffset, 24, []),
+              const fb.ListReader<String>(fb.StringReader(asciiOptimization: true), lazy: false).vTableGet(buffer, rootOffset, 24, []),
               DateTime.fromMillisecondsSinceEpoch(const fb.Int64Reader().vTableGet(buffer, rootOffset, 26, 0)),
               const fb.StringReader(asciiOptimization: true).vTableGet(buffer, rootOffset, 28, ''),
               const fb.StringReader(asciiOptimization: true).vTableGet(buffer, rootOffset, 32, ''),
@@ -948,4 +956,8 @@ class Tutor_ {
 
   /// see [Tutor.price]
   static final price = QueryIntegerProperty<Tutor>(_entities[5].properties[20]);
+
+  /// see [Tutor.education]
+  static final education =
+      QueryStringProperty<Tutor>(_entities[5].properties[21]);
 }

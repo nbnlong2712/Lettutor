@@ -7,7 +7,6 @@ class Tutor {
   @Id()
   int id = 0;
 
-
   late String avatar;
   String? password;
   late String name;
@@ -19,6 +18,7 @@ class Tutor {
   late String bio;
   late String targetStudent;
   late String videoUrl;
+  late String education;
   late int price;
   late List<String> languages;
   late DateTime birthDay;
@@ -29,14 +29,31 @@ class Tutor {
   late String description;
   late bool isLogin;
 
-  Tutor(this.avatar, this.password, this.name, this.email, this.country, this.phone, this.interests, this.experience, this.bio, this.targetStudent,
-      this.videoUrl, this.price, this.languages, this.birthDay, this.level, this.role, this.stars, this.isFavorite, this.description, this.isLogin);
+  Tutor(
+      this.avatar,
+      this.password,
+      this.name,
+      this.email,
+      this.country,
+      this.phone,
+      this.interests,
+      this.experience,
+      this.bio,
+      this.targetStudent,
+      this.videoUrl,
+      this.education,
+      this.price,
+      this.languages,
+      this.birthDay,
+      this.level,
+      this.role,
+      this.stars,
+      this.isFavorite,
+      this.description,
+      this.isLogin);
 
   @override
   String toString() {
-    return 'Tutor{id: $id, avatar: $avatar, password: $password, name: $name, email: $email, country: $country, phone: $phone,'
-        ' interests: $interests, experience: $experience, bio: $bio, targetStudent: $targetStudent, videoUrl: $videoUrl, '
-        'price: $price, languages: $languages, birthDay: $birthDay, level: $level, role: $role, stars: $stars, '
-        'isFavorite: $isFavorite, description: $description, isLogin: $isLogin}';
+    return 'Tutor{id: $id, avatar: $avatar, password: $password, name: $name, email: $email, country: $country, phone: $phone, interests: $interests, experience: $experience, bio: $bio, targetStudent: $targetStudent, videoUrl: $videoUrl, education: $education, price: $price, languages: $languages, birthDay: $birthDay, level: $level, role: $role, stars: $stars, isFavorite: $isFavorite, description: $description, isLogin: $isLogin}';
   }
 }

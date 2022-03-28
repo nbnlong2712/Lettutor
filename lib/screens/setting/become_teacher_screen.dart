@@ -1,9 +1,18 @@
-import 'package:date_time_picker/date_time_picker.dart';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/home_page.dart';
+import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/profile/profile_component_label.dart';
 import 'package:flutter_lettutor/screens/profile/profile_dropdown.dart';
+import 'package:flutter_lettutor/screens/setting/setting_screen.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
+import 'package:flutter_lettutor/widget/multi_selection_dialog.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class BecomeTeacherScreen extends StatefulWidget {
   BecomeTeacherScreen({Key? key}) : super(key: key);
@@ -17,6 +26,16 @@ class BecomeTeacherScreen extends StatefulWidget {
 class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _experienceController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _videoController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+
+  List<String> selectInterest = [];
+  List<String> selectLanguage = [];
+
+  String targetStudent = levels[0];
+  String education = educations[0];
 
   InputDecoration _decoration(bool readOnly) {
     return InputDecoration(
@@ -38,6 +57,12 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _nameController.text = mainUser.name;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +73,10 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: GestureDetector(
-          child: const Icon(Icons.arrow_back, color: Colors.black,),
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onTap: () {
             Navigator.pop(context);
           },
@@ -67,6 +95,7 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                     children: <Widget>[
                       ProfileComponentLabel(label: "Name"),
                       TextField(
+                        readOnly: true,
                         controller: _nameController,
                         decoration: _decoration(false),
                       ),
@@ -80,36 +109,7 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                     children: <Widget>[
                       ProfileComponentLabel(label: "Phone"),
                       TextField(
-                        controller: _nameController,
-                        decoration: _decoration(false),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Country"),
-                      ProfileDropDown(
-                        listItem: countries,
-                        value: countries[0],
-                        onChanged: (value){},
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Birthday"),
-                      DateTimePicker(
-                        initialValue: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day).toString(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime(2023),
+                        controller: _phoneController,
                         decoration: _decoration(false),
                       ),
                     ],
@@ -121,10 +121,11 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       ProfileComponentLabel(label: "Interest"),
-                      ProfileDropDown(
-                        listItem: interests,
-                        value: interests[0],
-                        onChanged: (value){},
+                      MultiSelectionDialog(
+                        items: interests.map((e) => MultiSelectItem(e, e)).toList(),
+                        onConfirm: (values) {
+                          selectInterest = values.map((e) => e.toString()).toList();
+                        },
                       ),
                     ],
                   ),
@@ -137,8 +138,12 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                       ProfileComponentLabel(label: "Education"),
                       ProfileDropDown(
                         listItem: educations,
-                        value: educations[0],
-                        onChanged: (value){},
+                        value: education,
+                        onChanged: (value) {
+                          setState(() {
+                            education = value!;
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -151,7 +156,7 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                       ProfileComponentLabel(label: "Experience"),
                       TextField(
                         maxLines: 5,
-                        controller: _nameController,
+                        controller: _experienceController,
                         decoration: _decoration(false),
                       ),
                     ],
@@ -163,10 +168,11 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       ProfileComponentLabel(label: "Language"),
-                      ProfileDropDown(
-                        listItem: educations,
-                        value: educations[0],
-                        onChanged: (value){},
+                      MultiSelectionDialog(
+                        items: countries.map((e) => MultiSelectItem(e, e)).toList(),
+                        onConfirm: (values) {
+                          selectLanguage = values.map((e) => e.toString()).toList();
+                        },
                       ),
                     ],
                   ),
@@ -179,7 +185,7 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                       ProfileComponentLabel(label: "Bio"),
                       TextField(
                         maxLines: 5,
-                        controller: _nameController,
+                        controller: _bioController,
                         decoration: _decoration(false),
                       ),
                     ],
@@ -193,22 +199,12 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                       ProfileComponentLabel(label: "Target Student"),
                       ProfileDropDown(
                         listItem: levels,
-                        value: levels[0],
-                        onChanged: (value){},
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Avatar"),
-                      TextField(
-                        keyboardType: TextInputType.url,
-                        controller: _nameController,
-                        decoration: _decoration(false),
+                        value: targetStudent,
+                        onChanged: (value) {
+                          setState(() {
+                            targetStudent = value!;
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -219,10 +215,33 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       ProfileComponentLabel(label: "Video"),
-                      TextField(
-                        keyboardType: TextInputType.url,
-                        controller: _nameController,
-                        decoration: _decoration(false),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: FloatingActionButton.extended(
+                              onPressed: () async {
+                                FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: false);
+                                if (result != null) {
+                                  _videoController.text = result.files.first.path!;
+                                } else {
+                                  print("NULLLLLLLLLLLLLLLLLLLLLLL");
+                                }
+                              },
+                              label: const Text("Choose your video"),
+                              icon: const Icon(Icons.video_collection, color: Colors.red),
+                              elevation: 1,
+                              backgroundColor: Colors.black38,
+                            ),
+                          ),
+                          TextField(
+                            readOnly: true,
+                            keyboardType: TextInputType.url,
+                            controller: _videoController,
+                            decoration: _decoration(false),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -235,13 +254,42 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                       ProfileComponentLabel(label: "Price"),
                       TextField(
                         keyboardType: TextInputType.number,
-                        controller: _nameController,
+                        controller: _priceController,
                         decoration: _decoration(false),
                       ),
                     ],
                   ),
                 ),
-                LongFloatingButton(onPressed: () {}, child: const Text("Become a teacher"), color: Colors.green,),
+                LongFloatingButton(
+                  onPressed: () {
+                    Tutor newTutor = Tutor(
+                        mainUser.avatar,
+                        mainUser.password,
+                        mainUser.name,
+                        mainUser.email,
+                        mainUser.country,
+                        _phoneController.text,
+                        selectInterest,
+                        _experienceController.text,
+                        _bioController.text,
+                        targetStudent,
+                        _videoController.text,
+                        education,
+                        int.parse(_priceController.text),
+                        selectLanguage,
+                        mainUser.birthDay,
+                        mainUser.level,
+                        "Teacher",
+                        0,
+                        false,
+                        "Handsome",
+                        false);
+                    dao.addTutor(newTutor);
+                    Navigator.popAndPushNamed(context, HomePage.router);
+                  },
+                  child: const Text("Become a teacher"),
+                  color: Colors.green,
+                ),
               ],
             ),
           ),
