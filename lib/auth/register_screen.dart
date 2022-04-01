@@ -122,8 +122,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ScaffoldMessenger.of(context).showSnackBar(_snackBar("Email is duplicate!", Colors.red));
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(_snackBar("Register successful!", Colors.green));
-                                  User newUser = User("", "", emailController.text, "Vietnam", "113", ["Vietnamese", "English"],
-                                      DateTime(2000, 3, 12), passwordController.text, false, "Beginner", "Student");
+                                  User newUser = User("", passwordController.text, "", emailController.text, "Vietnam", "0943290648",
+                                      ["Vietnamese", "English"], DateTime(2000, 3, 12), "Beginner", "Student", [], false);
                                   dao.addUser(newUser);
                                   Navigator.popAndPushNamed(context, LoginScreen.router);
                                 }

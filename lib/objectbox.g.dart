@@ -26,7 +26,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(8, 4927980483406184666),
       name: 'User',
-      lastPropertyId: const IdUid(12, 3429180594167868349),
+      lastPropertyId: const IdUid(13, 6674731234981709148),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -88,6 +88,11 @@ final _entities = <ModelEntity>[
             id: const IdUid(12, 3429180594167868349),
             name: 'role',
             type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(13, 6674731234981709148),
+            name: 'wantToLearn',
+            type: 30,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -442,7 +447,9 @@ ModelDefinition getObjectBoxModel() {
               object.languages.map(fbb.writeString).toList(growable: false));
           final levelOffset = fbb.writeString(object.level);
           final roleOffset = fbb.writeString(object.role);
-          fbb.startTable(13);
+          final wantToLearnOffset = fbb.writeList(
+              object.wantToLearn.map(fbb.writeString).toList(growable: false));
+          fbb.startTable(14);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, avatarOffset);
           fbb.addOffset(2, passwordOffset);
@@ -455,6 +462,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.addOffset(9, levelOffset);
           fbb.addBool(10, object.isLogin);
           fbb.addOffset(11, roleOffset);
+          fbb.addOffset(12, wantToLearnOffset);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -466,6 +474,8 @@ ModelDefinition getObjectBoxModel() {
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 6, ''),
               const fb.StringReader(asciiOptimization: true)
+                  .vTableGetNullable(buffer, rootOffset, 8),
+              const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 10, ''),
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 12, ''),
@@ -473,19 +483,17 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 14, ''),
               const fb.StringReader(asciiOptimization: true)
                   .vTableGetNullable(buffer, rootOffset, 16),
-              const fb.ListReader<String>(
-                      fb.StringReader(asciiOptimization: true),
-                      lazy: false)
+              const fb.ListReader<String>(fb.StringReader(asciiOptimization: true), lazy: false)
                   .vTableGet(buffer, rootOffset, 18, []),
               DateTime.fromMillisecondsSinceEpoch(
                   const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0)),
               const fb.StringReader(asciiOptimization: true)
-                  .vTableGetNullable(buffer, rootOffset, 8),
-              const fb.BoolReader().vTableGet(buffer, rootOffset, 24, false),
-              const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 22, ''),
               const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 26, ''))
+                  .vTableGet(buffer, rootOffset, 26, ''),
+              const fb.ListReader<String>(fb.StringReader(asciiOptimization: true), lazy: false)
+                  .vTableGet(buffer, rootOffset, 28, []),
+              const fb.BoolReader().vTableGet(buffer, rootOffset, 24, false))
             ..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
 
           return object;
@@ -784,6 +792,10 @@ class User_ {
 
   /// see [User.role]
   static final role = QueryStringProperty<User>(_entities[0].properties[11]);
+
+  /// see [User.wantToLearn]
+  static final wantToLearn =
+      QueryStringVectorProperty<User>(_entities[0].properties[12]);
 }
 
 /// [Course] entity fields to define ObjectBox queries.

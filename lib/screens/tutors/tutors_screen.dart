@@ -1,9 +1,9 @@
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_card.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/app_search_bar.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 class TutorsScreen extends StatefulWidget {
   static const router = "/tutor-screen";
@@ -15,38 +15,7 @@ class TutorsScreen extends StatefulWidget {
 }
 
 class _TutorsScreenState extends State<TutorsScreen> {
-  List<TutorCard> tutorList = [
-    TutorCard(
-      describe: "First, you need a data source. For example, your data source might be a list of messages,"
-          " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
-      avatar: "assets/images/avatar_long.png",
-      tutorName: "Nhat long",
-    ),
-    TutorCard(
-      describe: "First, you need a data source. For example, your data source might be a list of messages,"
-          " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
-      avatar: "assets/images/avatar_long.png",
-      tutorName: "Nhat long",
-    ),
-    TutorCard(
-      describe: "First, you need a data source. For example, your data source might be a list of messages,"
-          " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
-      avatar: "assets/images/avatar_long.png",
-      tutorName: "Nhat long",
-    ),
-    TutorCard(
-      describe: "First, you need a data source. For example, your data source might be a list of messages,"
-          " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
-      avatar: "assets/images/avatar_long.png",
-      tutorName: "Nhat long",
-    ),
-    TutorCard(
-      describe: "First, you need a data source. For example, your data source might be a list of messages,"
-          " search results, or products in a store. Most of the time, this data comes from the internet or a database.",
-      avatar: "assets/images/avatar_long.png",
-      tutorName: "Nhat long",
-    )
-  ];
+  List<TutorCard> tutorList = [];
 
   List<String> selectedUserList = [];
 
@@ -74,6 +43,18 @@ class _TutorsScreenState extends State<TutorsScreen> {
         Navigator.pop(context);
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    dao.openDB();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    tutorList = dao.getAllTutorFromDb().map((e) => TutorCard(tutor: e,)).toList();
   }
 
   @override

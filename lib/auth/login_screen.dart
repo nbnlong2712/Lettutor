@@ -126,9 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(_snackBar("Please fill enough!", Colors.red));
-                            (dao.getAllTutorFromDb()).forEach((element) {
-                              print(element.toString());
-                            });
                           }
                         },
                         label: const Text(

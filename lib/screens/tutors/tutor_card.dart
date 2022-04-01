@@ -1,13 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_detail_screen.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
 
 class TutorCard extends StatelessWidget {
-  TutorCard({Key? key, required this.avatar, required this.describe, required this.tutorName}) : super(key: key);
+  TutorCard({Key? key, required this.tutor}) : super(key: key);
 
-  String describe;
-  String avatar;
-  String tutorName;
+  Tutor tutor;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class TutorCard extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: AssetImage(avatar),
+                      backgroundImage: FileImage(File(tutor.avatar)),
                       radius: 30,
                     ),
                     Column(
@@ -37,7 +38,7 @@ class TutorCard extends StatelessWidget {
                               Column(
                                 children: <Widget>[
                                   Text(
-                                    tutorName,
+                                    tutor.name,
                                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                   Padding(
@@ -84,7 +85,7 @@ class TutorCard extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                  child: Text(describe),
+                  child: Text(tutor.bio),
                 ),
               ],
             ),
@@ -96,9 +97,7 @@ class TutorCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => TutorDetailScreen(
-              isFavourite: false,
-              describe: describe,
-              avatar: avatar,
+              tutor: tutor,
             ),
           ),
         );

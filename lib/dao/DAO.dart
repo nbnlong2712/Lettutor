@@ -1,3 +1,4 @@
+import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/models/user.dart';
 import 'package:flutter_lettutor/objectbox.g.dart';
@@ -69,8 +70,14 @@ class DAO {
   }
 
   Tutor getTutorByEmail(String email) {
+    Tutor tutor = (store.box<Tutor>().query(Tutor_.email.equals(email))).build().findFirst()!;
+    return tutor;
+  }
+
+  bool isTutorExists(String email)
+  {
     List<Tutor> tutors = (store.box<Tutor>().query(Tutor_.email.equals(email))).build().find();
-    return tutors[0];
+    return tutors.isNotEmpty;
   }
 
   void deleteTutorById(int id) {
@@ -88,5 +95,42 @@ class DAO {
   List<Tutor> getAllTutorFromDb() {
     final query = store.box<Tutor>().query(Tutor_.id.notNull()).build();
     return query.find();
+  }
+
+  // ---SCHEDULE---
+  void addSchedule(Schedule schedule) {
+    if(!isScheduleDuplicate(schedule)) {
+      store.box<Schedule>().put(schedule);
+    }
+  }
+
+  void addListSchedules(List<Schedule> schedules)
+  {
+    store.box<Schedule>().putMany(schedules);
+  }
+
+  void updateSchedule(Schedule schedule) {
+    store.box<Schedule>().put(schedule);
+  }
+
+  bool isScheduleDuplicate(Schedule schedule) {
+    List<Schedule> scs = getAllScheduleByTutorId(schedule.tutorId);
+    return scs.contains(schedule);
+  }
+
+  Schedule getScheduleById(int id) {
+    Schedule schedule = (store.box<Schedule>().query(Schedule_.id.equals(id))).build().findFirst()!;
+    return schedule;
+  }
+
+  List<Schedule> getAllScheduleByTutorId(int tutorId) {
+    List<Schedule> schedules = (store.box<Schedule>().query(Schedule_.tutorId.equals(tutorId))).build().find();
+    return schedules;
+  }
+
+  List<Schedule> getAllScheduleByTutorEmail(String tutorEmail) {
+    Tutor tutor = getTutorByEmail(tutorEmail);
+    List<Schedule> schedules = getAllScheduleByTutorId(tutor.id);
+    return schedules;
   }
 }

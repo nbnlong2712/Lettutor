@@ -22,14 +22,13 @@ class UpcomingCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Neumorphic(
-        style: NeumorphicStyle(
-          depth: 4,
-          intensity: 0.8,
-          color: const Color.fromRGBO(220, 228, 228, 130),
-          shadowDarkColor: Colors.black87,
-          lightSource: LightSource.topLeft,
-          shadowLightColorEmboss: Colors.white
-        ),
+        style: const NeumorphicStyle(
+            depth: 4,
+            intensity: 0.8,
+            color: Color.fromRGBO(220, 228, 228, 130),
+            shadowDarkColor: Colors.black87,
+            lightSource: LightSource.topLeft,
+            shadowLightColorEmboss: Colors.white),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -38,18 +37,12 @@ class UpcomingCard extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage(avatar),
-                      radius: 35,
-                    ),
+                    child: CircleAvatar(backgroundImage: AssetImage(avatar), radius: 35),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        name,
-                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
-                      ),
+                      Text(name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
                       Row(
                         children: <Widget>[
                           Text(bookingDate),
@@ -57,11 +50,8 @@ class UpcomingCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Chip(
                               backgroundColor: const Color.fromRGBO(0, 187, 0, 220),
-                              label:
-                                  Text(startTime, style: TextStyle(color: Colors.green, fontWeight: FontWeight.w500)),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  side: BorderSide(width: 1, color: Colors.green)),
+                              label: Text(startTime, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w500)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: BorderSide(width: 1, color: Colors.green)),
                             ),
                           ),
                           const Text(" - "),
@@ -69,11 +59,9 @@ class UpcomingCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Chip(
                               backgroundColor: Colors.orange.shade100,
-                              label: Text(endTime,
-                                  style: TextStyle(color: Colors.deepOrangeAccent, fontWeight: FontWeight.w500)),
+                              label: Text(endTime, style: TextStyle(color: Colors.deepOrangeAccent, fontWeight: FontWeight.w500)),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  side: BorderSide(width: 1, color: Colors.deepOrangeAccent)),
+                                  borderRadius: BorderRadius.circular(5), side: BorderSide(width: 1, color: Colors.deepOrangeAccent)),
                             ),
                           ),
                         ],

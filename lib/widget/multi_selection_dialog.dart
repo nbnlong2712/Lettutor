@@ -7,14 +7,17 @@ class MultiSelectionDialog extends StatelessWidget {
     Key? key,
     required this.items,
     required this.onConfirm,
+    this.initialValue
   }) : super(key: key);
 
   List<MultiSelectItem> items;
   Function(List<dynamic>) onConfirm;
+  List<String>? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return MultiSelectDialogField(
+      initialValue: initialValue,
       selectedColor: Colors.green,
       selectedItemsTextStyle: const TextStyle(color: Colors.white),
       items: items,

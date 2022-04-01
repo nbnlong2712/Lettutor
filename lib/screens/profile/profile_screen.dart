@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/home_page.dart';
@@ -8,7 +11,8 @@ import 'package:flutter_lettutor/screens/profile/profile_component_label.dart';
 import 'package:flutter_lettutor/screens/profile/profile_dropdown.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
-import 'package:flutter_lettutor/widget/selection_skill_chip.dart';
+import 'package:flutter_lettutor/widget/multi_selection_dialog.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -20,6 +24,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+
+  List<String> selectSkills = [];
 
   InputDecoration _decoration(bool readOnly) {
     return InputDecoration(
@@ -76,9 +82,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: <Widget>[
                     Column(
                       children: <Widget>[
-                        CircleAvatar(
-                          backgroundImage: AssetImage(mainUser.avatar),
-                          radius: 55,
+                        GestureDetector(
+                          onTap: () async{
+                            FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: false);
+                            if (result != null) {
+                              setState(() {
+                                mainUser.avatar = result.files.single.path!;
+                              });
+                            } else {
+                              print("NULLLLLLLLLLLLLLLLLLLLLLL");
+                            }
+                          },
+                          child: CircleAvatar(
+                            backgroundImage: FileImage(File(mainUser.avatar)),
+                            radius: 55,
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
@@ -176,23 +194,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           ProfileComponentLabel(label: "Want to learn"),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              children: <Widget>[
-                                SelectionSkillChip(isSelected: false, skillName: "English for Kids"),
-                                SelectionSkillChip(isSelected: false, skillName: "Business English"),
-                                SelectionSkillChip(isSelected: false, skillName: "Conversational English"),
-                                SelectionSkillChip(isSelected: false, skillName: "KET"),
-                                SelectionSkillChip(isSelected: false, skillName: "PET"),
-                                SelectionSkillChip(isSelected: false, skillName: "IELTS"),
-                                SelectionSkillChip(isSelected: false, skillName: "TOEFL"),
-                                SelectionSkillChip(isSelected: false, skillName: "TOEIC"),
-                              ],
-                            ),
+                          MultiSelectionDialog(
+                            initialValue: mainUser.wantToLearn,
+                            items: skills.map((e) => MultiSelectItem(e, e)).toList(),
+                            onConfirm: (values) {
+                              selectSkills = values.map((e) => e.toString()).toList();
+                            },
+
                           ),
                         ],
                       ),
@@ -200,6 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     LongFloatingButton(
                       onPressed: () {
                         mainUser.name = _nameController.text;
+                        mainUser.wantToLearn = selectSkills;
                         dao.updateUser(mainUser);
                         List<User> users = dao.getAllUserFromDb();
                         users.forEach((element) {

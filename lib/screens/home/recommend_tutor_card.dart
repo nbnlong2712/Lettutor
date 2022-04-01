@@ -1,21 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_detail_screen.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
 
 class RecommendTutorCard extends StatefulWidget {
-  RecommendTutorCard({
-    Key? key,
-    required this.describe,
-    required this.avatar,
-    required this.tutorName,
-    required this.isFavourite,
-  }) : super(key: key);
+  RecommendTutorCard({Key? key, required this.tutor}) : super(key: key);
 
-  String describe;
-  String avatar;
-  bool isFavourite;
-  String tutorName;
+  Tutor tutor;
 
   @override
   State<RecommendTutorCard> createState() => _RecommendTutorCardState();
@@ -37,12 +31,12 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                 Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: AssetImage(widget.avatar),
+                      backgroundImage: FileImage(File(widget.tutor.avatar)),
                       radius: 30,
                     ),
                     Column(
                       children: <Widget>[
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,7 +44,7 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                               Column(
                                 children: <Widget>[
                                   Text(
-                                    widget.tutorName,
+                                    widget.tutor.name,
                                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                   Padding(
@@ -62,10 +56,7 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                                         shrinkWrap: true,
                                         itemCount: 5,
                                         itemBuilder: (BuildContext context, int index) {
-                                          return const Icon(
-                                            Icons.star,
-                                            color: Colors.yellow,
-                                          );
+                                          return const Icon(Icons.star, color: Colors.yellow);
                                         },
                                       ),
                                     ),
@@ -73,17 +64,13 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                                 ],
                               ),
                               GestureDetector(
-                                child: Icon(
-                                  widget.isFavourite ? Icons.favorite : Icons.favorite_border,
-                                  color: Colors.red,
-                                  size: 30,
-                                ),
+                                child: Icon(widget.tutor.isFavorite ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
                                 onTap: () {
                                   setState(() {
-                                    if (widget.isFavourite)
-                                      widget.isFavourite = false;
+                                    if (widget.tutor.isFavorite)
+                                      widget.tutor.isFavorite = false;
                                     else
-                                      widget.isFavourite = true;
+                                      widget.tutor.isFavorite = true;
                                   });
                                 },
                               ),
@@ -110,10 +97,7 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                  child: Text(widget.describe),
-                ),
+                Padding(padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1), child: Text(widget.tutor.bio)),
               ],
             ),
           ),
@@ -123,11 +107,7 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TutorDetailScreen(
-              isFavourite: widget.isFavourite,
-              describe: widget.describe,
-              avatar: widget.avatar,
-            ),
+            builder: (context) => TutorDetailScreen(tutor: widget.tutor),
           ),
         );
       },

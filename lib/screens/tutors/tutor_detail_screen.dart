@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/comment/comment_card.dart';
+import 'package:flutter_lettutor/models/tutor.dart';
+import 'package:flutter_lettutor/screens/booking/booking_screen.dart';
 import 'package:flutter_lettutor/widget/report_chip.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_video.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
-import 'package:video_player/video_player.dart';
 
 class TutorDetailScreen extends StatefulWidget {
-  TutorDetailScreen({Key? key, required this.isFavourite, required this.describe, required this.avatar})
-      : super(key: key);
+  TutorDetailScreen({Key? key, required this.tutor}) : super(key: key);
 
-  bool isFavourite;
-  String describe;
-  String avatar;
+  Tutor tutor;
 
   @override
   State<TutorDetailScreen> createState() => _TutorDetailScreenState();
@@ -32,7 +30,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  TutorVideo(),
+                  const TutorVideo(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -40,27 +38,15 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            CircleAvatar(
-                              backgroundImage: AssetImage(widget.avatar),
-                              radius: 30,
-                            ),
+                            CircleAvatar(backgroundImage: AssetImage(widget.tutor.avatar), radius: 30),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
-                                    "Nhat Long",
-                                    style: TextStyle(fontWeight: FontWeight.w400),
-                                  ),
-                                  Text(
-                                    "Student, human, man",
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                  Text(
-                                    "Vietnam",
-                                    style: TextStyle(fontWeight: FontWeight.w400),
-                                  )
+                                  Text(widget.tutor.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
+                                  Text(widget.tutor.bio, style: const TextStyle(color: Colors.grey)),
+                                  Text(widget.tutor.country, style: const TextStyle(fontWeight: FontWeight.w400))
                                 ],
                               ),
                             ),
@@ -68,33 +54,23 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                         ),
                         Column(
                           children: <Widget>[
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemCount: 5,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return const Icon(
-                                    Icons.star,
-                                    color: Colors.orangeAccent,
-                                    size: 18,
-                                  );
-                                },
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text("${widget.tutor.stars}", style: const TextStyle(fontSize: 17, color: Colors.red)),
+                                  const Icon(Icons.star, color: Colors.orangeAccent)
+                                ],
                               ),
                             ),
                             GestureDetector(
-                              child: Icon(
-                                widget.isFavourite ? Icons.favorite : Icons.favorite_border,
-                                color: Colors.red,
-                                size: 30,
-                              ),
+                              child: Icon(widget.tutor.isFavorite ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
                               onTap: () {
                                 setState(() {
-                                  if (widget.isFavourite) {
-                                    widget.isFavourite = false;
+                                  if (widget.tutor.isFavorite) {
+                                    widget.tutor.isFavorite = false;
                                   } else {
-                                    widget.isFavourite = true;
+                                    widget.tutor.isFavorite = true;
                                   }
                                 });
                               },
@@ -104,7 +80,19 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       ],
                     ),
                   ),
-                  LongFloatingButton(onPressed: () {}, child: const Text("Book"), color: Colors.green,),
+                  LongFloatingButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => SingleChildScrollView(
+                          child: BookingScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text("Book"),
+                    color: Colors.green,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -115,10 +103,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                             onPressed: () {},
                             child: Column(
                               children: const <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.message, color: Colors.green),
-                                ),
+                                Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.message, color: Colors.green)),
                                 Text("Message", style: TextStyle(color: Colors.green)),
                               ],
                             )),
@@ -133,7 +118,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },
-                                            child: Text("Report this tutor!")),
+                                            child: const Text("Report this tutor!")),
                                       )
                                     ],
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -149,8 +134,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                                             decoration: InputDecoration(
                                               hintText: "Enter report...",
                                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                                              focusedBorder:
-                                                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                                              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                                             ),
                                           ),
                                           ReportChip(
@@ -188,29 +172,20 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(widget.describe),
-                  ),
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(widget.tutor.bio)),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Text(
-                          "Languages",
-                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600),
-                        ),
+                        const Text("Languages", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.045,
                           width: MediaQuery.of(context).size.width * 0.95,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: <Widget>[
-                              SkillChip(skillName: "Vietnamese"),
-                              SkillChip(skillName: "English"),
-                            ],
+                            children: widget.tutor.languages.map((e) => SkillChip(skillName: e)).toList(),
                           ),
                         ),
                       ],
@@ -220,15 +195,17 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[
-                        Text(
-                          "Interest",
-                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600),
+                      children: <Widget>[
+                        const Text("Interest", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.045,
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            children: widget.tutor.interests.map((e) => SkillChip(skillName: e)).toList(),
+                          ),
                         ),
-                        Text(
-                          "First, you need a data source. For example, your data source might be a list of messages, search result,...",
-                          style: TextStyle(color: Colors.black54),
-                        )
                       ],
                     ),
                   ),
@@ -237,10 +214,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          "Specialties",
-                          style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600),
-                        ),
+                        const Text("Specialties", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.045,
                           width: MediaQuery.of(context).size.width * 0.95,
@@ -261,41 +235,14 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                   ),
                   Column(
                     children: <Widget>[
+                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Hay", time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Hay qua", time: "Wed, 1/5/2022 12:00 AM"),
                       CommentCard(
-                          avatar: "assets/images/avatar_long.png",
-                          name: "Nhat Long",
-                          comment: "Hay",
-                          time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(
-                          avatar: "assets/images/avatar_long.png",
-                          name: "Nhat Long",
-                          comment: "Hay qua",
-                          time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(
-                          avatar: "assets/images/avatar_long.png",
-                          name: "Nhat Long",
-                          comment: "Qua hay ban oi",
-                          time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(
-                          avatar: "assets/images/avatar_long.png",
-                          name: "Nhat Long",
-                          comment: "Good",
-                          time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(
-                          avatar: "assets/images/avatar_long.png",
-                          name: "Nhat Long",
-                          comment: "Tot",
-                          time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(
-                          avatar: "assets/images/avatar_long.png",
-                          name: "Nhat Long",
-                          comment: "Comment",
-                          time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(
-                          avatar: "assets/images/avatar_long.png",
-                          name: "Nhat Long",
-                          comment: "Good job",
-                          time: "Wed, 1/5/2022 12:00 AM"),
+                          avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Qua hay ban oi", time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Good", time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Tot", time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Comment", time: "Wed, 1/5/2022 12:00 AM"),
+                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Good job", time: "Wed, 1/5/2022 12:00 AM"),
                     ],
                   ),
                 ],
