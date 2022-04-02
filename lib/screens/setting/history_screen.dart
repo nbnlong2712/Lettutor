@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/screens/setting/history_card.dart';
 import 'package:flutter_lettutor/screens/upcoming/upcoming_card.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-class HistoryScreen extends StatelessWidget {
+class HistoryScreen extends StatefulWidget {
   static const String router = "/history-screen";
 
   const HistoryScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final _upcomingList = List.generate(
-        10,
-        (index) => HistoryCard(
-            avatar: "assets/images/avatar_long.png",
-            name: "Nhat Long",
-            bookingDate: "Tue, 3/8/2022",
-            endTime: "23:00",
-            startTime: "23:30"));
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
 
+class _HistoryScreenState extends State<HistoryScreen> {
+  List<Schedule> historyList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    dao.openDB();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    historyList = dao.getHistoryList(mainUser.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(245, 245, 245, 1),
       appBar: AppBar(
@@ -44,11 +57,10 @@ class HistoryScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return _upcomingList[index];
-                    },
-                    itemCount: _upcomingList.length,
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    children: historyList.map((e) => HistoryCard(schedule: e)).toList(),
                   ),
                 ),
               ],

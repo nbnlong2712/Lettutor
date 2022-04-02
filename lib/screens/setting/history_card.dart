@@ -1,21 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class HistoryCard extends StatelessWidget {
-  HistoryCard(
-      {Key? key,
-      required this.avatar,
-      required this.name,
-      required this.bookingDate,
-      required this.endTime,
-      required this.startTime,})
-      : super(key: key);
+  HistoryCard({Key? key, required this.schedule}) : super(key: key);
 
-  String avatar;
-  String name;
-  String bookingDate;
-  String startTime;
-  String endTime;
+  Schedule schedule;
   int? mark;
 
   @override
@@ -40,7 +33,7 @@ class HistoryCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: CircleAvatar(
-                      backgroundImage: AssetImage(avatar),
+                      backgroundImage: FileImage(File(mainUser.avatar)),
                       radius: 35,
                     ),
                   ),
@@ -50,7 +43,7 @@ class HistoryCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          name,
+                          mainUser.name,
                           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                         ),
                         Row(
@@ -59,7 +52,7 @@ class HistoryCard extends StatelessWidget {
                               padding: EdgeInsets.all(4.0),
                               child: Icon(Icons.calendar_today_outlined),
                             ),
-                            Text(bookingDate),
+                            Text("${schedule.startTime.year}/${schedule.startTime.month}/${schedule.startTime.day}"),
                           ],
                         ),
                         Row(
@@ -68,7 +61,7 @@ class HistoryCard extends StatelessWidget {
                               padding: EdgeInsets.all(4.0),
                               child: Icon(Icons.watch_later_outlined),
                             ),
-                            Text(startTime + " - " + endTime),
+                            Text("${schedule.startTime.hour}:${schedule.startTime.minute} - ${schedule.endTime.hour}:${schedule.endTime.minute}"),
                           ],
                         ),
                         Row(
@@ -77,7 +70,7 @@ class HistoryCard extends StatelessWidget {
                               padding: EdgeInsets.all(4.0),
                               child: Icon(Icons.sports_score),
                             ),
-                            Text(mark == null? "Tutor hasn't mark yet" : mark.toString()),
+                            Text(mark == null ? "Tutor hasn't mark yet" : mark.toString()),
                           ],
                         ),
                       ],
@@ -124,7 +117,11 @@ class HistoryCard extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
-                            Icon(Icons.videocam_outlined, color: Colors.red, size: 18,),
+                            Icon(
+                              Icons.videocam_outlined,
+                              color: Colors.red,
+                              size: 18,
+                            ),
                             Text(
                               " Watch record",
                               style: TextStyle(color: Colors.red),

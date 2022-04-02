@@ -164,4 +164,17 @@ class DAO {
     }
     return scs1;
   }
+
+  List<Schedule> getHistoryList(int studentId)
+  {
+    List<Schedule> scs = (store.box<Schedule>().query(Schedule_.studentId.equals(studentId).and(Schedule_.isBooked.equals(true)))).build().find();
+    List<Schedule> scs1 = [];
+    scs1.addAll(scs);
+    for (var element in scs) {
+      if(element.endTime.isAfter(DateTime.now())) {
+        scs1.remove(element);
+      }
+    }
+    return scs1;
+  }
 }
