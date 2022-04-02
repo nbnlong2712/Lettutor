@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/models/course.dart';
 import 'package:flutter_lettutor/screens/course/courses/course_component_label.dart';
 import 'package:flutter_lettutor/screens/course/courses/course_header.dart';
 import 'package:flutter_lettutor/screens/course/courses/topic_card.dart';
 
 class DetailCourseScreen extends StatefulWidget {
-  DetailCourseScreen(
-      {Key? key, required this.background, required this.courseName, required this.level, required this.totalLessons})
-      : super(key: key);
+  DetailCourseScreen({Key? key, required this.course}) : super(key: key);
 
-  String background;
-  String courseName;
-  String level;
-  int totalLessons;
+  Course course;
 
   @override
   State<DetailCourseScreen> createState() => _DetailCourseScreenState();
@@ -59,19 +55,13 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    CourseHeader(
-                        background: "assets/images/course_background.jpg",
-                        totalTutors: totalTutors,
-                        totalLessons: widget.totalLessons),
+                    CourseHeader(background: widget.course.imageUrl, totalTutors: totalTutors, totalLessons: 9),
                     Container(
                       width: _width,
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          CourseComponentLabel(label: "About Course"),
-                          Text("Let's discuss how technology is changing the way we liveaaaaaaaaaaa", style: _style)
-                        ],
+                        children: <Widget>[CourseComponentLabel(label: "About Course"), Text(widget.course.description, style: _style)],
                       ),
                     ),
                     Container(
@@ -85,38 +75,22 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 6.0),
                             child: Row(
                               children: const <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Icon(Icons.help_outline, color: Colors.red),
-                                ),
+                                Padding(padding: EdgeInsets.symmetric(horizontal: 8.0), child: Icon(Icons.help_outline, color: Colors.red)),
                                 Text("Why take this course?")
                               ],
                             ),
                           ),
-                          Text(
-                              "Our world is rapidly changing thanks to new technology, and the "
-                              "vocabylary needed to discuss modern life is evolving almost daily."
-                              " In this course, you will learn the most up-to-date terminology "
-                              "from expertly crafted lessons as well from your native-speaking tutor.",
-                              style: _style),
+                          Text(widget.course.reason, style: _style),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 6.0),
                             child: Row(
                               children: const <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Icon(Icons.help_outline, color: Colors.red),
-                                ),
+                                Padding(padding: EdgeInsets.symmetric(horizontal: 8.0), child: Icon(Icons.help_outline, color: Colors.red)),
                                 Text("Why take this course?")
                               ],
                             ),
                           ),
-                          Text(
-                              "Our world is rapidly changing thanks to new technology, and the "
-                              "vocabylary needed to discuss modern life is evolving almost daily."
-                              " In this course, you will learn the most up-to-date terminology "
-                              "from expertly crafted lessons as well from your native-speaking tutor.",
-                              style: _style),
+                          Text(widget.course.purpose, style: _style),
                         ],
                       ),
                     ),

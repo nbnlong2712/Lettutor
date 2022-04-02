@@ -20,6 +20,8 @@ class _EbookScreenState extends State<EbookScreen> {
     await FilterListDialog.display<String>(
       context,
       listData: skills,
+      enableOnlySingleSelection: true,
+      hideSearchField: true,
       themeData: FilterListThemeData(context,
           choiceChipTheme: const ChoiceChipThemeData(
             selectedBackgroundColor: Colors.green,
@@ -73,39 +75,46 @@ class _EbookScreenState extends State<EbookScreen> {
                   scrollDirection: Axis.vertical,
                   children: <Widget>[
                     EbookCard(
-                      background: "assets/images/ebook_background.jpg",
-                      ebookName: 'Life in the Internet Age',
-                      level: 'Intermediate',
+                      background: "assets/images/ebook1.jpg",
+                      ebookName: 'What a world',
+                      level: 'Beginer',
                       describe:
                           "Hello, my name is Long, how are you? I'm fine thank you, and you? I'm fine, thanks! Let's go, let's rock!",
                     ),
                     EbookCard(
-                      background: "assets/images/ebook_background.jpg",
-                      ebookName: 'Life in the Internet Age',
-                      level: 'Intermediate',
+                      background: "assets/images/ebook2.jpg",
+                      ebookName: "Let's go starter",
+                      level: 'Beginner',
                       describe:
                           "Hello, my name is Long, how are you? I'm fine thank you, and you? I'm fine, thanks! Let's go, let's rock!",
                     ),
                     EbookCard(
-                      background: "assets/images/ebook_background.jpg",
-                      ebookName: 'Life in the Internet Age',
-                      level: 'Intermediate',
+                      background: "assets/images/ebook3.jpg",
+                      ebookName: "Let's go beginner",
+                      level: 'Beginner',
                       describe:
                           "Hello, my name is Long, how are you? I'm fine thank you, and you? I'm fine, thanks! Let's go, let's rock!",
                     ),
                     EbookCard(
-                      background: "assets/images/ebook_background.jpg",
-                      ebookName: 'Life in the Internet Age',
-                      level: 'Intermediate',
+                      background: "assets/images/ebook1.jpg",
+                      ebookName: 'What a world',
+                      level: 'Beginer',
                       describe:
-                          "Hello, my name is Long, how are you? I'm fine thank you, and you? I'm fine, thanks! Let's go, let's rock!",
+                      "Hello, my name is Long, how are you? I'm fine thank you, and you? I'm fine, thanks! Let's go, let's rock!",
                     ),
                     EbookCard(
-                      background: "assets/images/ebook_background.jpg",
-                      ebookName: 'Life in the Internet Age',
-                      level: 'Intermediate',
+                      background: "assets/images/ebook2.jpg",
+                      ebookName: "Let's go starter",
+                      level: 'Beginner',
                       describe:
-                          "Hello, my name is Long, how are you? I'm fine thank you, and you? I'm fine, thanks! Let's go, let's rock!",
+                      "Hello, my name is Long, how are you? I'm fine thank you, and you? I'm fine, thanks! Let's go, let's rock!",
+                    ),
+                    EbookCard(
+                      background: "assets/images/ebook3.jpg",
+                      ebookName: "Let's go beginner",
+                      level: 'Beginner',
+                      describe:
+                      "Hello, my name is Long, how are you? I'm fine thank you, and you? I'm fine, thanks! Let's go, let's rock!",
                     ),
                   ],
                 ),

@@ -30,7 +30,9 @@ class CourseHeader extends StatelessWidget {
             child: Align(
               alignment: Alignment.topLeft,
               child: FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   child: const Icon(Icons.arrow_back, size: 28),
                   backgroundColor: Colors.transparent,
                   elevation: 0.2),

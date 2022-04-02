@@ -1,18 +1,33 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/feedback.dart' as FB;
+import 'package:flutter_lettutor/models/user.dart';
 
-class CommentCard extends StatelessWidget {
-  CommentCard({
-    Key? key,
-    required this.avatar,
-    required this.name,
-    required this.comment,
-    required this.time,
-  }) : super(key: key);
+class CommentCard extends StatefulWidget {
+  CommentCard({Key? key, required this.feedback}) : super(key: key);
 
-  String avatar;
-  String name;
-  String comment;
-  String time;
+  FB.Feedback feedback;
+
+  @override
+  State<CommentCard> createState() => _CommentCardState();
+}
+
+class _CommentCardState extends State<CommentCard> {
+  late User user;
+
+  @override
+  void initState() {
+    super.initState();
+    dao.openDB();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    user = dao.getUserById(widget.feedback.authId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +35,7 @@ class CommentCard extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -33,41 +46,38 @@ class CommentCard extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      CircleAvatar(
-                        backgroundImage: AssetImage(avatar),
-                        radius: 22,
-                      ),
+                      CircleAvatar(backgroundImage: FileImage(File(user.avatar)), radius: 22),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(name, style: TextStyle(fontSize: 17),),
+                        child: Text(user.name, style: const TextStyle(fontSize: 17)),
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: 5,
-                      itemBuilder: (BuildContext context, int index) {
-                        return const Icon(
-                          Icons.star,
-                          color: Colors.orangeAccent,
-                          size: 22,
-                        );
-                      },
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(widget.feedback.stars.toString(), style: const TextStyle(color: Colors.red, fontSize: 17),),
+                        ),
+                        const Icon(Icons.star, color: Colors.orangeAccent,)
+                      ],
                     ),
                   ),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: Text(comment, style: TextStyle(fontSize: 16),),
+                child: Text(widget.feedback.content, style: const TextStyle(fontSize: 16)),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Text(time, style: TextStyle(color: Colors.black38),),
+                  Text(
+                    "${widget.feedback.createAt.year}/${widget.feedback.createAt.month}/${widget.feedback.createAt.day} ${widget.feedback.createAt.hour}:${widget.feedback.createAt.minute}",
+                    style: const TextStyle(color: Colors.black38),
+                  ),
                 ],
               )
             ],

@@ -76,7 +76,9 @@ class SettingScreen extends StatelessWidget {
                   color: Colors.white),
               LongFloatingButton(onPressed: () {}, child: _widget(Icons.blur_circular, "Our website", Icons.arrow_forward_ios), color: Colors.white),
               LongFloatingButton(onPressed: () {}, child: _widget(Icons.facebook, "Facebook", Icons.arrow_forward_ios), color: Colors.white),
-              LongFloatingButton(onPressed: () {}, child: Text("Logout", style: TextStyle(color: Colors.white)), color: Colors.green),
+              LongFloatingButton(onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(context, LoginScreen.router, (route) => false);
+              }, child: const Text("Logout", style: TextStyle(color: Colors.white)), color: Colors.green),
             ],
           ),
         ),

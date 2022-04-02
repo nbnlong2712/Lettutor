@@ -3,7 +3,6 @@ import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/screens/setting/history_card.dart';
-import 'package:flutter_lettutor/screens/upcoming/upcoming_card.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class HistoryScreen extends StatefulWidget {

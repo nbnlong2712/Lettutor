@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/home_page.dart';
+import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -70,38 +72,27 @@ class UpcomingCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   NeumorphicButton(
-                    style: NeumorphicStyle(
-                      depth: 3,
-                      shape: NeumorphicShape.flat,
-                      intensity: 0.9,
-                      color: Colors.red.shade100,
-                    ),
-                    onPressed: () {},
+                    style: NeumorphicStyle(depth: 3, shape: NeumorphicShape.flat, intensity: 0.9, color: Colors.red.shade100),
+                    onPressed: () {
+                      schedule.studentId = null;
+                      schedule.isBooked = false;
+                      dao.updateSchedule(schedule);
+                      Navigator.popAndPushNamed(context, HomePage.router);
+                    },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.32,
-                      child: Center(
-                        child: Text(
-                          "Cancel",
-                          style: TextStyle(color: Colors.red),
-                        ),
+                      child: const Center(
+                        child: Text("Cancel", style: TextStyle(color: Colors.red)),
                       ),
                     ),
                   ),
                   NeumorphicButton(
-                    style: NeumorphicStyle(
-                      depth: 3,
-                      shape: NeumorphicShape.flat,
-                      intensity: 0.9,
-                      color: Colors.green.shade100,
-                    ),
+                    style: NeumorphicStyle(depth: 3, shape: NeumorphicShape.flat, intensity: 0.9, color: Colors.green.shade100),
                     onPressed: () {},
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.32,
-                      child: Center(
-                        child: Text(
-                          "Go to meeting",
-                          style: TextStyle(color: Colors.green),
-                        ),
+                      child: const Center(
+                        child: Text("Go to meeting", style: TextStyle(color: Colors.green)),
                       ),
                     ),
                   ),

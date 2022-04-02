@@ -43,19 +43,11 @@ class TutorCard extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 5),
-                                    child: SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        shrinkWrap: true,
-                                        itemCount: 5,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          return const Icon(
-                                            Icons.star,
-                                            color: Colors.yellow,
-                                          );
-                                        },
-                                      ),
+                                    child: Row(
+                                      children: [
+                                        Text("${tutor.stars}", style: const TextStyle(fontSize: 17, color: Colors.red)),
+                                        const Icon(Icons.star, color: Colors.orangeAccent)
+                                      ],
                                     ),
                                   ),
                                 ],

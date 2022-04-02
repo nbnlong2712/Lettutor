@@ -126,7 +126,7 @@ final _entities = <ModelEntity>[
         ModelProperty(
             id: const IdUid(5, 9012410869610915206),
             name: 'level',
-            type: 6,
+            type: 9,
             flags: 0),
         ModelProperty(
             id: const IdUid(6, 8294308549207062063),
@@ -510,6 +510,7 @@ ModelDefinition getObjectBoxModel() {
           final nameOffset = fbb.writeString(object.name);
           final descriptionOffset = fbb.writeString(object.description);
           final imageUrlOffset = fbb.writeString(object.imageUrl);
+          final levelOffset = fbb.writeString(object.level);
           final reasonOffset = fbb.writeString(object.reason);
           final purposeOffset = fbb.writeString(object.purpose);
           fbb.startTable(8);
@@ -517,7 +518,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.addOffset(1, nameOffset);
           fbb.addOffset(2, descriptionOffset);
           fbb.addOffset(3, imageUrlOffset);
-          fbb.addInt64(4, object.level);
+          fbb.addOffset(4, levelOffset);
           fbb.addOffset(5, reasonOffset);
           fbb.addOffset(6, purposeOffset);
           fbb.finish(fbb.endTable());
@@ -534,7 +535,8 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGet(buffer, rootOffset, 8, ''),
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 10, ''),
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0),
+              const fb.StringReader(asciiOptimization: true)
+                  .vTableGet(buffer, rootOffset, 12, ''),
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 14, ''),
               const fb.StringReader(asciiOptimization: true)
@@ -815,7 +817,7 @@ class Course_ {
       QueryStringProperty<Course>(_entities[1].properties[3]);
 
   /// see [Course.level]
-  static final level = QueryIntegerProperty<Course>(_entities[1].properties[4]);
+  static final level = QueryStringProperty<Course>(_entities[1].properties[4]);
 
   /// see [Course.reason]
   static final reason = QueryStringProperty<Course>(_entities[1].properties[5]);

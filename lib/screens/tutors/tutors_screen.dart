@@ -23,6 +23,8 @@ class _TutorsScreenState extends State<TutorsScreen> {
     await FilterListDialog.display<String>(
       context,
       listData: skills,
+      enableOnlySingleSelection: true,
+      hideSearchField: true,
       themeData: FilterListThemeData(context,
           choiceChipTheme: const ChoiceChipThemeData(
             selectedBackgroundColor: Colors.green,

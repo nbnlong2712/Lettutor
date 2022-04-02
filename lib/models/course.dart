@@ -7,7 +7,7 @@ class Course {
   late String name;
   late String description;
   late String imageUrl;
-  late int level;
+  late String level;
   late String reason;
   late String purpose;
 

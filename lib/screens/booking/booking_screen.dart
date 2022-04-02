@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/models/schedule.dart';
+import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/booking/booking_card.dart';
 
 class BookingScreen extends StatefulWidget {
-  BookingScreen({Key? key}) : super(key: key);
+  BookingScreen({Key? key, required this.tutor}) : super(key: key);
+
+  Tutor tutor;
 
   @override
   State<BookingScreen> createState() => _BookingScreenState();
@@ -24,8 +27,8 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    dao.loadSchedules(mainUser.id);
-    schedules = dao.getAllScheduleByTutorId(mainUser.id);
+    dao.loadSchedules(widget.tutor.id);
+    schedules = dao.getAllScheduleByTutorId(widget.tutor.id);
   }
 
   @override

@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/models/course.dart';
 import 'package:flutter_lettutor/screens/course/courses/detail_course_screen.dart';
 
 class CourseCard extends StatelessWidget {
-  CourseCard({
-    Key? key,
-    required this.background,
-    required this.level,
-    required this.courseName,
-    required this.totalLessons,
-  }) : super(key: key);
+  CourseCard({Key? key, required this.course}) : super(key: key);
 
-  String background;
-  String courseName;
-  String level;
-  int totalLessons;
+  Course course;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +19,7 @@ class CourseCard extends StatelessWidget {
             alignment: AlignmentDirectional.bottomStart,
             children: <Widget>[
               ClipRRect(
-                child: Image.asset(background),
+                child: Image.asset(course.imageUrl),
                 borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
               ),
               Row(
@@ -39,19 +31,19 @@ class CourseCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          courseName,
+                          course.name,
                           style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 17),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Text(level),
+                          child: Text(course.level),
                         )
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("$totalLessons lessons"),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text("9 lessons"),
                   ),
                 ],
               ),
@@ -64,10 +56,7 @@ class CourseCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => DetailCourseScreen(
-              courseName: courseName,
-              background: background,
-              level: level,
-              totalLessons: totalLessons,
+              course: course,
             ),
           ),
         );

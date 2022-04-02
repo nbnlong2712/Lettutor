@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/comment/comment_card.dart';
+import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/feedback.dart' as Fb;
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/booking/booking_screen.dart';
 import 'package:flutter_lettutor/widget/report_chip.dart';
@@ -18,6 +22,20 @@ class TutorDetailScreen extends StatefulWidget {
 
 class _TutorDetailScreenState extends State<TutorDetailScreen> {
   final TextEditingController _controller = TextEditingController();
+
+  List<Fb.Feedback> feedbacks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    dao.openDB();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    feedbacks = dao.getAllFeedbackByTutorId(widget.tutor.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +56,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            CircleAvatar(backgroundImage: AssetImage(widget.tutor.avatar), radius: 30),
+                            CircleAvatar(backgroundImage: FileImage(File(widget.tutor.avatar)), radius: 30),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Column(
@@ -86,7 +104,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                         context: context,
                         isScrollControlled: true,
                         builder: (context) => SingleChildScrollView(
-                          child: BookingScreen(),
+                          child: BookingScreen(tutor: widget.tutor,),
                         ),
                       );
                     },
@@ -234,16 +252,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                     ),
                   ),
                   Column(
-                    children: <Widget>[
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Hay", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Hay qua", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(
-                          avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Qua hay ban oi", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Good", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Tot", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Comment", time: "Wed, 1/5/2022 12:00 AM"),
-                      CommentCard(avatar: "assets/images/avatar_long.png", name: "Nhat Long", comment: "Good job", time: "Wed, 1/5/2022 12:00 AM"),
-                    ],
+                    children: feedbacks.map((e) => CommentCard(feedback: e)).toList(),
                   ),
                 ],
               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/forget_password_screen.dart';
 import 'package:flutter_lettutor/auth/register_screen.dart';
 import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/course.dart';
 import 'package:flutter_lettutor/models/user.dart';
 import '../home_page.dart';
 import 'components/auth_button.dart';
@@ -93,6 +94,45 @@ class _LoginScreenState extends State<LoginScreen> {
                                       style: TextStyle(color: Colors.green),
                                     ),
                                     onTap: () {
+                                      /*List<Course> courses = [
+                                        Course(
+                                            "Life in the Internet Age",
+                                            "Let's discuss how technology is changing the way we live",
+                                            "assets/images/course1.jpg",
+                                            "Intermediate",
+                                            "Our world is rapidly changing thanks to new technology, and the vocabulary needed to discuss modern life is elvolving"
+                                                " almost daily. In this course you will learn the most up-to-date terminology from expertly crafted lessons as well froom your native-speaking tutor.",
+                                            "You will learn vocabulary related to timely topics like remote work, artificial intelligence, online privacy, and "
+                                                "more. In addition to discussion questions, you will practice intermediate level speaking tasks such as using data to describe trends."),
+                                        Course(
+                                            "Basic Conversation Topics",
+                                            "Let's discuss how technology is changing the way we live",
+                                            "assets/images/course2.jpg",
+                                            "Begginer",
+                                            "Our world is rapidly changing thanks to new technology, and the vocabulary needed to discuss modern life is elvolving"
+                                                " almost daily. In this course you will learn the most up-to-date terminology from expertly crafted lessons as well froom your native-speaking tutor.",
+                                            "You will learn vocabulary related to timely topics like remote work, artificial intelligence, online privacy, and "
+                                                "more. In addition to discussion questions, you will practice intermediate level speaking tasks such as using data to describe trends."),
+                                        Course(
+                                            "Intermediate Conversation Topics",
+                                            "Let's discuss how technology is changing the way we live",
+                                            "assets/images/course3.jpg",
+                                            "Intermediate",
+                                            "Our world is rapidly changing thanks to new technology, and the vocabulary needed to discuss modern life is elvolving"
+                                                " almost daily. In this course you will learn the most up-to-date terminology from expertly crafted lessons as well froom your native-speaking tutor.",
+                                            "You will learn vocabulary related to timely topics like remote work, artificial intelligence, online privacy, and "
+                                                "more. In addition to discussion questions, you will practice intermediate level speaking tasks such as using data to describe trends."),
+                                        Course(
+                                            "Advanced Conversation Topics",
+                                            "Let's discuss how technology is changing the way we live",
+                                            "assets/images/course4.jpg",
+                                            "Proficiency",
+                                            "Our world is rapidly changing thanks to new technology, and the vocabulary needed to discuss modern life is elvolving"
+                                                " almost daily. In this course you will learn the most up-to-date terminology from expertly crafted lessons as well froom your native-speaking tutor.",
+                                            "You will learn vocabulary related to timely topics like remote work, artificial intelligence, online privacy, and "
+                                                "more. In addition to discussion questions, you will practice intermediate level speaking tasks such as using data to describe trends."),
+                                      ];
+                                      dao.addCourse(courses);*/
                                       Navigator.pushNamed(context, RegisterScreen.router);
                                     },
                                   ),

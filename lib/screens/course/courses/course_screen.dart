@@ -1,5 +1,7 @@
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/course.dart';
 import 'package:flutter_lettutor/screens/course/courses/course_card.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/app_search_bar.dart';
@@ -13,18 +15,21 @@ class CourseScreen extends StatefulWidget {
 
 class _CourseScreenState extends State<CourseScreen> {
   List<String> selectedUserList = [];
+  List<Course> courseList = [];
 
   void openFilterDialog() async {
     await FilterListDialog.display<String>(
       context,
       listData: skills,
+      enableOnlySingleSelection: true,
+      hideSearchField: true,
       themeData: FilterListThemeData(context,
           choiceChipTheme: const ChoiceChipThemeData(
             selectedBackgroundColor: Colors.green,
           ),
           controlButtonBarTheme: ControlButtonBarThemeData(
-              controlButtonTheme: const ControlButtonThemeData(
-                  primaryButtonBackgroundColor: Colors.green, textStyle: TextStyle(color: Colors.green)))),
+              controlButtonTheme:
+                  const ControlButtonThemeData(primaryButtonBackgroundColor: Colors.green, textStyle: TextStyle(color: Colors.green)))),
       selectedListData: selectedUserList,
       choiceChipLabel: (skill) => skill!,
       validateSelectedItem: (list, val) => list!.contains(val),
@@ -38,6 +43,18 @@ class _CourseScreenState extends State<CourseScreen> {
         Navigator.pop(context);
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    dao.openDB();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    courseList = dao.getAllCourse();
   }
 
   @override
@@ -67,41 +84,7 @@ class _CourseScreenState extends State<CourseScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.67,
                 width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: <Widget>[
-                    CourseCard(
-                      background: "assets/images/course_background.jpg",
-                      courseName: 'Life in the Internet Age',
-                      level: 'Intermediate',
-                      totalLessons: 9,
-                    ),
-                    CourseCard(
-                      background: "assets/images/course_background.jpg",
-                      courseName: 'Life in the Internet Age',
-                      level: 'Intermediate',
-                      totalLessons: 9,
-                    ),
-                    CourseCard(
-                      background: "assets/images/course_background.jpg",
-                      courseName: 'Life in the Internet Age',
-                      level: 'Intermediate',
-                      totalLessons: 9,
-                    ),
-                    CourseCard(
-                      background: "assets/images/course_background.jpg",
-                      courseName: 'Life in the Internet Age',
-                      level: 'Intermediate',
-                      totalLessons: 9,
-                    ),
-                    CourseCard(
-                      background: "assets/images/course_background.jpg",
-                      courseName: 'Life in the Internet Age',
-                      level: 'Intermediate',
-                      totalLessons: 9,
-                    ),
-                  ],
-                ),
+                child: ListView(scrollDirection: Axis.vertical, children: courseList.map((e) => CourseCard(course: e)).toList()),
               ),
             ],
           ),
