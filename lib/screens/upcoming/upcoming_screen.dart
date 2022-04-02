@@ -1,27 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/screens/upcoming/upcoming_card.dart';
 
-class UpcomingScreen extends StatelessWidget {
+class UpcomingScreen extends StatefulWidget {
   static const router = "/upcoming-screen";
 
   const UpcomingScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final _upcomingList = List.generate(
-        10,
-            (index) => UpcomingCard(
-            avatar: "assets/images/avatar_long.png",
-            name: "Nhat Long",
-            bookingDate: "Tue, 3/8/2022",
-            endTime: "23:00",
-            startTime: "23:30"));
+  State<UpcomingScreen> createState() => _UpcomingScreenState();
+}
 
+class _UpcomingScreenState extends State<UpcomingScreen> {
+
+  List<Schedule> _upcomingList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    dao.openDB();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _upcomingList = dao.getUpcomingList(mainUser.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(220, 228, 228, 130),
       appBar: AppBar(
         title: const Text(
-          "Tutors",
+          "Upcoming",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
@@ -36,11 +50,10 @@ class UpcomingScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return _upcomingList[index];
-                    },
-                    itemCount: _upcomingList.length,
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    children: _upcomingList.map((e) => UpcomingCard(schedule: e)).toList(),
                   ),
                 ),
               ],

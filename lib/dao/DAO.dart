@@ -98,6 +98,18 @@ class DAO {
   }
 
   // ---SCHEDULE---
+  void loadSchedules(int tutorId)
+  {
+    List<Schedule> scs = getAllScheduleByTutorId(tutorId);
+    scs.forEach((element) {
+      if(element.endTime.isBefore(DateTime.now()))
+        {
+          element.isBooked = true;
+          updateSchedule(element);
+        }
+    });
+  }
+
   void addSchedule(Schedule schedule) {
     if(!isScheduleDuplicate(schedule)) {
       store.box<Schedule>().put(schedule);
@@ -132,5 +144,24 @@ class DAO {
     Tutor tutor = getTutorByEmail(tutorEmail);
     List<Schedule> schedules = getAllScheduleByTutorId(tutor.id);
     return schedules;
+  }
+
+  List<Schedule> getAllScheduleByStudentId(int studentId)
+  {
+    List<Schedule> schedules = (store.box<Schedule>().query(Schedule_.studentId.equals(studentId))).build().find();
+    return schedules;
+  }
+
+  List<Schedule> getUpcomingList(int studentId)
+  {
+    List<Schedule> scs = (store.box<Schedule>().query(Schedule_.studentId.equals(studentId).and(Schedule_.isBooked.equals(true)))).build().find();
+    List<Schedule> scs1 = [];
+    scs1.addAll(scs);
+    for (var element in scs) {
+      if(element.endTime.isBefore(DateTime.now())) {
+        scs1.remove(element);
+      }
+    }
+    return scs1;
   }
 }

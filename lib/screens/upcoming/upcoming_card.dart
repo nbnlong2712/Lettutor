@@ -1,21 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class UpcomingCard extends StatelessWidget {
-  UpcomingCard({
-    Key? key,
-    required this.avatar,
-    required this.name,
-    required this.bookingDate,
-    required this.endTime,
-    required this.startTime,
-  }) : super(key: key);
+  UpcomingCard({Key? key, required this.schedule}) : super(key: key);
 
-  String avatar;
-  String name;
-  String bookingDate;
-  String startTime;
-  String endTime;
+  Schedule schedule;
 
   @override
   Widget build(BuildContext context) {
@@ -37,21 +30,23 @@ class UpcomingCard extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: CircleAvatar(backgroundImage: AssetImage(avatar), radius: 35),
+                    child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar)), radius: 35),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+                      Text(mainUser.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
                       Row(
                         children: <Widget>[
-                          Text(bookingDate),
+                          Text("${schedule.startTime.year}/${schedule.startTime.month}/${schedule.startTime.day}"),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Chip(
                               backgroundColor: const Color.fromRGBO(0, 187, 0, 220),
-                              label: Text(startTime, style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w500)),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: BorderSide(width: 1, color: Colors.green)),
+                              label: Text("${schedule.startTime.hour} : ${schedule.startTime.minute}",
+                                  style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w500)),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5), side: const BorderSide(width: 1, color: Colors.green)),
                             ),
                           ),
                           const Text(" - "),
@@ -59,9 +54,10 @@ class UpcomingCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Chip(
                               backgroundColor: Colors.orange.shade100,
-                              label: Text(endTime, style: TextStyle(color: Colors.deepOrangeAccent, fontWeight: FontWeight.w500)),
+                              label: Text("${schedule.endTime.hour} : ${schedule.endTime.minute}",
+                                  style: const TextStyle(color: Colors.deepOrangeAccent, fontWeight: FontWeight.w500)),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5), side: BorderSide(width: 1, color: Colors.deepOrangeAccent)),
+                                  borderRadius: BorderRadius.circular(5), side: const BorderSide(width: 1, color: Colors.deepOrangeAccent)),
                             ),
                           ),
                         ],

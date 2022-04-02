@@ -24,6 +24,7 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    dao.loadSchedules(mainUser.id);
     schedules = dao.getAllScheduleByTutorId(mainUser.id);
   }
 
