@@ -1,6 +1,6 @@
 # flutter_lettutor
 
-A new Flutter application.
+A Tutor app for learning 1-1 online. Link youtube minestone 2 demo: https://www.youtube.com/watch?v=hMk5D2sELTs
 
 ## Getting Started
 
