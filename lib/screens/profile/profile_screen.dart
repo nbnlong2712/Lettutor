@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/home_page.dart';
 import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/subject.dart';
 import 'package:flutter_lettutor/models/user.dart';
 import 'package:flutter_lettutor/screens/profile/profile_component_label.dart';
 import 'package:flutter_lettutor/screens/profile/profile_dropdown.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/widget/multi_selection_dialog.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:uuid/uuid.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -49,7 +51,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
     _nameController.text = mainUser.name;
     _phoneController.text = mainUser.phone!;
   }
@@ -127,12 +128,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: <Widget>[
                           ProfileComponentLabel(label: "Birthday"),
                           DateTimePicker(
-                            initialValue: mainUser.birthDay.toString(),
+                            initialValue: mainUser.birthday.toString(),
                             firstDate: DateTime(1900),
                             lastDate: DateTime(2023),
                             decoration: _decoration(false),
                             onChanged: (value) {
-                              mainUser.birthDay = DateTime.parse(value);
+                              mainUser.birthday = DateTime.parse(value);
                             },
                           ),
                         ],
@@ -195,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: <Widget>[
                           ProfileComponentLabel(label: "Want to learn"),
                           MultiSelectionDialog(
-                            initialValue: mainUser.wantToLearn,
+                            initialValue: mainUser.learnTopics.map((e) => e.name).toList(),
                             items: skills.map((e) => MultiSelectItem(e, e)).toList(),
                             onConfirm: (values) {
                               selectSkills = values.map((e) => e.toString()).toList();
@@ -208,12 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     LongFloatingButton(
                       onPressed: () {
                         mainUser.name = _nameController.text;
-                        mainUser.wantToLearn = selectSkills;
-                        dao.updateUser(mainUser);
-                        List<User> users = dao.getAllUserFromDb();
-                        users.forEach((element) {
-                          print(element.toString());
-                        });
+                        mainUser.learnTopics = selectSkills.map((e) => Subject(Uuid().toString(), e.toLowerCase(), e)).toList();
                         Navigator.popAndPushNamed(context, HomePage.router);
                       },
                       child: const Text("Save"),

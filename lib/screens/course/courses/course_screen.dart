@@ -48,13 +48,11 @@ class _CourseScreenState extends State<CourseScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    courseList = dao.getAllCourse();
   }
 
   @override

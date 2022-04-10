@@ -1,19 +1,42 @@
-import 'package:objectbox/objectbox.dart';
 
-@Entity()
+import 'package:intl/intl.dart';
+
 class Feedback {
-  @Id() int id = 0;
-
-  late int authId;
-  late int tutorId;
+  late String id;
+  late String bookingId;
+  late String firstId;
+  late String secondId;
+  late int rating;
   late String content;
-  late double stars;
-  late DateTime createAt;
+  late DateTime createdAt;
 
-  Feedback(this.authId, this.tutorId, this.content, this.stars, this.createAt);
+  Feedback(this.id, this.bookingId, this.firstId, this.secondId, this.rating, this.content, this.createdAt);
+
+
+  Feedback.fromJson(Map map)
+  : id = map['id'],
+  bookingId = map['bookingId'],
+  firstId = map['firstId'],
+  secondId = map['secondId'],
+  rating = map['rating'],
+  content = map['content'],
+  createdAt = DateFormat("yyyy-MM-dd hh:mm:ss").parse(map['createdAt']);
+
+  Map toJson(){
+    return {
+      'id': id,
+      'bookingId': bookingId,
+      'firstId': firstId,
+      'secondId': secondId,
+      'rating': rating,
+      'content': content,
+      'createdAt': createdAt
+    };
+  }
+
 
   @override
   String toString() {
-    return 'Feedback{id: $id, authId: $authId, tutorId: $tutorId, content: $content, stars: $stars, createAt: $createAt}';
+    return 'Feedback{id: $id, bookingId: $bookingId, firstId: $firstId, secondId: $secondId, rating: $rating, content: $content, createAt: $createdAt}';
   }
 }

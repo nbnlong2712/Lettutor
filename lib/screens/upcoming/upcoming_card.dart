@@ -40,12 +40,12 @@ class UpcomingCard extends StatelessWidget {
                       Text(mainUser.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
                       Row(
                         children: <Widget>[
-                          Text("${schedule.startTime.year}/${schedule.startTime.month}/${schedule.startTime.day}"),
+                          Text("${schedule.startTimestamp.year}/${schedule.startTimestamp.month}/${schedule.startTimestamp.day}"),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Chip(
                               backgroundColor: const Color.fromRGBO(0, 187, 0, 220),
-                              label: Text("${schedule.startTime.hour} : ${schedule.startTime.minute}",
+                              label: Text("${schedule.startTimestamp.hour} : ${schedule.startTimestamp.minute}",
                                   style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w500)),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5), side: const BorderSide(width: 1, color: Colors.green)),
@@ -56,7 +56,7 @@ class UpcomingCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Chip(
                               backgroundColor: Colors.orange.shade100,
-                              label: Text("${schedule.endTime.hour} : ${schedule.endTime.minute}",
+                              label: Text("${schedule.endTimestamp.hour} : ${schedule.endTimestamp.minute}",
                                   style: const TextStyle(color: Colors.deepOrangeAccent, fontWeight: FontWeight.w500)),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5), side: const BorderSide(width: 1, color: Colors.deepOrangeAccent)),
@@ -74,9 +74,7 @@ class UpcomingCard extends StatelessWidget {
                   NeumorphicButton(
                     style: NeumorphicStyle(depth: 3, shape: NeumorphicShape.flat, intensity: 0.9, color: Colors.red.shade100),
                     onPressed: () {
-                      schedule.studentId = null;
                       schedule.isBooked = false;
-                      dao.updateSchedule(schedule);
                       Navigator.popAndPushNamed(context, HomePage.router);
                     },
                     child: SizedBox(

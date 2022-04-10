@@ -4,8 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/home_page.dart';
-import 'package:flutter_lettutor/main.dart';
-import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/profile/profile_component_label.dart';
 import 'package:flutter_lettutor/screens/profile/profile_dropdown.dart';
@@ -65,19 +63,6 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if(dao.isTutorExists(mainUser.email))
-      {
-        Tutor tutor = dao.getTutorByEmail(mainUser.email);
-        _phoneController.text = tutor.phone.toString();
-        selectInterest = tutor.interests;
-        selectLanguage = tutor.languages;
-        education = tutor.education;
-        _experienceController.text = tutor.experience;
-        _bioController.text = tutor.bio;
-        targetStudent = tutor.targetStudent;
-        _videoController.text = tutor.videoUrl;
-        _priceController.text = tutor.price.toString();
-      }
   }
 
   @override
@@ -282,71 +267,21 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                 ),
                 LongFloatingButton(
                   onPressed: () {
-                    Tutor newTutor = Tutor(
-                        mainUser.avatar,
-                        mainUser.password,
-                        mainUser.name,
-                        mainUser.email,
-                        mainUser.country,
-                        _phoneController.text,
-                        selectInterest,
-                        _experienceController.text,
-                        _bioController.text,
-                        targetStudent,
+                    /*Tutor newTutor = Tutor(
+                        "id",
+                        mainUser.id,
                         _videoController.text,
+                        _bioController.text,
                         education,
-                        int.parse(_priceController.text),
+                        _experienceController.text,
+                        [],
+                        targetStudent,
+                        'interest',
                         selectLanguage,
-                        mainUser.birthDay,
-                        mainUser.level,
-                        "Teacher",
-                        0,
-                        false,
-                        "Handsome",
-                        false);
-                    if (dao.isEmailDuplicateTutor(mainUser.email)) {
-                      Tutor tutor = dao.getTutorByEmail(mainUser.email);
-                      tutor.avatar = newTutor.avatar;
-                      tutor.email = newTutor.email;
-                      tutor.name = newTutor.name;
-                      tutor.description = newTutor.description;
-                      tutor.languages = newTutor.languages;
-                      tutor.country = newTutor.country;
-                      tutor.bio = newTutor.bio;
-                      tutor.targetStudent = newTutor.targetStudent;
-                      tutor.education = newTutor.education;
-                      tutor.level = newTutor.level;
-                      tutor.birthDay = newTutor.birthDay;
-                      tutor.password = newTutor.password;
-                      tutor.interests = newTutor.interests;
-                      tutor.role = newTutor.role;
-                      tutor.phone = newTutor.phone;
-                      tutor.stars = newTutor.stars;
-                      tutor.price = newTutor.price;
-                      tutor.experience = newTutor.experience;
-                      tutor.videoUrl = newTutor.videoUrl;
-                      dao.updateTutor(tutor);
-                    } else {
-                      dao.addTutor(newTutor);
-                      List<Schedule> schedules = [
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 1, 19, 0, 0), DateTime(2022, 4, 1, 20, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 1, 20, 0, 0), DateTime(2022, 4, 1, 21, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 1, 21, 0, 0), DateTime(2022, 4, 1, 22, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 2, 19, 0, 0), DateTime(2022, 4, 2, 20, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 2, 20, 0, 0), DateTime(2022, 4, 2, 21, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 2, 21, 0, 0), DateTime(2022, 4, 2, 22, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 3, 19, 0, 0), DateTime(2022, 4, 3, 20, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 3, 20, 0, 0), DateTime(2022, 4, 3, 21, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 3, 21, 0, 0), DateTime(2022, 4, 3, 22, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 4, 19, 0, 0), DateTime(2022, 4, 4, 20, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 4, 20, 0, 0), DateTime(2022, 4, 4, 21, 0, 0), false),
-                        Schedule(newTutor.id, null, DateTime(2022, 4, 4, 21, 0, 0), DateTime(2022, 4, 4, 22, 0, 0), false)
-                      ];
-                      dao.addListSchedules(schedules);
-                      dao.getAllScheduleByTutorId(newTutor.id).forEach((element) {
-                        print(element.toString());
-                      });
-                    }
+                        [],
+                        true,
+                        true
+                    );*/
                     Navigator.popAndPushNamed(context, HomePage.router);
                   },
                   child: const Text("Become a teacher"),

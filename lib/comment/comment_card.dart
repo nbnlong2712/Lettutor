@@ -20,13 +20,11 @@ class _CommentCardState extends State<CommentCard> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    user = dao.getUserById(widget.feedback.authId);
   }
 
   @override
@@ -59,9 +57,15 @@ class _CommentCardState extends State<CommentCard> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Text(widget.feedback.stars.toString(), style: const TextStyle(color: Colors.red, fontSize: 17),),
+                          child: Text(
+                            widget.feedback.rating.toString(),
+                            style: const TextStyle(color: Colors.red, fontSize: 17),
+                          ),
                         ),
-                        const Icon(Icons.star, color: Colors.orangeAccent,)
+                        const Icon(
+                          Icons.star,
+                          color: Colors.orangeAccent,
+                        )
                       ],
                     ),
                   ),
@@ -75,7 +79,7 @@ class _CommentCardState extends State<CommentCard> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Text(
-                    "${widget.feedback.createAt.year}/${widget.feedback.createAt.month}/${widget.feedback.createAt.day} ${widget.feedback.createAt.hour}:${widget.feedback.createAt.minute}",
+                    "${widget.feedback.createdAt.year}/${widget.feedback.createdAt.month}/${widget.feedback.createdAt.day} ${widget.feedback.createdAt.hour}:${widget.feedback.createdAt.minute}",
                     style: const TextStyle(color: Colors.black38),
                   ),
                 ],

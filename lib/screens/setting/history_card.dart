@@ -44,13 +44,13 @@ class HistoryCard extends StatelessWidget {
                         Row(
                           children: <Widget>[
                             const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.calendar_today_outlined)),
-                            Text("${schedule.startTime.year}/${schedule.startTime.month}/${schedule.startTime.day}"),
+                            Text("${schedule.startTimestamp.year}/${schedule.startTimestamp.month}/${schedule.startTimestamp.day}"),
                           ],
                         ),
                         Row(
                           children: <Widget>[
                             const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.watch_later_outlined)),
-                            Text("${schedule.startTime.hour}:${schedule.startTime.minute} - ${schedule.endTime.hour}:${schedule.endTime.minute}"),
+                            Text("${schedule.startTimestamp.hour}:${schedule.startTimestamp.minute} - ${schedule.endTimestamp.hour}:${schedule.endTimestamp.minute}"),
                           ],
                         ),
                         Row(

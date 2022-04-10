@@ -27,7 +27,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
@@ -115,25 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.11,
                         child: AuthButton(
-                          onPressed: () {
-                            if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty && reEnterController.text.isNotEmpty) {
-                              if (passwordController.text.compareTo(reEnterController.text) == 0) {
-                                if (dao.isEmailDuplicateUser(emailController.text)) {
-                                  ScaffoldMessenger.of(context).showSnackBar(_snackBar("Email is duplicate!", Colors.red));
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(_snackBar("Register successful!", Colors.green));
-                                  User newUser = User("", passwordController.text, "", emailController.text, "Vietnam", "0943290648",
-                                      ["Vietnamese", "English"], DateTime(2000, 3, 12), "Beginner", "Student", [], false);
-                                  dao.addUser(newUser);
-                                  Navigator.popAndPushNamed(context, LoginScreen.router);
-                                }
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(_snackBar("Re-enter password, please!", Colors.red));
-                              }
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(_snackBar("Please fill enough!", Colors.red));
-                            }
-                          },
+                          onPressed: () {},
                           label: const Text(
                             "Register",
                             style: TextStyle(fontSize: 16),

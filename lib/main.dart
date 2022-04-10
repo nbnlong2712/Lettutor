@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
-import 'package:flutter_lettutor/dao/DAO.dart';
 import 'package:flutter_lettutor/home_page.dart';
 import 'package:flutter_lettutor/screens/course/course_page.dart';
 import 'package:flutter_lettutor/screens/home/home_screen.dart';
@@ -19,8 +18,6 @@ import 'auth/register_screen.dart';
 void main() {
   runApp(const MyApp());
 }
-
-DAO dao = DAO();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

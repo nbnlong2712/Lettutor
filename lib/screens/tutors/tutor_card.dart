@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_detail_screen.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
@@ -25,7 +26,7 @@ class TutorCard extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: FileImage(File(tutor.avatar)),
+                      backgroundImage: FileImage(File(mainUser.avatar)),
                       radius: 30,
                     ),
                     Column(
@@ -38,14 +39,14 @@ class TutorCard extends StatelessWidget {
                               Column(
                                 children: <Widget>[
                                   Text(
-                                    tutor.name,
+                                    mainUser.name,
                                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 5),
                                     child: Row(
                                       children: [
-                                        Text("${tutor.stars}", style: const TextStyle(fontSize: 17, color: Colors.red)),
+                                        Text("5", style: const TextStyle(fontSize: 17, color: Colors.red)),
                                         const Icon(Icons.star, color: Colors.orangeAccent)
                                       ],
                                     ),

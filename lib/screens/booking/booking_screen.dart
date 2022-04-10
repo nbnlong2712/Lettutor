@@ -21,14 +21,11 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    dao.loadSchedules(widget.tutor.id);
-    schedules = dao.getAllScheduleByTutorId(widget.tutor.id);
   }
 
   @override

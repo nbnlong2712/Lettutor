@@ -20,13 +20,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    historyList = dao.getHistoryList(mainUser.id);
   }
 
   @override

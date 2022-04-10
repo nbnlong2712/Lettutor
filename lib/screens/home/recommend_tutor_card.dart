@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_detail_screen.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
@@ -31,7 +32,7 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                 Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: FileImage(File(widget.tutor.avatar)),
+                      backgroundImage: FileImage(File(mainUser.avatar)),
                       radius: 30,
                     ),
                     Column(
@@ -44,14 +45,14 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                               Column(
                                 children: <Widget>[
                                   Text(
-                                    widget.tutor.name,
+                                    "widget.tutor.name",
                                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 5),
                                     child: Row(
                                       children: [
-                                        Text("${widget.tutor.stars}", style: const TextStyle(fontSize: 17, color: Colors.red)),
+                                        Text("widget.tutor.stars", style: const TextStyle(fontSize: 17, color: Colors.red)),
                                         const Icon(Icons.star, color: Colors.orangeAccent)
                                       ],
                                     ),
@@ -59,15 +60,8 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                                 ],
                               ),
                               GestureDetector(
-                                child: Icon(widget.tutor.isFavorite ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
-                                onTap: () {
-                                  setState(() {
-                                    if (widget.tutor.isFavorite)
-                                      widget.tutor.isFavorite = false;
-                                    else
-                                      widget.tutor.isFavorite = true;
-                                  });
-                                },
+                                child: Icon(true ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
+                                onTap: () {},
                               ),
                             ],
                           ),

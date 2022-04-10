@@ -24,13 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    tutorList = dao.getAllTutorFromDb();
   }
 
   @override

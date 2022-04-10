@@ -50,13 +50,11 @@ class _TutorsScreenState extends State<TutorsScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    tutorList = dao.getAllTutorFromDb().map((e) => TutorCard(tutor: e,)).toList();
   }
 
   @override

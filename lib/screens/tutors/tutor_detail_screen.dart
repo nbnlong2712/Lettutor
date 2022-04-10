@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/comment/comment_card.dart';
 import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/models/feedback.dart' as Fb;
@@ -28,13 +29,11 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    feedbacks = dao.getAllFeedbackByTutorId(widget.tutor.id);
   }
 
   @override
@@ -56,15 +55,15 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            CircleAvatar(backgroundImage: FileImage(File(widget.tutor.avatar)), radius: 30),
+                            CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar)), radius: 30),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(widget.tutor.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
+                                  Text(mainUser.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
                                   Text(widget.tutor.bio, style: const TextStyle(color: Colors.grey)),
-                                  Text(widget.tutor.country, style: const TextStyle(fontWeight: FontWeight.w400))
+                                  Text(mainUser.country, style: const TextStyle(fontWeight: FontWeight.w400))
                                 ],
                               ),
                             ),
@@ -76,21 +75,14 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  Text("${widget.tutor.stars}", style: const TextStyle(fontSize: 17, color: Colors.red)),
+                                  Text("5", style: const TextStyle(fontSize: 17, color: Colors.red)),
                                   const Icon(Icons.star, color: Colors.orangeAccent)
                                 ],
                               ),
                             ),
                             GestureDetector(
-                              child: Icon(widget.tutor.isFavorite ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
+                              child: Icon(true ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
                               onTap: () {
-                                setState(() {
-                                  if (widget.tutor.isFavorite) {
-                                    widget.tutor.isFavorite = false;
-                                  } else {
-                                    widget.tutor.isFavorite = true;
-                                  }
-                                });
                               },
                             ),
                           ],
@@ -221,7 +213,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: widget.tutor.interests.map((e) => SkillChip(skillName: e)).toList(),
+                            children: widget.tutor.specialties.map((e) => SkillChip(skillName: e)).toList(),
                           ),
                         ),
                       ],

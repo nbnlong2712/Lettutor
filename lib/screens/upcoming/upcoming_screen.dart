@@ -20,13 +20,11 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _upcomingList = dao.getUpcomingList(mainUser.id);
   }
 
   @override

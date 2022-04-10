@@ -48,13 +48,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   @override
   void initState() {
     super.initState();
-    dao.openDB();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    tutor = dao.getTutorById(widget.schedule.tutorId);
   }
 
   @override
@@ -77,7 +75,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: CircleAvatar(backgroundImage: FileImage(File(tutor.avatar)), radius: 35),
+                child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar)), radius: 35),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -92,7 +90,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       children: <Widget>[
                         const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.calendar_today_outlined, color: Colors.black54, size: 20)),
                         Text(
-                          "${widget.schedule.startTime.year}/${widget.schedule.startTime.month}/${widget.schedule.startTime.day}",
+                          "${widget.schedule.startTimestamp.year}/${widget.schedule.startTimestamp.month}/${widget.schedule.startTimestamp.day}",
                           style: const TextStyle(color: Colors.black54),
                         ),
                       ],
@@ -101,7 +99,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       children: <Widget>[
                         const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.watch_later_outlined, color: Colors.black54, size: 20)),
                         Text(
-                          "${widget.schedule.startTime.hour}:${widget.schedule.startTime.minute} - ${widget.schedule.endTime.hour}:${widget.schedule.endTime.minute}",
+                          "${widget.schedule.startTimestamp.hour}:${widget.schedule.startTimestamp.minute} - ${widget.schedule.endTimestamp.hour}:${widget.schedule.endTimestamp.minute}",
                           style: const TextStyle(color: Colors.black54),
                         ),
                       ],
@@ -138,16 +136,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 } else {
                   double star = 0;
                   int length = 0;
-                  dao.getAllFeedbackByTutorId(tutor.id).forEach((element) {
-                    star += element.stars;
-                    length++;
-                  });
                   star += rate;
                   length++;
-                  tutor.stars = double.parse((star / length).toStringAsFixed(1));
-                  dao.updateTutor(tutor);
-                  FB.Feedback feedback = FB.Feedback(mainUser.id, tutor.id, commentController.text, rate, DateTime.now());
-                  dao.addFeedback(feedback);
+                  FB.Feedback feedback = FB.Feedback("id", "bookingId", tutor.id, mainUser.id, 5, "content", DateTime.now());
                   ScaffoldMessenger.of(context).showSnackBar(_snackBar("Feedback sent!", Colors.green));
                   Navigator.pop(context);
                 }
