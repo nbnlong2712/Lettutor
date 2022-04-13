@@ -1,5 +1,5 @@
 class Subject {
-  late String id;
+  late int id;
   late String key;
   late String name;
 

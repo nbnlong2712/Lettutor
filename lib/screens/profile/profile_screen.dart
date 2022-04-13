@@ -209,7 +209,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     LongFloatingButton(
                       onPressed: () {
                         mainUser.name = _nameController.text;
-                        mainUser.learnTopics = selectSkills.map((e) => Subject(Uuid().toString(), e.toLowerCase(), e)).toList();
                         Navigator.popAndPushNamed(context, HomePage.router);
                       },
                       child: const Text("Save"),

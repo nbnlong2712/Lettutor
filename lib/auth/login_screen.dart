@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/api/api_request.dart';
+import 'package:flutter_lettutor/api/auth_request.dart';
 import 'package:flutter_lettutor/auth/forget_password_screen.dart';
 import 'package:flutter_lettutor/auth/register_screen.dart';
-import 'package:flutter_lettutor/models/token.dart';
+import 'package:flutter_lettutor/home_page.dart';
 import 'package:flutter_lettutor/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'components/auth_button.dart';
 import 'components/auth_textfield.dart';
 import 'components/third_auth_button.dart';
@@ -30,15 +32,34 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    getUserFromRefreshToken();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  void getUserFromRefreshToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString("access") != null) {
+      print(prefs.getString("access")! + " step1");
+      await AuthRequest.fetchUser().then((value) {
+        mainUser = value;
+        Navigator.popAndPushNamed(context, HomePage.router);
+      }).catchError((e) {
+        print(e);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
-          FocusScope.of(context).requestFocus(new FocusNode());
+          FocusScope.of(context).requestFocus(FocusNode());
 
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
@@ -124,10 +145,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: MediaQuery.of(context).size.height * 0.11,
                         child: AuthButton(
                           onPressed: () async {
-                            String email = emailController.text;
-                            String password = passwordController.text;
-                            Token token = await ApiRequest.fetchToken(email, password);
-                            print(token.toString());
+                            if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                              String email = emailController.text;
+                              String password = passwordController.text;
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                              await AuthRequest.fetchToken(email, password).then((value) async {
+                                prefs.setString("access", value.tokens!.access!.token!);
+                                prefs.setString("refresh", value.tokens!.refresh!.token!);
+                                print(prefs.getString('access')! + ' step2');
+                                await AuthRequest.fetchUser().then((value1) {
+                                  mainUser = value1;
+                                  print(value1.toString());
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(_snackBar("Login success!", Colors.green));
+                                Navigator.popAndPushNamed(context, HomePage.router);
+                              }).catchError((e) {
+                                ScaffoldMessenger.of(context).showSnackBar(_snackBar("Email or password is incorrect!", Colors.red));
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(_snackBar("Please fill enough!", Colors.red));
+                            }
                           },
                           label: const Text(
                             "Login",

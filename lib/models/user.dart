@@ -18,19 +18,30 @@ class User {
   User(this.id, this.email, this.name, this.avatar, this.country, this.phone, this.language, this.birthday, this.isActivated, this.level,
       this.learnTopics, this.testPreparations);
 
-  User.fromJson(Map map)
-      : id = map['id'],
-        email = map['email'],
-        name = map['name'],
-        avatar = map['avatar'],
-        country = map['country'],
-        phone = map['phone'],
-        language = map['language'],
-        birthday = DateFormat("yyyy-MM-dd").parse(map['birthday']),
-        isActivated = map['isActivated'],
-        level = map['level'],
-        learnTopics = List<Subject>.from(map['learnTopics']),
-        testPreparations = List<Subject>.from(map['testPreparations']);
+  User.fromJson(Map map) {
+    id = map['id'];
+    email = map['email'];
+    name = map['name'];
+    avatar = map['avatar'];
+    country = map['country'];
+    phone = map['phone'];
+    language = map['language'];
+    birthday = DateFormat("yyyy-MM-dd").parse(map['birthday']);
+    isActivated = map['isActivated'];
+    level = map['level'];
+    if (map['learnTopics'] != null) {
+      learnTopics = List<Subject>.empty(growable: true);
+      map['learnTopics'].forEach((v) {
+        learnTopics.add(Subject.fromJson(v));
+      });
+    }
+    if (map['testPreparations'] != null) {
+      testPreparations = List<Subject>.empty(growable: true);
+      map['testPreparations'].forEach((v) {
+        testPreparations.add(Subject.fromJson(v));
+      });
+    }
+  }
 
   Map toJson() {
     return {

@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_lettutor/models/user.dart';
 import 'package:intl/intl.dart';
-import 'package:objectbox/objectbox.dart';
 
 class Tutor {
   late String id;
