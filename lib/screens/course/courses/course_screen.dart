@@ -20,7 +20,7 @@ class _CourseScreenState extends State<CourseScreen> {
   void openFilterDialog() async {
     await FilterListDialog.display<String>(
       context,
-      listData: skills,
+      listData: Constant.Skills,
       enableOnlySingleSelection: true,
       hideSearchField: true,
       themeData: FilterListThemeData(context,

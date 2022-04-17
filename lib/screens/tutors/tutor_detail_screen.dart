@@ -12,6 +12,8 @@ import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_video.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
 
+import '../../home_page.dart';
+
 class TutorDetailScreen extends StatefulWidget {
   TutorDetailScreen({Key? key, required this.tutor}) : super(key: key);
 
@@ -55,15 +57,15 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar)), radius: 30),
+                            CircleAvatar(backgroundImage: FileImage(File(widget.tutor.avatar)), radius: 30),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(mainUser.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
+                                  Text(widget.tutor.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
                                   Text(widget.tutor.bio, style: const TextStyle(color: Colors.grey)),
-                                  Text(mainUser.country, style: const TextStyle(fontWeight: FontWeight.w400))
+                                  Text(widget.tutor.country, style: const TextStyle(fontWeight: FontWeight.w400))
                                 ],
                               ),
                             ),

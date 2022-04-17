@@ -19,7 +19,7 @@ class _CoursePageState extends State<CoursePage> {
   void openFilterDialog() async {
     await FilterListDialog.display<String>(
       context,
-      listData: skills,
+      listData: Constant.Skills,
       themeData: FilterListThemeData(context,
           choiceChipTheme: const ChoiceChipThemeData(
             selectedBackgroundColor: Colors.green,

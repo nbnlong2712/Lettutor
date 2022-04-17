@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_detail_screen.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
+
+import '../../home_page.dart';
 
 class RecommendTutorCard extends StatefulWidget {
   RecommendTutorCard({Key? key, required this.tutor}) : super(key: key);

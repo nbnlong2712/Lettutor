@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/models/user.dart';
 import 'package:flutter_lettutor/screens/course/course_page.dart';
 import 'package:flutter_lettutor/screens/home/home_screen.dart';
 import 'package:flutter_lettutor/screens/setting/setting_screen.dart';
 import 'package:flutter_lettutor/screens/tutors/tutors_screen.dart';
 import 'package:flutter_lettutor/screens/upcoming/upcoming_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'api/user_request.dart';
+
+late User mainUser;
+
 class HomePage extends StatefulWidget {
   static const router = "/home-page";
 
@@ -28,6 +35,25 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Setting"),
   ];
   var _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserFromAccessToken();
+  }
+
+  void getUserFromAccessToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString("access") != null) {
+      if (prefs.getString("access")!.isNotEmpty) {
+        await UserRequest.fetchUser().then((value) {
+          mainUser = value;
+        }).catchError((e) {
+          print(e);
+        });
+      }
+    }
+  }
 
   void _selectItem(index) {
     setState(() {

@@ -19,7 +19,7 @@ class _EbookScreenState extends State<EbookScreen> {
   void openFilterDialog() async {
     await FilterListDialog.display<String>(
       context,
-      listData: skills,
+      listData: Constant.Skills,
       enableOnlySingleSelection: true,
       hideSearchField: true,
       themeData: FilterListThemeData(context,

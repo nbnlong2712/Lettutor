@@ -6,6 +6,9 @@ import 'package:flutter_lettutor/screens/setting/become_teacher_screen.dart';
 import 'package:flutter_lettutor/screens/setting/change_password_screen.dart';
 import 'package:flutter_lettutor/screens/setting/history_screen.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../home_page.dart';
 
 class SettingScreen extends StatelessWidget {
   static const router = "/setting-screen";
@@ -41,7 +44,7 @@ class SettingScreen extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(14.0),
-                    child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar)), radius: 40),
+                    child: CircleAvatar(backgroundImage: NetworkImage(mainUser.avatar), radius: 40),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,9 +79,15 @@ class SettingScreen extends StatelessWidget {
                   color: Colors.white),
               LongFloatingButton(onPressed: () {}, child: _widget(Icons.blur_circular, "Our website", Icons.arrow_forward_ios), color: Colors.white),
               LongFloatingButton(onPressed: () {}, child: _widget(Icons.facebook, "Facebook", Icons.arrow_forward_ios), color: Colors.white),
-              LongFloatingButton(onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(context, LoginScreen.router, (route) => false);
-              }, child: const Text("Logout", style: TextStyle(color: Colors.white)), color: Colors.green),
+              LongFloatingButton(
+                  onPressed: () async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString("access", "");
+                    prefs.setString("refresh", "");
+                    Navigator.pushNamedAndRemoveUntil(context, LoginScreen.router, (route) => false);
+                  },
+                  child: const Text("Logout", style: TextStyle(color: Colors.white)),
+                  color: Colors.green),
             ],
           ),
         ),

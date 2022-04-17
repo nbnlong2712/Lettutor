@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/login_screen.dart';
-import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/home/recommend_tutor_card.dart';
 import 'package:flutter_lettutor/screens/home/upcoming_banner.dart';
 import 'package:flutter_lettutor/screens/profile/profile_screen.dart';
+
+import '../../home_page.dart';
 
 class HomeScreen extends StatefulWidget {
   static const router = "/home-screen";
@@ -20,16 +18,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Tutor> tutorList = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               child: CircleAvatar(
-                backgroundImage: FileImage(File(mainUser.avatar)),
+                backgroundImage: NetworkImage(mainUser.avatar),
                 backgroundColor: Colors.black12,
               ),
               onTap: () {

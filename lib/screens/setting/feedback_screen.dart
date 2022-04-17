@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/login_screen.dart';
-import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/models/feedback.dart' as FB;
 import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
-import 'package:flutter_lettutor/screens/setting/history_screen.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import '../../home_page.dart';
 
 class FeedbackScreen extends StatefulWidget {
   FeedbackScreen({Key? key, required this.schedule}) : super(key: key);

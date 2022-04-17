@@ -32,8 +32,8 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
   List<String> selectInterest = [];
   List<String> selectLanguage = [];
 
-  String targetStudent = levels[0];
-  String education = educations[0];
+  String targetStudent = Constant.Levels[0];
+  String education = Constant.Educations[0];
 
   InputDecoration _decoration(bool readOnly) {
     return InputDecoration(
@@ -76,218 +76,210 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: GestureDetector(
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
+          child: const Icon(Icons.arrow_back, color: Colors.black),
           onTap: () {
             Navigator.pop(context);
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Center(
-            child: Flex(
-              direction: Axis.vertical,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Name"),
-                      TextField(
-                        readOnly: true,
-                        controller: _nameController,
-                        decoration: _decoration(false),
-                      ),
-                    ],
+      body: GestureDetector(
+        onTap: (){
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          FocusScope.of(context).requestFocus(FocusNode());
+
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Center(
+              child: Flex(
+                direction: Axis.vertical,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Name"),
+                        TextField(
+                          readOnly: true,
+                          controller: _nameController,
+                          decoration: _decoration(false),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Phone"),
-                      TextField(
-                        controller: _phoneController,
-                        decoration: _decoration(false),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Phone"),
+                        TextField(
+                          controller: _phoneController,
+                          decoration: _decoration(false),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Interest"),
-                      MultiSelectionDialog(
-                        initialValue: selectInterest,
-                        items: interests.map((e) => MultiSelectItem(e, e)).toList(),
-                        onConfirm: (values) {
-                          selectInterest = values.map((e) => e.toString()).toList();
-                        },
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Interest"),
+                        MultiSelectionDialog(
+                          initialValue: selectInterest,
+                          items: Constant.Interests.map((e) => MultiSelectItem(e, e)).toList(),
+                          onConfirm: (values) {
+                            selectInterest = values.map((e) => e.toString()).toList();
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Education"),
-                      ProfileDropDown(
-                        listItem: educations,
-                        value: education,
-                        onChanged: (value) {
-                          setState(() {
-                            education = value!;
-                          });
-                        },
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Education"),
+                        ProfileDropDown(
+                          listItem: Constant.Educations,
+                          value: education,
+                          onChanged: (value) {
+                            setState(() {
+                              education = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Experience"),
-                      TextField(
-                        maxLines: 5,
-                        controller: _experienceController,
-                        decoration: _decoration(false),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Experience"),
+                        TextField(
+                          maxLines: 5,
+                          controller: _experienceController,
+                          decoration: _decoration(false),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Language"),
-                      MultiSelectionDialog(
-                        initialValue: selectLanguage,
-                        items: countries.map((e) => MultiSelectItem(e, e)).toList(),
-                        onConfirm: (values) {
-                          selectLanguage = values.map((e) => e.toString()).toList();
-                        },
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Language"),
+                        MultiSelectionDialog(
+                          initialValue: selectLanguage,
+                          items: Constant.Countries.map((e) => MultiSelectItem(e, e)).toList(),
+                          onConfirm: (values) {
+                            selectLanguage = values.map((e) => e.toString()).toList();
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Bio"),
-                      TextField(
-                        maxLines: 5,
-                        controller: _bioController,
-                        decoration: _decoration(false),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Bio"),
+                        TextField(
+                          maxLines: 5,
+                          controller: _bioController,
+                          decoration: _decoration(false),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Target Student"),
-                      ProfileDropDown(
-                        listItem: levels,
-                        value: targetStudent,
-                        onChanged: (value) {
-                          setState(() {
-                            targetStudent = value!;
-                          });
-                        },
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Target Student"),
+                        ProfileDropDown(
+                          listItem: Constant.Levels,
+                          value: targetStudent,
+                          onChanged: (value) {
+                            setState(() {
+                              targetStudent = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Video"),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: FloatingActionButton.extended(
-                              onPressed: () async {
-                                FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: false);
-                                if (result != null) {
-                                  _videoController.text = result.files.first.path!;
-                                } else {
-                                  print("NULLLLLLLLLLLLLLLLLLLLLLL");
-                                }
-                              },
-                              label: const Text("Choose your video"),
-                              icon: const Icon(Icons.video_collection, color: Colors.red),
-                              elevation: 1,
-                              backgroundColor: Colors.black38,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Video"),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FloatingActionButton.extended(
+                                onPressed: () async {
+                                  FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: false);
+                                  if (result != null) {
+                                    _videoController.text = result.files.first.path!;
+                                  } else {
+                                    print("NULLLLLLLLLLLLLLLLLLLLLLL");
+                                  }
+                                },
+                                label: const Text("Choose your video"),
+                                icon: const Icon(Icons.video_collection, color: Colors.red),
+                                elevation: 1,
+                                backgroundColor: Colors.black38,
+                              ),
                             ),
-                          ),
-                          TextField(
-                            readOnly: true,
-                            keyboardType: TextInputType.url,
-                            controller: _videoController,
-                            decoration: _decoration(false),
-                          ),
-                        ],
-                      ),
-                    ],
+                            TextField(
+                              readOnly: true,
+                              keyboardType: TextInputType.url,
+                              controller: _videoController,
+                              decoration: _decoration(false),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ProfileComponentLabel(label: "Price"),
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        controller: _priceController,
-                        decoration: _decoration(false),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ProfileComponentLabel(label: "Price"),
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          controller: _priceController,
+                          decoration: _decoration(false),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                LongFloatingButton(
-                  onPressed: () {
-                    /*Tutor newTutor = Tutor(
-                        "id",
-                        mainUser.id,
-                        _videoController.text,
-                        _bioController.text,
-                        education,
-                        _experienceController.text,
-                        [],
-                        targetStudent,
-                        'interest',
-                        selectLanguage,
-                        [],
-                        true,
-                        true
-                    );*/
-                    Navigator.popAndPushNamed(context, HomePage.router);
-                  },
-                  child: const Text("Become a teacher"),
-                  color: Colors.green,
-                ),
-              ],
+                  LongFloatingButton(
+                    onPressed: () {
+                      Navigator.popAndPushNamed(context, HomePage.router);
+                    },
+                    child: const Text("Become a teacher"),
+                    color: Colors.green,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

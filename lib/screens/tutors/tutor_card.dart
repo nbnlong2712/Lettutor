@@ -6,6 +6,8 @@ import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_detail_screen.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
 
+import '../../home_page.dart';
+
 class TutorCard extends StatelessWidget {
   TutorCard({Key? key, required this.tutor}) : super(key: key);
 

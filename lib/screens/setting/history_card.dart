@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/screens/setting/feedback_screen.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
+import '../../home_page.dart';
 
 class HistoryCard extends StatelessWidget {
   HistoryCard({Key? key, required this.schedule}) : super(key: key);

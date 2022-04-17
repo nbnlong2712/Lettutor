@@ -52,11 +52,34 @@ class User {
       'country': country,
       'phone': phone,
       'language': language,
-      'birthday': birthday,
+      'birthday': "${birthday.year}-${birthday.month}-${birthday.day}",
       'isActivated': isActivated,
       'level': level,
       'learnTopics': learnTopics,
       'testPreparations': testPreparations
+    };
+  }
+
+  Map toJsonForUpdate(){
+    List<String> lt = [];
+    List<String> tp = [];
+
+    for (var element in learnTopics) {
+      lt.add('${element.id}');
+    }
+
+    for (var element in testPreparations) {
+      tp.add('${element.id}');
+    }
+
+    return {
+      'name': name,
+      'country': country,
+      'phone': phone,
+      'birthday': "${birthday.year}-${birthday.month}-${birthday.day}",
+      'level': level,
+      'learnTopics': lt,
+      'testPreparations': tp
     };
   }
 

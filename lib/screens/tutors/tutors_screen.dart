@@ -22,16 +22,14 @@ class _TutorsScreenState extends State<TutorsScreen> {
   void openFilterDialog() async {
     await FilterListDialog.display<String>(
       context,
-      listData: skills,
+      listData: Constant.Skills,
       enableOnlySingleSelection: true,
       hideSearchField: true,
       themeData: FilterListThemeData(context,
-          choiceChipTheme: const ChoiceChipThemeData(
-            selectedBackgroundColor: Colors.green,
-          ),
+          choiceChipTheme: const ChoiceChipThemeData(selectedBackgroundColor: Colors.green),
           controlButtonBarTheme: ControlButtonBarThemeData(
-              controlButtonTheme: const ControlButtonThemeData(
-                  primaryButtonBackgroundColor: Colors.green, textStyle: TextStyle(color: Colors.green)))),
+              controlButtonTheme:
+                  const ControlButtonThemeData(primaryButtonBackgroundColor: Colors.green, textStyle: TextStyle(color: Colors.green)))),
       selectedListData: selectedUserList,
       choiceChipLabel: (skill) => skill!,
       validateSelectedItem: (list, val) => list!.contains(val),
@@ -62,10 +60,7 @@ class _TutorsScreenState extends State<TutorsScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text(
-          "Tutors",
-          style: TextStyle(color: Colors.black),
-        ),
+        title: const Text("Tutors", style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: <Widget>[
