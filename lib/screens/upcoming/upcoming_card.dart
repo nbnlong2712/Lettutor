@@ -32,12 +32,12 @@ class UpcomingCard extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar)), radius: 35),
+                    child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar!)), radius: 35),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(mainUser.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+                      Text(mainUser.name!, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
                       Row(
                         children: <Widget>[
                           Text("${schedule.startTimestamp.year}/${schedule.startTimestamp.month}/${schedule.startTimestamp.day}"),

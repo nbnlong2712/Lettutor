@@ -28,8 +28,8 @@ class TutorCard extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: FileImage(File(mainUser.avatar)),
-                      radius: 30,
+                      backgroundImage: NetworkImage(tutor.avatar),
+                      radius: 27,
                     ),
                     Column(
                       children: <Widget>[
@@ -40,17 +40,11 @@ class TutorCard extends StatelessWidget {
                             children: <Widget>[
                               Column(
                                 children: <Widget>[
-                                  Text(
-                                    mainUser.name,
-                                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                  ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                                    child: Row(
-                                      children: [
-                                        Text("5", style: const TextStyle(fontSize: 17, color: Colors.red)),
-                                        const Icon(Icons.star, color: Colors.orangeAccent)
-                                      ],
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      tutor.name,
+                                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                                     ),
                                   ),
                                 ],
@@ -64,14 +58,7 @@ class TutorCard extends StatelessWidget {
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: <Widget>[
-                              SkillChip(skillName: "TOEFL"),
-                              SkillChip(skillName: "IELTS"),
-                              SkillChip(skillName: "Business English"),
-                              SkillChip(skillName: "TOEIC"),
-                              SkillChip(skillName: "Millionaire"),
-                              SkillChip(skillName: "SAT"),
-                            ],
+                            children: tutor.specialties!.map((e) => SkillChip(skillName: e)).toList(),
                           ),
                         ),
                       ],
@@ -80,7 +67,7 @@ class TutorCard extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                  child: Text(tutor.bio),
+                  child: Text(tutor.bio!),
                 ),
               ],
             ),

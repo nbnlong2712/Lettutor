@@ -44,10 +44,10 @@ class _CommentCardState extends State<CommentCard> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      CircleAvatar(backgroundImage: FileImage(File(user.avatar)), radius: 22),
+                      CircleAvatar(backgroundImage: FileImage(File(user.avatar!)), radius: 22),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(user.name, style: const TextStyle(fontSize: 17)),
+                        child: Text(user.name!, style: const TextStyle(fontSize: 17)),
                       )
                     ],
                   ),

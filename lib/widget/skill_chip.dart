@@ -12,12 +12,13 @@ class SkillChip extends StatelessWidget {
       child: Chip(
         label: Text(
           skillName,
-          style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w600),
+          style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w500),
         ),
-        backgroundColor: const Color.fromRGBO(0, 187, 0, 220),
+        backgroundColor: const Color.fromRGBO(0, 187, 0, 220).withOpacity(0.06),
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: const BorderSide(color: Colors.lightGreen)),
+            borderRadius: BorderRadius.circular(40),
+            side: BorderSide(color: Colors.lightGreen, width: 0.5)
+        ),
       ),
     );
   }

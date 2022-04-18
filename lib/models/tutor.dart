@@ -1,4 +1,6 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:recase/recase.dart';
 
 class Tutor {
   late String id;
@@ -7,23 +9,23 @@ class Tutor {
   late String email;
   late String name;
   late String avatar;
-  late String country;
+  String? country;
   String? phone;
-  late DateTime birthday;
-  late String level;
-  late String video;
-  late String bio;
-  late String education;
-  late String experience;
-  late List<String> profession;
-  late String targetStudent;
-  late String interests;
-  late List<String> languages;
-  late List<String> specialties;
-  late bool isActivated;
-  late int price;
-  late double avgRating;
-  late bool isOnline;
+  DateTime? birthday;
+  String? level;
+  String? video;
+  String? bio;
+  String? education;
+  String? experience;
+  List<String>? profession;
+  String? targetStudent;
+  String? interests;
+  List<String>? languages;
+  List<String>? specialties;
+  bool? isActivated;
+  int? price;
+  double? avgRating;
+  bool? isOnline;
 
   Tutor(
       this.id,
@@ -49,29 +51,30 @@ class Tutor {
       this.avgRating,
       this.isOnline);
 
-  Tutor.fromJson(Map json)
-      : id = json['id'],
-        userId = json['userId'],
-        video = json['video'],
-        bio = json['bio'],
-        education = json['education'],
-        experience = json['experience'],
-        profession = List<String>.from(json['profession']),
-        targetStudent = json['targetStudent'],
-        interests = json['interests'],
-        price = json['price'],
-        level = json['level'],
-        email = json['email'],
-        avatar = json['avatar'],
-        name = json['name'],
-        country = json['country'],
-        phone = json['phone'],
-        languages = List<String>.from(json['languages']),
-        specialties = List<String>.from(json['specialties']),
-        birthday = DateFormat("yyyy-MM-dd").parse(json['birthday']),
-        isActivated = json['isActivated'],
-        avgRating = json['avgRating'],
-        isOnline = json['isOnline'];
+  Tutor.fromJson(Map json) {
+    id = json['id'];
+    userId = json['userId'];
+    video = json['video'];
+    bio = json['bio'];
+    education = json['education'];
+    experience = json['experience'];
+    profession = json['profession'].split(',');
+    targetStudent = json['targetStudent'];
+    interests = json['interests'];
+    price = json['price'];
+    level = json['level'];
+    email = json['email'];
+    avatar = json['avatar'];
+    name = json['name'];
+    country = json['country'];
+    phone = json['phone'];
+    languages = json['languages'].split(',');
+    specialties = ReCase(json['specialties'].replaceAll("-", "+").replaceAll(",", " ")).titleCase.replaceAll(" ", ",").replaceAll("+", " ").split(',');
+    birthday = DateFormat("yyyy-MM-dd").parse(json['birthday']);
+    isActivated = json['isActivated'];
+    avgRating = json['avgRating'];
+    isOnline = json['isOnline'];
+  }
 
   Map toJson() {
     return {

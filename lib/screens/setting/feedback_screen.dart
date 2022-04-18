@@ -74,7 +74,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar)), radius: 35),
+                child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar!)), radius: 35),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -83,7 +83,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: Text(mainUser.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
+                      child: Text(mainUser.name!, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
                     ),
                     Row(
                       children: <Widget>[

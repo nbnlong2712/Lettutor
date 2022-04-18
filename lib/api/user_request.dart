@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -26,6 +28,7 @@ class UserRequest {
     if (response.statusCode == 200) {
       return parseUser(response.body);
     } else {
+      navigateToLogin(response.statusCode);
       throw Exception('Error ${response.statusCode}');
     }
   }
@@ -34,13 +37,20 @@ class UserRequest {
   static Future<bool> updateUser(User user) async {
     Map<String, String> map = await header();
     final jsonBody = json.encode(user.toJsonForUpdate());
-    print(jsonBody);
     final response = await http.put(Uri.parse('$url/user/info'), headers: map, body: jsonBody);
     if (response.statusCode == 200) {
       return true;
     } else {
-      print(response.statusCode);
+      navigateToLogin(response.statusCode);
       return false;
     }
+  }
+
+  static void navigateToLogin(statusCode)
+  {
+    if(statusCode == 401)
+      {
+        navigatorKey.currentState!.pushNamed(LoginScreen.router);
+      }
   }
 }

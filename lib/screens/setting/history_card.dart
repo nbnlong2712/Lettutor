@@ -34,14 +34,14 @@ class HistoryCard extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar)), radius: 35),
+                    child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar!)), radius: 35),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(mainUser.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                        Text(mainUser.name!, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                         Row(
                           children: <Widget>[
                             const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.calendar_today_outlined)),

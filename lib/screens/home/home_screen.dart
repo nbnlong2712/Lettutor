@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               child: CircleAvatar(
-                backgroundImage: NetworkImage(mainUser.avatar),
+                backgroundImage: NetworkImage(mainUser.avatar!),
                 backgroundColor: Colors.black12,
               ),
               onTap: () {

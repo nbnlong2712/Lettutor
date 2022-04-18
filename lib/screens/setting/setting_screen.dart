@@ -44,14 +44,14 @@ class SettingScreen extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(14.0),
-                    child: CircleAvatar(backgroundImage: NetworkImage(mainUser.avatar), radius: 40),
+                    child: CircleAvatar(backgroundImage: NetworkImage(mainUser.avatar!), radius: 40),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(6.0),
-                        child: Text(mainUser.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                        child: Text(mainUser.name!, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                       ),
                       Padding(padding: const EdgeInsets.all(6.0), child: Text(mainUser.email, style: const TextStyle(color: Colors.black54))),
                     ],

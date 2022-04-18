@@ -1,9 +1,12 @@
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/api/tutor_request.dart';
 import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_card.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/app_search_bar.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:recase/recase.dart';
 
 class TutorsScreen extends StatefulWidget {
   static const router = "/tutor-screen";
@@ -16,8 +19,8 @@ class TutorsScreen extends StatefulWidget {
 
 class _TutorsScreenState extends State<TutorsScreen> {
   List<TutorCard> tutorList = [];
-
   List<String> selectedUserList = [];
+  bool isShowIndicator = false;
 
   void openFilterDialog() async {
     await FilterListDialog.display<String>(
@@ -48,11 +51,22 @@ class _TutorsScreenState extends State<TutorsScreen> {
   @override
   void initState() {
     super.initState();
+    fetchTutorList();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void fetchTutorList() async{
+    setState(() {
+      isShowIndicator = true;
+    });
+    await TutorRequest.fetchAllTutor().then((value) {
+      tutorList = value.map((tutor) => TutorCard(tutor: tutor)).toList();
+      setState(() {
+        isShowIndicator = false;
+      });
+    }).catchError((e){
+      print(e);
+      isShowIndicator = false;
+    });
   }
 
   @override
@@ -75,26 +89,30 @@ class _TutorsScreenState extends State<TutorsScreen> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Flex(
-            direction: Axis.vertical,
-            children: <Widget>[
-              AppSearchBar(hint: "Search tutors...", onQueryChanged: (query) {}),
-              Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      children: tutorList,
+      body: ModalProgressHUD(
+        inAsyncCall: isShowIndicator,
+        dismissible: !isShowIndicator,
+        child: SingleChildScrollView(
+          child: Center(
+            child: Flex(
+              direction: Axis.vertical,
+              children: <Widget>[
+                AppSearchBar(hint: "Search tutors...", onQueryChanged: (query) {}),
+                Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.721,
+                      width: MediaQuery.of(context).size.width,
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        children: tutorList,
+                      ),
                     ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

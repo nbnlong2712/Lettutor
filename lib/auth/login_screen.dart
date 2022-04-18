@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/api/api_request.dart';
+import 'package:flutter_lettutor/api/tutor_request.dart';
 import 'package:flutter_lettutor/api/auth_request.dart';
 import 'package:flutter_lettutor/api/user_request.dart';
 import 'package:flutter_lettutor/auth/forget_password_screen.dart';
@@ -38,21 +38,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void getUserFromAccessToken() async {
-    if (mounted) {
-      setState(() {
-        showIndicator = true;
-      });
-    }
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString("access") != null) {
       if (prefs.getString("access")!.isNotEmpty) {
+        if (mounted) {
+          setState(() {
+            showIndicator = true;
+          });
+        }
         await UserRequest.fetchUser().then((value) {
           mainUser = value;
-          if (mounted) {
             setState(() {
               showIndicator = false;
             });
-          }
           Navigator.pushNamedAndRemoveUntil(context, HomePage.router, ModalRoute.withName(HomePage.router));
         }).catchError((e) {
           if (mounted) {
@@ -80,6 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         child: ModalProgressHUD(
           inAsyncCall: showIndicator,
+          dismissible: !showIndicator,
           child: SingleChildScrollView(
             child: SafeArea(
               child: Center(
@@ -170,6 +169,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 await AuthRequest.fetchToken(email, password).then((value) async {
                                   prefs.setString("access", value.tokens!.access!.token!);
                                   prefs.setString("refresh", value.tokens!.refresh!.token!);
+                                  await UserRequest.fetchUser().then((value1) {
+                                    mainUser = value1;
+                                  });
                                   setState(() {
                                     showIndicator = false;
                                   });

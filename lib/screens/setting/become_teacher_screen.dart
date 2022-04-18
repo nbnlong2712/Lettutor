@@ -57,7 +57,7 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
   @override
   void initState() {
     super.initState();
-    _nameController.text = mainUser.name;
+    _nameController.text = mainUser.name!;
   }
 
   @override

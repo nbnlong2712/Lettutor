@@ -15,7 +15,10 @@ import 'package:flutter_lettutor/screens/upcoming/upcoming_screen.dart';
 import 'auth/forget_password_screen.dart';
 import 'auth/register_screen.dart';
 
+late final GlobalKey<NavigatorState> navigatorKey;
+
 void main() {
+  navigatorKey = GlobalKey<NavigatorState>();
   runApp(const MyApp());
 }
 
@@ -26,6 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

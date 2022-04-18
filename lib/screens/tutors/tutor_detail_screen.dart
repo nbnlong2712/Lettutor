@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/comment/comment_card.dart';
-import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/models/feedback.dart' as Fb;
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/booking/booking_screen.dart';
@@ -11,8 +11,6 @@ import 'package:flutter_lettutor/widget/report_chip.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_video.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
-
-import '../../home_page.dart';
 
 class TutorDetailScreen extends StatefulWidget {
   TutorDetailScreen({Key? key, required this.tutor}) : super(key: key);
@@ -25,12 +23,14 @@ class TutorDetailScreen extends StatefulWidget {
 
 class _TutorDetailScreenState extends State<TutorDetailScreen> {
   final TextEditingController _controller = TextEditingController();
+  String countryName = "";
 
   List<Fb.Feedback> feedbacks = [];
 
   @override
   void initState() {
     super.initState();
+    countryName = Country.parse(widget.tutor.country!).name;
   }
 
   @override
@@ -57,15 +57,15 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            CircleAvatar(backgroundImage: FileImage(File(widget.tutor.avatar)), radius: 30),
+                            CircleAvatar(backgroundImage: NetworkImage(widget.tutor.avatar), radius: 30),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(widget.tutor.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
-                                  Text(widget.tutor.bio, style: const TextStyle(color: Colors.grey)),
-                                  Text(widget.tutor.country, style: const TextStyle(fontWeight: FontWeight.w400))
+                                  Text(widget.tutor.interests!, style: const TextStyle(color: Colors.grey)),
+                                  Text(countryName, style: const TextStyle(fontWeight: FontWeight.w400))
                                 ],
                               ),
                             ),
@@ -184,22 +184,22 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       ],
                     ),
                   ),
-                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(widget.tutor.bio)),
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(widget.tutor.bio!)),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const Text("Languages", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
-                        SizedBox(
+                        /*SizedBox(
                           height: MediaQuery.of(context).size.height * 0.045,
                           width: MediaQuery.of(context).size.width * 0.95,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: widget.tutor.languages.map((e) => SkillChip(skillName: e)).toList(),
+                            children: widget.tutor.specialties!.map((e) => SkillChip(skillName: e)).toList(),
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ),
@@ -209,15 +209,15 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const Text("Interest", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
-                        SizedBox(
+                        /*SizedBox(
                           height: MediaQuery.of(context).size.height * 0.045,
                           width: MediaQuery.of(context).size.width * 0.95,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: widget.tutor.specialties.map((e) => SkillChip(skillName: e)).toList(),
+                            children: widget.tutor.specialties!.map((e) => SkillChip(skillName: e)).toList(),
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ),

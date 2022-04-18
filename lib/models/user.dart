@@ -4,16 +4,16 @@ import 'package:intl/intl.dart';
 class User {
   late String id;
   late String email;
-  late String name;
-  late String avatar;
-  late String country;
+  String? name;
+  String? avatar;
+  String? country;
   String? phone;
-  late String language;
-  late DateTime birthday;
-  late bool isActivated;
-  late String level;
-  late List<Subject> learnTopics;
-  late List<Subject> testPreparations;
+  String? language;
+  DateTime? birthday;
+  bool? isActivated;
+  String? level;
+  List<Subject>? learnTopics;
+  List<Subject>? testPreparations;
 
   User(this.id, this.email, this.name, this.avatar, this.country, this.phone, this.language, this.birthday, this.isActivated, this.level,
       this.learnTopics, this.testPreparations);
@@ -32,13 +32,13 @@ class User {
     if (map['learnTopics'] != null) {
       learnTopics = List<Subject>.empty(growable: true);
       map['learnTopics'].forEach((v) {
-        learnTopics.add(Subject.fromJson(v));
+        learnTopics!.add(Subject.fromJson(v));
       });
     }
     if (map['testPreparations'] != null) {
       testPreparations = List<Subject>.empty(growable: true);
       map['testPreparations'].forEach((v) {
-        testPreparations.add(Subject.fromJson(v));
+        testPreparations!.add(Subject.fromJson(v));
       });
     }
   }
@@ -52,7 +52,7 @@ class User {
       'country': country,
       'phone': phone,
       'language': language,
-      'birthday': "${birthday.year}-${birthday.month}-${birthday.day}",
+      'birthday': "${birthday!.year}-${birthday!.month}-${birthday!.day}",
       'isActivated': isActivated,
       'level': level,
       'learnTopics': learnTopics,
@@ -63,20 +63,17 @@ class User {
   Map toJsonForUpdate(){
     List<String> lt = [];
     List<String> tp = [];
-
-    for (var element in learnTopics) {
+    for (var element in learnTopics!) {
       lt.add('${element.id}');
     }
-
-    for (var element in testPreparations) {
+    for (var element in testPreparations!) {
       tp.add('${element.id}');
     }
-
     return {
       'name': name,
       'country': country,
       'phone': phone,
-      'birthday': "${birthday.year}-${birthday.month}-${birthday.day}",
+      'birthday': "${birthday!.year}-${birthday!.month}-${birthday!.day}",
       'level': level,
       'learnTopics': lt,
       'testPreparations': tp

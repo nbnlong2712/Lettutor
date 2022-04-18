@@ -59,9 +59,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    _nameController.text = mainUser.name;
+    _nameController.text = mainUser.name!;
     _phoneController.text = mainUser.phone!;
-    _countryController.text = mainUser.country.isNotEmpty ? mainUser.country : "VN";
+    _countryController.text = mainUser.country!.isNotEmpty ? mainUser.country! : "VN";
   }
 
   @override
@@ -106,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               }
                             },
                             child: CircleAvatar(
-                              backgroundImage: NetworkImage(mainUser.avatar),
+                              backgroundImage: NetworkImage(mainUser.avatar!),
                               radius: 55,
                             ),
                           ),
@@ -206,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ProfileComponentLabel(label: "Level"),
                             ProfileDropDown(
                               listItem: Constant.Levels,
-                              value: mainUser.level,
+                              value: mainUser.level!,
                               onChanged: (value) {
                                 setState(() {
                                   mainUser.level = value!;
@@ -231,7 +231,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     children: [
                                       Text("Subjects", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800)),
                                       MultiSelectionDialog(
-                                        initialValue: mainUser.learnTopics.map((e) => e.name).toList(),
+                                        initialValue: mainUser.learnTopics!.map((e) => e.name).toList(),
                                         items: Constant.LearnTopics.map((e) => MultiSelectItem(e.name, e.name)).toList(),
                                         onConfirm: (values) {
                                           mainUser.learnTopics = values.map((e) => Subject.getLearnTopicByName(e.toString())).toList(growable: true);
@@ -247,7 +247,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     children: [
                                       Text("Test preparation", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800)),
                                       MultiSelectionDialog(
-                                        initialValue: mainUser.testPreparations.map((e) => e.name).toList(),
+                                        initialValue: mainUser.testPreparations!.map((e) => e.name).toList(),
                                         items: Constant.TestPreparations.map((e) => MultiSelectItem(e.name, e.name)).toList(),
                                         onConfirm: (values) {
                                           mainUser.testPreparations =

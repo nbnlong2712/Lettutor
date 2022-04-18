@@ -33,7 +33,7 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                 Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: FileImage(File(mainUser.avatar)),
+                      backgroundImage: FileImage(File(mainUser.avatar!)),
                       radius: 30,
                     ),
                     Column(
@@ -87,7 +87,7 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                     ),
                   ],
                 ),
-                Padding(padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1), child: Text(widget.tutor.bio)),
+                Padding(padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1), child: Text(widget.tutor.bio!)),
               ],
             ),
           ),
