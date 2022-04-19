@@ -1,5 +1,3 @@
-import 'package:objectbox/objectbox.dart';
-
 class Schedule {
   late String id;
   late String tutorId;

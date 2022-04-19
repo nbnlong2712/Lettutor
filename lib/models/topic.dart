@@ -1,5 +1,3 @@
-import 'package:objectbox/objectbox.dart';
-
 class Topic {
   late String id;
   late String courseId;

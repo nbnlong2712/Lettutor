@@ -1,12 +1,13 @@
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/api/tutor_request.dart';
-import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/mobx/tutor_mobx.dart';
+import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_card.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/app_search_bar.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:recase/recase.dart';
+import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class TutorsScreen extends StatefulWidget {
   static const router = "/tutor-screen";
@@ -21,6 +22,8 @@ class _TutorsScreenState extends State<TutorsScreen> {
   List<TutorCard> tutorList = [];
   List<String> selectedUserList = [];
   bool isShowIndicator = false;
+  TutorMobx tutorMobx = TutorMobx();
+  String queryStr = "";
 
   void openFilterDialog() async {
     await FilterListDialog.display<String>(
@@ -28,6 +31,7 @@ class _TutorsScreenState extends State<TutorsScreen> {
       listData: Constant.Skills,
       enableOnlySingleSelection: true,
       hideSearchField: true,
+      headlineText: "Subject",
       themeData: FilterListThemeData(context,
           choiceChipTheme: const ChoiceChipThemeData(selectedBackgroundColor: Colors.green),
           controlButtonBarTheme: ControlButtonBarThemeData(
@@ -48,24 +52,54 @@ class _TutorsScreenState extends State<TutorsScreen> {
     );
   }
 
+  List<Tutor> filterTutor() {
+    List<Tutor> tutorFound = [];
+    if (selectedUserList.isEmpty) {
+      tutorFound = tutorMobx.tutorList;
+    } else {
+      String subjectStr = toBeginningOfSentenceCase(selectedUserList[0].toLowerCase())!;
+      for (Tutor tutor in tutorMobx.tutorList) {
+        if (tutor.specialties!.contains(subjectStr)) {
+          tutorFound.add(tutor);
+        }
+      }
+    }
+    return tutorFound;
+  }
+
+  List<Tutor> searchTutor(String query) {
+    List<Tutor> foundTutor = [];
+    List<Tutor> tutors = filterTutor();
+    if (query.isEmpty) {
+      return tutors;
+    } else {
+      for (var tutor in tutors) {
+        if (tutor.name.toLowerCase().contains(query.toLowerCase())) {
+          foundTutor.add(tutor);
+        }
+      }
+      return foundTutor;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     fetchTutorList();
   }
 
-  void fetchTutorList() async{
+  void fetchTutorList() async {
     setState(() {
       isShowIndicator = true;
     });
-    await TutorRequest.fetchAllTutor().then((value) {
-      tutorList = value.map((tutor) => TutorCard(tutor: tutor)).toList();
+    tutorMobx.initTask().then((_) {
       setState(() {
         isShowIndicator = false;
       });
-    }).catchError((e){
-      print(e);
-      isShowIndicator = false;
+    }).catchError((e) {
+      setState(() {
+        isShowIndicator = false;
+      });
     });
   }
 
@@ -97,16 +131,26 @@ class _TutorsScreenState extends State<TutorsScreen> {
             child: Flex(
               direction: Axis.vertical,
               children: <Widget>[
-                AppSearchBar(hint: "Search tutors...", onQueryChanged: (query) {}),
+                AppSearchBar(
+                    hint: "Search tutors...",
+                    onQueryChanged: (query) {
+                      setState(() {
+                        queryStr = query;
+                      });
+                    }),
                 Column(
                   children: <Widget>[
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.721,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        children: tutorList,
+                      child: Observer(
+                        builder: (_) {
+                          return ListView(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            children: searchTutor(queryStr).map((tutor) => TutorCard(tutor: tutor)).toList(),
+                          );
+                        },
                       ),
                     ),
                   ],

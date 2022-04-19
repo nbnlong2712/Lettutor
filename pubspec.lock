@@ -232,13 +232,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  flat_buffers:
-    dependency: transitive
-    description:
-      name: flat_buffers
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.5"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -251,6 +244,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  flutter_mobx:
+    dependency: "direct main"
+    description:
+      name: flutter_mobx
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
   flutter_neumorphic:
     dependency: "direct main"
     description:
@@ -401,6 +401,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  mobx:
+    dependency: "direct main"
+    description:
+      name: mobx
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.6+1"
+  mobx_codegen:
+    dependency: "direct dev"
+    description:
+      name: mobx_codegen
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5+2"
   modal_progress_hud:
     dependency: "direct main"
     description:
@@ -422,20 +436,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  objectbox:
-    dependency: transitive
-    description:
-      name: objectbox
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.1"
-  objectbox_generator:
-    dependency: "direct dev"
-    description:
-      name: objectbox_generator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.1"
   package_config:
     dependency: transitive
     description:
