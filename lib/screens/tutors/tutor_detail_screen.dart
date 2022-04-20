@@ -215,7 +215,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Text(widget.tutor.interests!, style: TextStyle(color: Colors.black54)),
+                          child: Text(widget.tutor.interests!, style: const TextStyle(color: Colors.black54)),
                         ),
                       ],
                     ),

@@ -32,9 +32,11 @@ class TopicCard extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              topicName,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            Flexible(
+              child: Text(
+                topicName,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
             ),
           ],
         ),

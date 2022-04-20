@@ -3,6 +3,7 @@ import 'package:flutter_lettutor/models/course.dart';
 import 'package:flutter_lettutor/screens/course/courses/course_component_label.dart';
 import 'package:flutter_lettutor/screens/course/courses/course_header.dart';
 import 'package:flutter_lettutor/screens/course/courses/topic_card.dart';
+import 'package:recase/recase.dart';
 
 class DetailCourseScreen extends StatefulWidget {
   DetailCourseScreen({Key? key, required this.course}) : super(key: key);
@@ -18,27 +19,9 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
 
   final TextStyle _style = const TextStyle(color: Colors.black54);
 
-  final _topics = [
-    "Marco Van Baasten",
-    "Thierry Henry",
-    "Lionel Messi",
-    "Công Phượng",
-    "Phillipe Coutinho",
-    "Luka Modric",
-    "Sergio Busquest",
-    "Dani Alves",
-    "Marcel Desailly",
-    "Virgil Van Dijk",
-    "Phillip Lahm",
-    "Thibaut Courtois"
-  ];
-
-  late List<TopicCard> _topicList;
-
   @override
   void initState() {
     super.initState();
-    _topicList = List.generate(_topics.length, (index) => TopicCard(orderNumber: index, topicName: _topics[index]));
   }
 
   @override
@@ -55,7 +38,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    CourseHeader(background: widget.course.imageUrl!, totalTutors: totalTutors, totalLessons: 9),
+                    CourseHeader(background: widget.course.imageUrl!, totalTutors: totalTutors, totalLessons: widget.course.topicsLength!),
                     Container(
                       width: _width,
                       padding: const EdgeInsets.all(12.0),
@@ -99,12 +82,12 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[CourseComponentLabel(label: "Level"), const Text("Intermediate")],
+                        children: <Widget>[CourseComponentLabel(label: "Level"), Text(ReCase(widget.course.level!).titleCase)],
                       ),
                     ),
                     Container(
                       width: _width,
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -112,7 +95,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                           Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Column(
-                              children: _topicList,
+                              children: widget.course.topics!.map((e) => TopicCard(orderNumber: e.orderCourse!, topicName: e.name!)).toList(),
                             ),
                           ),
                         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/api/course_request.dart';
 import 'package:flutter_lettutor/models/course.dart';
 import 'package:flutter_lettutor/screens/course/courses/detail_course_screen.dart';
 import 'package:recase/recase.dart';
@@ -62,15 +63,17 @@ class CourseCard extends StatelessWidget {
           ),
         ),
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailCourseScreen(
-              course: course,
+      onTap: () async {
+        await CourseRequest.fetchCourse(course.id).then((value) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailCourseScreen(
+                course: value,
+              ),
             ),
-          ),
-        );
+          );
+        });
       },
     );
   }

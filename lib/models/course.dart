@@ -18,11 +18,8 @@ class Course {
   Course.fromJson(Map map) {
     id = map['id'];
     name = map['name'];
-    description = map['description'];
     imageUrl = map['imageUrl'];
     level = Constant.Levels[map['level']];
-    reason = map['reason'];
-    purpose = map['purpose'];
     if (map['topics'] != null) {
       topicsLength = map['topics'].length;
     } else {
@@ -39,7 +36,6 @@ class Course {
     level = Constant.Levels[json['level']];
     reason = json['reason'];
     purpose = json['purpose'];
-    category = json['categories'][0]['title'];
     if (json['topics'] != null) {
       topicsLength = json['topics'].length;
     } else {

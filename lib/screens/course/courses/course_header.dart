@@ -20,7 +20,7 @@ class CourseHeader extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.3,
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(background), fit: BoxFit.fitWidth),
+        image: DecorationImage(image: NetworkImage(background), fit: BoxFit.fitWidth),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
