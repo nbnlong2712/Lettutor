@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/comment/comment_card.dart';
 import 'package:flutter_lettutor/models/feedback.dart' as Fb;
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/booking/booking_screen.dart';
+import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/report_chip.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_video.dart';
@@ -34,11 +34,6 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -48,6 +43,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
             direction: Axis.vertical,
             children: <Widget>[
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const TutorVideo(),
                   Padding(
@@ -64,7 +60,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(widget.tutor.name, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
-                                  Text(widget.tutor.interests!, style: const TextStyle(color: Colors.grey)),
+                                  Text(widget.tutor.profession!, style: const TextStyle(color: Colors.grey)),
                                   Text(countryName, style: const TextStyle(fontWeight: FontWeight.w400))
                                 ],
                               ),
@@ -77,15 +73,15 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  Text("5", style: const TextStyle(fontSize: 17, color: Colors.red)),
+                                  Text("${double.parse((widget.tutor.avgRating!).toStringAsFixed(1))}",
+                                      style: const TextStyle(fontSize: 17, color: Colors.red)),
                                   const Icon(Icons.star, color: Colors.orangeAccent)
                                 ],
                               ),
                             ),
                             GestureDetector(
                               child: Icon(true ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
-                              onTap: () {
-                              },
+                              onTap: () {},
                             ),
                           ],
                         )
@@ -98,7 +94,9 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                         context: context,
                         isScrollControlled: true,
                         builder: (context) => SingleChildScrollView(
-                          child: BookingScreen(tutor: widget.tutor,),
+                          child: BookingScreen(
+                            tutor: widget.tutor,
+                          ),
                         ),
                       );
                     },
@@ -184,22 +182,41 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       ],
                     ),
                   ),
-                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8.0), child: Text(widget.tutor.bio!)),
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4), child: Text(widget.tutor.bio!)),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 14.0),
+                    padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Text("Languages", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
-                        /*SizedBox(
+                        const Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Text("Languages", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
+                        ),
+                        SizedBox(
                           height: MediaQuery.of(context).size.height * 0.045,
                           width: MediaQuery.of(context).size.width * 0.95,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: widget.tutor.specialties!.map((e) => SkillChip(skillName: e)).toList(),
+                            children: widget.tutor.languages!.map((e) => SkillChip(skillName: Constant.IsoLangs[e]['name'])).toList(),
                           ),
-                        ),*/
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Text("Interest", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(widget.tutor.interests!, style: TextStyle(color: Colors.black54)),
+                        ),
                       ],
                     ),
                   ),
@@ -208,38 +225,17 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Text("Interest", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
-                        /*SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.045,
-                          width: MediaQuery.of(context).size.width * 0.95,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            children: widget.tutor.specialties!.map((e) => SkillChip(skillName: e)).toList(),
-                          ),
-                        ),*/
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 14.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text("Specialties", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
+                        const Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Text("Specialties", style: TextStyle(color: Colors.green, fontSize: 18, fontWeight: FontWeight.w600)),
+                        ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.045,
                           width: MediaQuery.of(context).size.width * 0.95,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: <Widget>[
-                              SkillChip(skillName: "TOEFL"),
-                              SkillChip(skillName: "IELTS"),
-                              SkillChip(skillName: "Business English"),
-                              SkillChip(skillName: "TOEIC"),
-                              SkillChip(skillName: "Millionaire"),
-                            ],
+                            children: widget.tutor.specialties!.map((e) => SkillChip(skillName: e)).toList(),
                           ),
                         ),
                       ],

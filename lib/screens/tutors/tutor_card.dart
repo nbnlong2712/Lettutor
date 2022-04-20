@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/api/tutor_request.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_detail_screen.dart';
@@ -74,17 +75,18 @@ class TutorCard extends StatelessWidget {
           ),
         ),
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TutorDetailScreen(
-              tutor: tutor,
+      onTap: () async {
+        await TutorRequest.fetchTutor(tutor.userId).then((value) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TutorDetailScreen(
+                tutor: value,
+              ),
             ),
-          ),
-        );
+          );
+        });
       },
     );
-    ;
   }
 }

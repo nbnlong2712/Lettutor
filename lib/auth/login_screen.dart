@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/api/tutor_request.dart';
 import 'package:flutter_lettutor/api/auth_request.dart';
 import 'package:flutter_lettutor/api/user_request.dart';
 import 'package:flutter_lettutor/auth/forget_password_screen.dart';
 import 'package:flutter_lettutor/auth/register_screen.dart';
 import 'package:flutter_lettutor/home_page.dart';
-import 'package:flutter_lettutor/models/user.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'components/auth_button.dart';

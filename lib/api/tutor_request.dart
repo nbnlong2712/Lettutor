@@ -39,7 +39,7 @@ class TutorRequest {
   //Fetch single Tutor from server
   static Tutor parseTutor(String responseBody) {
     var tutorJson = json.decode(responseBody);
-    Tutor tutor = Tutor.fromJson(tutorJson);
+    Tutor tutor = Tutor.fromJsonForDetail(tutorJson);
     return tutor;
   }
 

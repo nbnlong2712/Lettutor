@@ -11,7 +11,6 @@ class Tutor {
   late String avatar;
   String? country;
   String? phone;
-  DateTime? birthday;
   String? level;
   String? video;
   String? bio;
@@ -22,36 +21,30 @@ class Tutor {
   String? interests;
   List<String>? languages;
   List<String>? specialties;
-  bool? isActivated;
   int? price;
   double? avgRating;
-  bool? isOnline;
 
-  Tutor(
-      this.id,
-      this.userId,
-      this.email,
-      this.name,
-      this.avatar,
-      this.country,
-      this.phone,
-      this.birthday,
-      this.level,
-      this.video,
-      this.bio,
-      this.education,
-      this.experience,
-      this.profession,
-      this.targetStudent,
-      this.interests,
-      this.languages,
-      this.specialties,
-      this.isActivated,
-      this.price,
-      this.avgRating,
-      this.isOnline);
+  Tutor(this.id, this.userId, this.email, this.name, this.avatar, this.country, this.phone, this.level, this.video, this.bio, this.education,
+      this.experience, this.profession, this.targetStudent, this.interests, this.languages, this.specialties, this.price, this.avgRating);
 
   Tutor.fromJson(Map json) {
+    id = json['id'];
+    userId = json['userId'];
+    bio = json['bio'];
+    education = json['education'];
+    experience = json['experience'];
+    profession = json['profession'];
+    targetStudent = json['targetStudent'];
+    interests = json['interests'];
+    level = json['level'];
+    email = json['email'];
+    avatar = json['avatar'];
+    name = json['name'];
+    specialties =
+        ReCase(json['specialties'].replaceAll("-", "+").replaceAll(",", " ")).titleCase.replaceAll(" ", ",").replaceAll("+", " ").split(',');
+  }
+
+  Tutor.fromJsonForDetail(Map json) {
     id = json['id'];
     userId = json['userId'];
     video = json['video'];
@@ -62,18 +55,16 @@ class Tutor {
     targetStudent = json['targetStudent'];
     interests = json['interests'];
     price = json['price'];
-    level = json['level'];
-    email = json['email'];
-    avatar = json['avatar'];
-    name = json['name'];
-    country = json['country'];
-    phone = json['phone'];
+    level = json['User']['level'];
+    email = json['User']['email'];
+    avatar = json['User']['avatar'];
+    name = json['User']['name'];
+    country = json['User']['country'];
+    phone = json['User']['phone'];
     languages = json['languages'].split(',');
-    specialties = ReCase(json['specialties'].replaceAll("-", "+").replaceAll(",", " ")).titleCase.replaceAll(" ", ",").replaceAll("+", " ").split(',');
-    birthday = DateFormat("yyyy-MM-dd").parse(json['birthday']);
-    isActivated = json['isActivated'];
+    specialties =
+        ReCase(json['specialties'].replaceAll("-", "+").replaceAll(",", " ")).titleCase.replaceAll(" ", ",").replaceAll("+", " ").split(',');
     avgRating = json['avgRating'];
-    isOnline = json['isOnline'];
   }
 
   Map toJson() {
@@ -96,15 +87,12 @@ class Tutor {
       'phone': phone,
       'languages': languages,
       'specialties': specialties,
-      'birthday': birthday,
-      'isActivated': isActivated,
-      'avgRating': avgRating,
-      'isOnline': isOnline
+      'avgRating': avgRating
     };
   }
 
   @override
   String toString() {
-    return 'Tutor{id: $id, userId: $userId, email: $email, name: $name, avatar: $avatar, country: $country, phone: $phone, birthday: $birthday, level: $level, video: $video, bio: $bio, education: $education, experience: $experience, profession: $profession, targetStudent: $targetStudent, interests: $interests, languages: $languages, specialties: $specialties, isActivated: $isActivated, price: $price, avrRating: $avgRating, isOnline: $isOnline}';
+    return 'Tutor{id: $id, userId: $userId, email: $email, name: $name, avatar: $avatar, country: $country, phone: $phone, level: $level, video: $video, bio: $bio, education: $education, experience: $experience, profession: $profession, targetStudent: $targetStudent, interests: $interests, languages: $languages, specialties: $specialties, price: $price, avrRating: $avgRating}';
   }
 }
