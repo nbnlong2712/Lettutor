@@ -205,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: <Widget>[
                             ProfileComponentLabel(label: "Level"),
                             ProfileDropDown(
-                              listItem: Constant.Levels,
+                              listItem: Constant.Levels.values.toList(),
                               value: mainUser.level!,
                               onChanged: (value) {
                                 setState(() {

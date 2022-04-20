@@ -32,7 +32,7 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
   List<String> selectInterest = [];
   List<String> selectLanguage = [];
 
-  String targetStudent = Constant.Levels[0];
+  String targetStudent = Constant.Levels.values.first;
   String education = Constant.Educations[0];
 
   InputDecoration _decoration(bool readOnly) {
@@ -209,7 +209,7 @@ class _BecomeTeacherScreenState extends State<BecomeTeacherScreen> {
                       children: <Widget>[
                         ProfileComponentLabel(label: "Target Student"),
                         ProfileDropDown(
-                          listItem: Constant.Levels,
+                          listItem: Constant.Levels.values.toList(),
                           value: targetStudent,
                           onChanged: (value) {
                             setState(() {

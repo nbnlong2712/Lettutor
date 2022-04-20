@@ -16,8 +16,8 @@ class UserRequest {
   }
 
   static User parseUser(String responseBody) {
-    var jsonMap = json.decode(responseBody);
-    User user = User.fromJson(jsonMap['user']);
+    var userJson = json.decode(responseBody);
+    User user = User.fromJson(userJson['user']);
     return user;
   }
 

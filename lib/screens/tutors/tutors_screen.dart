@@ -92,7 +92,7 @@ class _TutorsScreenState extends State<TutorsScreen> {
     setState(() {
       isShowIndicator = true;
     });
-    tutorMobx.initTask().then((_) {
+    tutorMobx.initTutors().then((_) {
       setState(() {
         isShowIndicator = false;
       });

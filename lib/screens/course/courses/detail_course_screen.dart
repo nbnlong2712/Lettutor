@@ -55,13 +55,13 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    CourseHeader(background: widget.course.imageUrl, totalTutors: totalTutors, totalLessons: 9),
+                    CourseHeader(background: widget.course.imageUrl!, totalTutors: totalTutors, totalLessons: 9),
                     Container(
                       width: _width,
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[CourseComponentLabel(label: "About Course"), Text(widget.course.description, style: _style)],
+                        children: <Widget>[CourseComponentLabel(label: "About Course"), Text(widget.course.description!, style: _style)],
                       ),
                     ),
                     Container(
@@ -80,7 +80,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                               ],
                             ),
                           ),
-                          Text(widget.course.reason, style: _style),
+                          Text(widget.course.reason!, style: _style),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 6.0),
                             child: Row(
@@ -90,7 +90,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                               ],
                             ),
                           ),
-                          Text(widget.course.purpose, style: _style),
+                          Text(widget.course.purpose!, style: _style),
                         ],
                       ),
                     ),

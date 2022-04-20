@@ -10,7 +10,7 @@ abstract class TutorBase with Store {
   ObservableList<Tutor> tutorList = ObservableList.of([]);
 
   @action
-  Future<void> initTask() async{
+  Future<void> initTutors() async{
     await TutorRequest.fetchAllTutor().then((list) => tutorList = ObservableList.of(list));
   }
 }

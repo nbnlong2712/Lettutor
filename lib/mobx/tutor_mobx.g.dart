@@ -24,11 +24,11 @@ mixin _$TutorMobx on TutorBase, Store {
     });
   }
 
-  final _$initTaskAsyncAction = AsyncAction('TutorBase.initTask');
+  final _$initTutorsAsyncAction = AsyncAction('TutorBase.initTutors');
 
   @override
-  Future<void> initTask() {
-    return _$initTaskAsyncAction.run(() => super.initTask());
+  Future<void> initTutors() {
+    return _$initTutorsAsyncAction.run(() => super.initTutors());
   }
 
   @override

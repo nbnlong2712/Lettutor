@@ -17,7 +17,7 @@ class Tutor {
   String? bio;
   String? education;
   String? experience;
-  List<String>? profession;
+  String? profession;
   String? targetStudent;
   String? interests;
   List<String>? languages;
@@ -58,7 +58,7 @@ class Tutor {
     bio = json['bio'];
     education = json['education'];
     experience = json['experience'];
-    profession = json['profession'].split(',');
+    profession = json['profession'];
     targetStudent = json['targetStudent'];
     interests = json['interests'];
     price = json['price'];

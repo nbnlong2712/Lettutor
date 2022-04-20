@@ -1,10 +1,10 @@
 class Topic {
-  late String id;
-  late String courseId;
-  late int orderCourse;
-  late String name;
-  late String nameFile;
-  late String description;
+  String? id;
+  String? courseId;
+  int? orderCourse;
+  String? name;
+  String? nameFile;
+  String? description;
 
   Topic(this.id, this.courseId, this.orderCourse, this.name, this.nameFile, this.description);
 

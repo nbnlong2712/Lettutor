@@ -1,12 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
-import 'package:flutter_lettutor/models/token.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../main.dart';
 
 class TutorRequest {
@@ -18,8 +14,8 @@ class TutorRequest {
     return head;
   }
 
-  //Tutor
-  static List<Tutor> parseTutor(String responseBody) {
+  //Fetch all Tutor from server
+  static List<Tutor> parseListTutors(String responseBody) {
     var list = json.decode(responseBody);
     List<Tutor> tutors = List.empty(growable: true);
     if (list['tutors']['rows'] != null) {
@@ -32,6 +28,23 @@ class TutorRequest {
 
   static Future<List<Tutor>> fetchAllTutor() async {
     final response = await http.get(Uri.parse('$url/tutor/more'), headers: await header());
+    if (response.statusCode == 200) {
+      return parseListTutors(response.body);
+    } else {
+      navigateToLogin(response.statusCode);
+      throw Exception('Cant get tutor list');
+    }
+  }
+
+  //Fetch single Tutor from server
+  static Tutor parseTutor(String responseBody) {
+    var tutorJson = json.decode(responseBody);
+    Tutor tutor = Tutor.fromJson(tutorJson);
+    return tutor;
+  }
+
+  static Future<Tutor> fetchTutor(String tutorId) async {
+    final response = await http.get(Uri.parse('$url/tutor/$tutorId'), headers: await header());
     if (response.statusCode == 200) {
       return parseTutor(response.body);
     } else {

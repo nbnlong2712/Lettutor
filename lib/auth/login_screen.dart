@@ -48,9 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         await UserRequest.fetchUser().then((value) {
           mainUser = value;
+          if (mounted) {
             setState(() {
               showIndicator = false;
             });
+          }
           Navigator.pushNamedAndRemoveUntil(context, HomePage.router, ModalRoute.withName(HomePage.router));
         }).catchError((e) {
           if (mounted) {

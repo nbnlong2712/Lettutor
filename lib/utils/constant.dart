@@ -65,14 +65,32 @@ class Constant {
     "Egypt",
   ];
 
-  static const List<String> Levels = [
-    "BEGINNER",
-    "HIGHER_BEGINNER",
-    "PRE_INTERMEDIATE",
-    "INTERMEDIATE",
-    "UPPER_INTERMEDIATE",
-    "ADVANCED",
-    "PROFICIENCY"
+  static const Map<String, String> Levels = {
+    "0": "ANY LEVEL",
+    "1": "BEGINNER",
+    "2": "HIGHER_BEGINNER",
+    "3": "PRE_INTERMEDIATE",
+    "4": "INTERMEDIATE",
+    "5": "UPPER_INTERMEDIATE",
+    "6": "ADVANCED",
+    "7": "PROFICIENCY"
+  };
+
+  static const List<String> Categories = [
+    "For studying abroad",
+    "English for Traveling",
+    "Conversational English",
+    "English for Beginners"
+    "Business English",
+    "STARTERS",
+    "English for Kid",
+    "PET",
+    "KET",
+    "MOVERS",
+    "FLYERS",
+    "TOEFL",
+    "TOEIC"
+    "IETLS",
   ];
 
   static const List<String> Skills = [
