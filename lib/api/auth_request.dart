@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/message.dart';
 import 'package:flutter_lettutor/models/token.dart';
 import 'package:flutter_lettutor/models/user.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +16,13 @@ class AuthRequest {
     "Content-Type": "application/json",
   };
 
+  static Future<Map<String, String>> headers() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, String> head = {"Content-Type": "application/json", "Authorization": "Bearer ${prefs.getString("access")}"};
+    return head;
+  }
+
+  // Fetch auth token
   static Token parseToken(String responseBody) {
     var jsonMap = json.decode(responseBody);
     Token token = Token.fromJson(jsonMap);
@@ -28,10 +36,28 @@ class AuthRequest {
     if (response.statusCode == 200) {
       return parseToken(response.body);
     } else {
-      if (response.statusCode == 401) {
-        navigatorKey.currentState!.pushNamed(LoginScreen.router);
-      }
+      navigateToLogin(response.body);
       throw Exception('Error ${response.statusCode}');
+    }
+  }
+
+  static Message parseMessage(String responseBody, int code) {
+    var jsonMap = json.decode(responseBody);
+    Message message = Message.fromJson(jsonMap, code);
+    return message;
+  }
+
+  static Future<Message> changePassword(String oldPassword, String newPassword) async {
+    final body = {'password': oldPassword, 'newPassword': newPassword};
+    final jsonBody = json.encode(body);
+    final response = await http.post(Uri.parse('$url/auth/change-password'), headers: await headers(), body: jsonBody);
+    navigateToLogin(response.body);
+    return parseMessage(response.body, response.statusCode);
+  }
+
+  static void navigateToLogin(statusCode) {
+    if (statusCode == 401) {
+      navigatorKey.currentState!.pushNamed(LoginScreen.router);
     }
   }
 }
