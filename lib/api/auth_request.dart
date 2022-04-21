@@ -41,6 +41,7 @@ class AuthRequest {
     }
   }
 
+  //Change password
   static Message parseMessage(String responseBody, int code) {
     var jsonMap = json.decode(responseBody);
     Message message = Message.fromJson(jsonMap, code);
@@ -51,6 +52,15 @@ class AuthRequest {
     final body = {'password': oldPassword, 'newPassword': newPassword};
     final jsonBody = json.encode(body);
     final response = await http.post(Uri.parse('$url/auth/change-password'), headers: await headers(), body: jsonBody);
+    navigateToLogin(response.body);
+    return parseMessage(response.body, response.statusCode);
+  }
+
+  //Forget password
+  static Future<Message> forgotPassword(String email) async {
+    final body = {'email': email};
+    final jsonBody = json.encode(body);
+    final response = await http.post(Uri.parse('$url/user/forgotPassword'), headers: header, body: jsonBody);
     navigateToLogin(response.body);
     return parseMessage(response.body, response.statusCode);
   }

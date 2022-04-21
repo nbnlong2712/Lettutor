@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/register_screen.dart';
+import 'package:flutter_lettutor/api/auth_request.dart';
 
 import 'components/auth_button.dart';
 import 'components/auth_textfield.dart';
-import 'components/third_auth_button.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   static const router = "/forget-password-screen";
@@ -11,6 +10,10 @@ class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({Key? key}) : super(key: key);
 
   TextEditingController emailController = TextEditingController();
+
+  SnackBar _snackBar(String content, Color color) {
+    return SnackBar(content: Text(content, style: const TextStyle(color: Colors.white)), backgroundColor: color);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +34,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Image.asset("assets/images/logo.png"),
-                      const Text("LetTutor",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 40,
-                              color: Colors.green))
+                      const Text("LetTutor", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 40, color: Colors.green))
                     ],
                   ),
                 ),
@@ -59,7 +58,22 @@ class ForgetPasswordScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: AuthButton(
-                    onPressed: () {Navigator.pop(context);},
+                    onPressed: () async {
+                      if (emailController.text.isNotEmpty) {
+                        await AuthRequest.forgotPassword(emailController.text).then((value) {
+                          if(value.statusCode == 200)
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar(_snackBar("${value.message}!", Colors.green));
+                              Navigator.pop(context);
+                            }
+                          else{
+                            ScaffoldMessenger.of(context).showSnackBar(_snackBar("${value.message}!", Colors.red));
+                          }
+                        });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(_snackBar("Please fill enough!", Colors.red));
+                      }
+                    },
                     label: const Text(
                       "Reset Password",
                       style: TextStyle(fontSize: 16),
@@ -70,10 +84,10 @@ class ForgetPasswordScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.1,
                   child: GestureDetector(
                     child: const Text(
-                      "Goback to Login",
+                      "Back to Login",
                       style: TextStyle(color: Colors.green),
                     ),
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
                   ),
