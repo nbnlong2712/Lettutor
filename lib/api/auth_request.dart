@@ -10,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRequest {
   static const String url = "https://sandbox.api.lettutor.com";
-  BuildContext? context;
 
   static const Map<String, String> header = {
     "Content-Type": "application/json",

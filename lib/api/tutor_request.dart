@@ -53,6 +53,22 @@ class TutorRequest {
     }
   }
 
+  static double parseTutorRating(String responseBody) {
+    var tutorJson = json.decode(responseBody);
+    double rating = Tutor.fromJsonForRating(tutorJson).avgRating!;
+    return rating;
+  }
+
+  static Future<double> fetchTutorRating(String tutorId) async {
+    final response = await http.get(Uri.parse('$url/tutor/$tutorId'), headers: await header());
+    if (response.statusCode == 200) {
+      return parseTutorRating(response.body);
+    } else {
+      navigateToLogin(response.statusCode);
+      throw Exception('Cant get tutor');
+    }
+  }
+
   static void navigateToLogin(statusCode)
   {
     if(statusCode == 401)

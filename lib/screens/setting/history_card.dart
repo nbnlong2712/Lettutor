@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/models/booking.dart';
 import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/screens/setting/feedback_screen.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -8,10 +9,9 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../home_page.dart';
 
 class HistoryCard extends StatelessWidget {
-  HistoryCard({Key? key, required this.schedule}) : super(key: key);
+  HistoryCard({Key? key, required this.booking}) : super(key: key);
 
-  Schedule schedule;
-  int? mark;
+  Booking booking;
 
   @override
   Widget build(BuildContext context) {
@@ -34,30 +34,31 @@ class HistoryCard extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar!)), radius: 35),
+                    child: CircleAvatar(backgroundImage: NetworkImage(booking.tutorAvatar!), radius: 35),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(mainUser.name!, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                        Text(booking.tutorName!, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                         Row(
                           children: <Widget>[
                             const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.calendar_today_outlined)),
-                            Text("${schedule.startTimestamp.year}/${schedule.startTimestamp.month}/${schedule.startTimestamp.day}"),
+                            Text("${booking.startPeriodTimestamp!.year}/${booking.startPeriodTimestamp!.month}/${booking.startPeriodTimestamp!.day}"),
                           ],
                         ),
                         Row(
                           children: <Widget>[
                             const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.watch_later_outlined)),
-                            Text("${schedule.startTimestamp.hour}:${schedule.startTimestamp.minute} - ${schedule.endTimestamp.hour}:${schedule.endTimestamp.minute}"),
+                            Text(
+                                "${booking.startPeriodTimestamp!.hour}:${booking.startPeriodTimestamp!.minute} - ${booking.endPeriodTimestamp!.hour}:${booking.endPeriodTimestamp!.minute}"),
                           ],
                         ),
                         Row(
                           children: <Widget>[
                             const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.sports_score)),
-                            Text(mark == null ? "Tutor hasn't mark yet" : mark.toString()),
+                            Text(booking.scoreByTutor == null ? "Tutor hasn't mark yet" : booking.scoreByTutor.toString()),
                           ],
                         ),
                       ],
@@ -73,7 +74,7 @@ class HistoryCard extends StatelessWidget {
                     child: NeumorphicButton(
                       style: NeumorphicStyle(depth: 3, shape: NeumorphicShape.flat, intensity: 1, color: Colors.blue.shade100),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => FeedbackScreen(schedule: schedule)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => FeedbackScreen(booking: booking)));
                       },
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.32,

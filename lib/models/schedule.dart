@@ -1,11 +1,11 @@
 class Schedule {
-  late String id;
-  late String tutorId;
-  late String startTime;
-  late String endTime;
-  late DateTime startTimestamp;
-  late DateTime endTimestamp;
-  late bool isBooked;
+  String? id;
+  String? tutorId;
+  String? startTime;
+  String? endTime;
+  DateTime? startTimestamp;
+  DateTime? endTimestamp;
+  bool? isBooked;
 
   Schedule(this.id, this.tutorId, this.startTime, this.endTime, this.startTimestamp, this.endTimestamp, this.isBooked);
 

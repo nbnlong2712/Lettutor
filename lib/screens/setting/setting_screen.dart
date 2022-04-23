@@ -71,9 +71,12 @@ class SettingScreen extends StatelessWidget {
                   },
                   child: _widget(Icons.history, "Session history", Icons.arrow_forward_ios),
                   color: Colors.white),
-              LongFloatingButton(onPressed: () {
-                Navigator.pushNamed(context, AdvancedSettingScreen.router);
-              }, child: _widget(Icons.settings, "Advanced setting", Icons.arrow_forward_ios), color: Colors.white),
+              LongFloatingButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, AdvancedSettingScreen.router);
+                  },
+                  child: _widget(Icons.settings, "Advanced setting", Icons.arrow_forward_ios),
+                  color: Colors.white),
               LongFloatingButton(
                   onPressed: () {
                     Navigator.pushNamed(context, BecomeTeacherScreen.router);

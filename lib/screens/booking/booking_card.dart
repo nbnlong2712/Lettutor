@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/models/schedule.dart';
 
 class BookingCard extends StatefulWidget {
@@ -38,17 +37,17 @@ class _BookingCardState extends State<BookingCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Text("${widget.schedule.startTimestamp.year}/${widget.schedule.startTimestamp.month}/${widget.schedule.startTimestamp.day}"),
+                Text("${widget.schedule.startTimestamp!.year}/${widget.schedule.startTimestamp!.month}/${widget.schedule.startTimestamp!.day}"),
                 Chip(
                   backgroundColor: const Color.fromRGBO(0, 187, 0, 220),
-                  label: Text("${widget.schedule.startTimestamp.hour} : ${widget.schedule.startTimestamp.minute}",
+                  label: Text("${widget.schedule.startTimestamp!.hour} : ${widget.schedule.startTimestamp!.minute}",
                       style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w500)),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: const BorderSide(width: 1, color: Colors.green)),
                 ),
                 const Text(" - "),
                 Chip(
                   backgroundColor: Colors.orange.shade100,
-                  label: Text("${widget.schedule.endTimestamp.hour} : ${widget.schedule.endTimestamp.minute}",
+                  label: Text("${widget.schedule.endTimestamp!.hour} : ${widget.schedule.endTimestamp!.minute}",
                       style: const TextStyle(color: Colors.deepOrangeAccent, fontWeight: FontWeight.w500)),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5), side: const BorderSide(width: 1, color: Colors.deepOrangeAccent)),
@@ -56,7 +55,7 @@ class _BookingCardState extends State<BookingCard> {
               ],
             ),
           ),
-          color: widget.schedule.isBooked ? Colors.grey : Colors.white,
+          color: widget.schedule.isBooked! ? Colors.grey : Colors.white,
         ),
       ),
     );

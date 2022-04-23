@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/models/booking.dart';
 import 'package:flutter_lettutor/models/feedback.dart' as FB;
 import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
@@ -10,9 +11,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../home_page.dart';
 
 class FeedbackScreen extends StatefulWidget {
-  FeedbackScreen({Key? key, required this.schedule}) : super(key: key);
+  FeedbackScreen({Key? key, required this.booking}) : super(key: key);
 
-  Schedule schedule;
+  Booking booking;
 
   @override
   _FeedbackScreenState createState() => _FeedbackScreenState();
@@ -89,7 +90,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       children: <Widget>[
                         const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.calendar_today_outlined, color: Colors.black54, size: 20)),
                         Text(
-                          "${widget.schedule.startTimestamp.year}/${widget.schedule.startTimestamp.month}/${widget.schedule.startTimestamp.day}",
+                          "${widget.booking.startPeriodTimestamp!.year}/${widget.booking.startPeriodTimestamp!.month}/${widget.booking.startPeriodTimestamp!.day}",
                           style: const TextStyle(color: Colors.black54),
                         ),
                       ],
@@ -98,7 +99,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       children: <Widget>[
                         const Padding(padding: EdgeInsets.all(4.0), child: Icon(Icons.watch_later_outlined, color: Colors.black54, size: 20)),
                         Text(
-                          "${widget.schedule.startTimestamp.hour}:${widget.schedule.startTimestamp.minute} - ${widget.schedule.endTimestamp.hour}:${widget.schedule.endTimestamp.minute}",
+                          "${widget.booking.startPeriodTimestamp!.hour}:${widget.booking.startPeriodTimestamp!.minute} - ${widget.booking.endPeriodTimestamp!.hour}:${widget.booking.endPeriodTimestamp!.minute}",
                           style: const TextStyle(color: Colors.black54),
                         ),
                       ],

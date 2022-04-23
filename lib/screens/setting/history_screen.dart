@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/api/booking_request.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/main.dart';
+import 'package:flutter_lettutor/models/booking.dart';
 import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/screens/setting/history_card.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:lazy_loading_list/lazy_loading_list.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class HistoryScreen extends StatefulWidget {
   static const String router = "/history-screen";
@@ -15,16 +19,27 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  List<Schedule> historyList = [];
+  List<Booking> historyList = [];
+  bool isShowIndicator = true;
 
   @override
   void initState() {
     super.initState();
+    fetchHistoryBooking();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void fetchHistoryBooking() async {
+    await BookingRequest.fetchAllBookings().then((value) {
+      historyList = value;
+      setState(() {
+        isShowIndicator = false;
+      });
+    }).catchError((e){
+      print(e);
+      setState(() {
+        isShowIndicator = false;
+      });
+    });
   }
 
   @override
@@ -45,22 +60,28 @@ class _HistoryScreenState extends State<HistoryScreen> {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: SafeArea(
-            child: Flex(
-              direction: Axis.vertical,
-              children: <Widget>[
-                SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    children: historyList.map((e) => HistoryCard(schedule: e)).toList(),
+      body: ModalProgressHUD(
+        inAsyncCall: isShowIndicator,
+        child: SingleChildScrollView(
+          child: Center(
+            child: SafeArea(
+              child: Flex(
+                direction: Axis.vertical,
+                children: <Widget>[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                      itemCount: historyList.length,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index){
+                        return HistoryCard(booking: historyList[index]);
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

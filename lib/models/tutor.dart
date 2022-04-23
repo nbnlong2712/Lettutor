@@ -67,6 +67,11 @@ class Tutor {
     avgRating = json['avgRating'];
   }
 
+  Tutor.fromJsonForRating(Map json)
+  {
+    avgRating = json['avgRating'];
+  }
+
   Map toJson() {
     return {
       'id': id,

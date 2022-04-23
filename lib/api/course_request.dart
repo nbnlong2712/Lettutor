@@ -62,5 +62,4 @@ class CourseRequest{
       navigatorKey.currentState!.pushNamed(LoginScreen.router);
     }
   }
-
 }

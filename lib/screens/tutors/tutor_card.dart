@@ -1,17 +1,34 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/api/tutor_request.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_detail_screen.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
 
-import '../../home_page.dart';
-
-class TutorCard extends StatelessWidget {
+class TutorCard extends StatefulWidget {
   TutorCard({Key? key, required this.tutor}) : super(key: key);
 
   Tutor tutor;
+
+  @override
+  State<TutorCard> createState() => _TutorCardState();
+}
+
+class _TutorCardState extends State<TutorCard> {
+  double avgRating = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchRating();
+  }
+
+  void fetchRating() async{
+    await TutorRequest.fetchTutorRating(widget.tutor.userId).then((value){
+      setState(() {
+        avgRating = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +45,7 @@ class TutorCard extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: NetworkImage(tutor.avatar),
+                      backgroundImage: NetworkImage(widget.tutor.avatar),
                       radius: 27,
                     ),
                     Column(
@@ -43,8 +60,17 @@ class TutorCard extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Text(
-                                      tutor.name,
+                                      widget.tutor.name,
                                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                                    child: Row(
+                                      children: [
+                                        Text("${double.parse((avgRating).toStringAsFixed(1))}", style: const TextStyle(fontSize: 17, color: Colors.red)),
+                                        const Icon(Icons.star, color: Colors.orangeAccent)
+                                      ],
                                     ),
                                   ),
                                 ],
@@ -58,7 +84,7 @@ class TutorCard extends StatelessWidget {
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: tutor.specialties!.map((e) => SkillChip(skillName: e)).toList(),
+                            children: widget.tutor.specialties!.map((e) => SkillChip(skillName: e)).toList(),
                           ),
                         ),
                       ],
@@ -67,7 +93,7 @@ class TutorCard extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
-                  child: Text(tutor.bio!),
+                  child: Text(widget.tutor.bio!),
                 ),
               ],
             ),
@@ -75,7 +101,7 @@ class TutorCard extends StatelessWidget {
         ),
       ),
       onTap: () async {
-        await TutorRequest.fetchTutor(tutor.userId).then((value) {
+        await TutorRequest.fetchTutor(widget.tutor.userId).then((value) {
           Navigator.push(
             context,
             MaterialPageRoute(
