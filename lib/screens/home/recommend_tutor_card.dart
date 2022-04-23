@@ -49,15 +49,6 @@ class _RecommendTutorCardState extends State<RecommendTutorCard> {
                                     "widget.tutor.name",
                                     style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                                    child: Row(
-                                      children: [
-                                        Text("widget.tutor.stars", style: const TextStyle(fontSize: 17, color: Colors.red)),
-                                        const Icon(Icons.star, color: Colors.orangeAccent)
-                                      ],
-                                    ),
-                                  ),
                                 ],
                               ),
                               GestureDetector(

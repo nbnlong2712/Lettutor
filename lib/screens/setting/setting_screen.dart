@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/screens/setting/advanced_setting_screen.dart';
 import 'package:flutter_lettutor/screens/setting/become_teacher_screen.dart';
 import 'package:flutter_lettutor/screens/setting/change_password_screen.dart';
 import 'package:flutter_lettutor/screens/setting/history_screen.dart';
@@ -70,7 +71,9 @@ class SettingScreen extends StatelessWidget {
                   },
                   child: _widget(Icons.history, "Session history", Icons.arrow_forward_ios),
                   color: Colors.white),
-              LongFloatingButton(onPressed: () {}, child: _widget(Icons.settings, "Advanced setting", Icons.arrow_forward_ios), color: Colors.white),
+              LongFloatingButton(onPressed: () {
+                Navigator.pushNamed(context, AdvancedSettingScreen.router);
+              }, child: _widget(Icons.settings, "Advanced setting", Icons.arrow_forward_ios), color: Colors.white),
               LongFloatingButton(
                   onPressed: () {
                     Navigator.pushNamed(context, BecomeTeacherScreen.router);

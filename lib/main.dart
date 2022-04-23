@@ -11,6 +11,8 @@ import 'package:flutter_lettutor/screens/setting/history_screen.dart';
 import 'package:flutter_lettutor/screens/setting/setting_screen.dart';
 import 'package:flutter_lettutor/screens/tutors/tutors_screen.dart';
 import 'package:flutter_lettutor/screens/upcoming/upcoming_screen.dart';
+import 'package:flutter_lettutor/theme/theme_model.dart';
+import 'package:provider/provider.dart';
 
 import 'auth/forget_password_screen.dart';
 import 'auth/register_screen.dart';
@@ -27,35 +29,39 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      navigatorKey: navigatorKey,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
-      initialRoute: LoginScreen.router,
-      routes: {
-        //home page
-        HomePage.router: (context) => HomePage(),
-        //auth
-        LoginScreen.router: (context) => LoginScreen(),
-        RegisterScreen.router: (context) => RegisterScreen(),
-        ForgetPasswordScreen.router: (context) => ForgetPasswordScreen(),
-        ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
-        //main
-        HomeScreen.router: (context) => HomeScreen(),
-        CoursePage.router: (context) => CoursePage(),
-        SettingScreen.router: (context) => SettingScreen(),
-        TutorsScreen.router: (context) => TutorsScreen(),
-        UpcomingScreen.router: (context) => UpcomingScreen(),
-        //setting
-        ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
-        HistoryScreen.router: (context) => HistoryScreen(),
-        AdvancedSettingScreen.router: (context) => AdvancedSettingScreen(),
-        BecomeTeacherScreen.router: (context) => BecomeTeacherScreen(),
-      },
+    return ChangeNotifierProvider(
+      create: (_) => ThemeModel(),
+      child: Consumer<ThemeModel>(
+          builder: (context, ThemeModel themeNotifier, child) {
+            return MaterialApp(
+              title: 'Flutter Demo',
+              navigatorKey: navigatorKey,
+              theme: themeNotifier.isDark ? ThemeData.dark() : ThemeData.light(),
+              debugShowCheckedModeBanner: false,
+              home: LoginScreen(),
+              initialRoute: LoginScreen.router,
+              routes: {
+                //home page
+                HomePage.router: (context) => HomePage(),
+                //auth
+                LoginScreen.router: (context) => LoginScreen(),
+                RegisterScreen.router: (context) => RegisterScreen(),
+                ForgetPasswordScreen.router: (context) => ForgetPasswordScreen(),
+                ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
+                //main
+                HomeScreen.router: (context) => HomeScreen(),
+                CoursePage.router: (context) => CoursePage(),
+                SettingScreen.router: (context) => SettingScreen(),
+                TutorsScreen.router: (context) => TutorsScreen(),
+                UpcomingScreen.router: (context) => UpcomingScreen(),
+                //setting
+                ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
+                HistoryScreen.router: (context) => HistoryScreen(),
+                AdvancedSettingScreen.router: (context) => AdvancedSettingScreen(),
+                BecomeTeacherScreen.router: (context) => BecomeTeacherScreen(),
+              },
+            );
+          }),
     );
   }
 }

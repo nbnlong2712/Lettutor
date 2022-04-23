@@ -284,7 +284,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 isShowIndicator = false;
                               });
                               ScaffoldMessenger.of(context).showSnackBar(_snackBar("Update failed!", Colors.red));
-                              print(e);
                             });
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(_snackBar("Please fill enough!", Colors.red));
