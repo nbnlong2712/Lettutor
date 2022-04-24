@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/api/booking_request.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/main.dart';
-import 'package:flutter_lettutor/models/schedule.dart';
+import 'package:flutter_lettutor/models/booking.dart';
 import 'package:flutter_lettutor/screens/upcoming/upcoming_card.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class UpcomingScreen extends StatefulWidget {
   static const router = "/upcoming-screen";
@@ -14,17 +16,31 @@ class UpcomingScreen extends StatefulWidget {
 }
 
 class _UpcomingScreenState extends State<UpcomingScreen> {
-
-  List<Schedule> _upcomingList = [];
+  List<Booking> _upcomingList = [];
+  bool isShowIndicator = true;
 
   @override
   void initState() {
     super.initState();
+    fetchUpcomingList();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void fetchUpcomingList() async {
+    await BookingRequest.fetchAllBookingsUpcoming().then((value) {
+      for (var element in value) {
+        if (element.endPeriodTimestamp!.isAfter(DateTime.now())) {
+          _upcomingList.add(element);
+        }
+      }
+      setState(() {
+        isShowIndicator = false;
+      });
+    }).catchError((e) {
+      print(e);
+      setState(() {
+        isShowIndicator = false;
+      });
+    });
   }
 
   @override
@@ -39,22 +55,28 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: SafeArea(
-            child: Flex(
-              direction: Axis.vertical,
-              children: <Widget>[
-                SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    children: _upcomingList.map((e) => UpcomingCard(schedule: e)).toList(),
+      body: ModalProgressHUD(
+        inAsyncCall: isShowIndicator,
+        child: SingleChildScrollView(
+          child: Center(
+            child: SafeArea(
+              child: Flex(
+                direction: Axis.vertical,
+                children: <Widget>[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListView.builder(
+                      itemCount: _upcomingList.length,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return UpcomingCard(booking: _upcomingList[index]);
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

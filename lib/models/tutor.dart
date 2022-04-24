@@ -69,7 +69,7 @@ class Tutor {
 
   Tutor.fromJsonForRating(Map json)
   {
-    avgRating = json['avgRating'];
+    avgRating = json['avgRating'].toDouble();
   }
 
   Map toJson() {

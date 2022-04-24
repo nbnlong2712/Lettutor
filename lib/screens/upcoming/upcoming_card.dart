@@ -1,16 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/home_page.dart';
-import 'package:flutter_lettutor/main.dart';
-import 'package:flutter_lettutor/models/schedule.dart';
+import 'package:flutter_lettutor/models/booking.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class UpcomingCard extends StatelessWidget {
-  UpcomingCard({Key? key, required this.schedule}) : super(key: key);
+  UpcomingCard({Key? key, required this.booking}) : super(key: key);
 
-  Schedule schedule;
+  Booking booking;
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +30,20 @@ class UpcomingCard extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar!)), radius: 35),
+                    child: CircleAvatar(backgroundImage: NetworkImage(booking.tutorAvatar!), radius: 35),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(mainUser.name!, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+                      Text(booking.tutorName!, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
                       Row(
                         children: <Widget>[
-                          Text("${schedule.startTimestamp!.year}/${schedule.startTimestamp!.month}/${schedule.startTimestamp!.day}"),
+                          Text("${booking.startPeriodTimestamp!.year}/${booking.startPeriodTimestamp!.month}/${booking.startPeriodTimestamp!.day}"),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Chip(
                               backgroundColor: const Color.fromRGBO(0, 187, 0, 220),
-                              label: Text("${schedule.startTimestamp!.hour} : ${schedule.startTimestamp!.minute}",
+                              label: Text("${booking.startPeriodTimestamp!.hour} : ${booking.startPeriodTimestamp!.minute}",
                                   style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w500)),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5), side: const BorderSide(width: 1, color: Colors.green)),
@@ -56,7 +54,7 @@ class UpcomingCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 4.0),
                             child: Chip(
                               backgroundColor: Colors.orange.shade100,
-                              label: Text("${schedule.endTimestamp!.hour} : ${schedule.endTimestamp!.minute}",
+                              label: Text("${booking.endPeriodTimestamp!.hour} : ${booking.endPeriodTimestamp!.minute}",
                                   style: const TextStyle(color: Colors.deepOrangeAccent, fontWeight: FontWeight.w500)),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5), side: const BorderSide(width: 1, color: Colors.deepOrangeAccent)),
@@ -74,7 +72,6 @@ class UpcomingCard extends StatelessWidget {
                   NeumorphicButton(
                     style: NeumorphicStyle(depth: 3, shape: NeumorphicShape.flat, intensity: 0.9, color: Colors.red.shade100),
                     onPressed: () {
-                      schedule.isBooked = false;
                       Navigator.popAndPushNamed(context, HomePage.router);
                     },
                     child: SizedBox(

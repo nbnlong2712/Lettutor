@@ -20,8 +20,8 @@ class BookingRequest{
     return head;
   }
 
-  //Fetch Booked class from server
-  static List<Booking> parseListBookings(String responseBody) {
+  //Fetch Booked class from server by History
+  static List<Booking> parseListBookingsHistory(String responseBody) {
     var list = json.decode(responseBody);
     List<Booking> bookings = List.empty(growable: true);
     if (list['data']['rows'] != null) {
@@ -32,10 +32,32 @@ class BookingRequest{
     return bookings;
   }
 
-  static Future<List<Booking>> fetchAllBookings() async {
+  static Future<List<Booking>> fetchAllBookingsHistory() async {
     final response = await http.get(Uri.parse('$url/booking/list/student?orderBy=meeting&sortBy=desc&dateTimeLte=3642805436469&page=1&perPage=500'), headers: await headers());
     if (response.statusCode == 200) {
-      return parseListBookings(response.body);
+      return parseListBookingsHistory(response.body);
+    } else {
+      navigateToLogin(response.statusCode);
+      throw Exception('Cant get booking');
+    }
+  }
+
+  //Fetch Booked class from server by Upcoming
+  static List<Booking> parseListBookingsUpcoming(String responseBody) {
+    var list = json.decode(responseBody);
+    List<Booking> bookings = List.empty(growable: true);
+    if (list['data']['rows'] != null) {
+      list['data']['rows'].forEach((v) {
+        bookings.add(Booking.fromJsonForUpcoming(v));
+      });
+    }
+    return bookings;
+  }
+
+  static Future<List<Booking>> fetchAllBookingsUpcoming() async {
+    final response = await http.get(Uri.parse('$url/booking/list/student?orderBy=meeting&sortBy=desc&dateTimeLte=3642805436469&page=1&perPage=500'), headers: await headers());
+    if (response.statusCode == 200) {
+      return parseListBookingsUpcoming(response.body);
     } else {
       navigateToLogin(response.statusCode);
       throw Exception('Cant get booking');

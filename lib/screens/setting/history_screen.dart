@@ -29,13 +29,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   void fetchHistoryBooking() async {
-    await BookingRequest.fetchAllBookings().then((value) {
-      historyList = value;
+    await BookingRequest.fetchAllBookingsHistory().then((value) {
+      for (var element in value) {
+        if (element.endPeriodTimestamp!.isBefore(DateTime.now())) {
+          historyList.add(element);
+        }
+      }
       setState(() {
         isShowIndicator = false;
       });
-    }).catchError((e){
-      print(e);
+    }).catchError((e) {
       setState(() {
         isShowIndicator = false;
       });
@@ -75,7 +78,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       itemCount: historyList.length,
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemBuilder: (context, index){
+                      itemBuilder: (context, index) {
                         return HistoryCard(booking: historyList[index]);
                       },
                     ),
