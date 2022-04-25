@@ -21,6 +21,18 @@ class AuthRequest {
     return head;
   }
 
+  // Register
+  static Future<Message> register(String email, String password) async {
+    final body = {'email': email, 'password': password, 'source': null};
+    final jsonBody = json.encode(body);
+    final response = await http.post(Uri.parse('$url/auth/register'), headers: header, body: jsonBody);
+    if (response.statusCode ~/ 100 == 2) {
+      return Message(response.statusCode, "Register success!");
+    } else {
+      return parseMessage(response.body, response.statusCode);
+    }
+  }
+
   // Fetch auth token
   static Token parseToken(String responseBody) {
     var jsonMap = json.decode(responseBody);
