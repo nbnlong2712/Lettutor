@@ -24,9 +24,11 @@ class _TutorCardState extends State<TutorCard> {
 
   void fetchRating() async{
     await TutorRequest.fetchTutorRating(widget.tutor.userId).then((value){
-      setState(() {
-        avgRating = value;
-      });
+      if (mounted) {
+        setState(() {
+          avgRating = value;
+        });
+      }
     });
   }
 

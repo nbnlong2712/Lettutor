@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class TutorVideo extends StatefulWidget {
-  const TutorVideo({Key? key}) : super(key: key);
+  TutorVideo({Key? key, required this.videoUrl}) : super(key: key);
+
+  String videoUrl;
 
   @override
   _TutorVideoState createState() => _TutorVideoState();
@@ -16,8 +18,8 @@ class _TutorVideoState extends State<TutorVideo> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(
-      'assets/videos/test_video.mp4',
+    _controller = VideoPlayerController.network(
+      widget.videoUrl,
     );
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.setLooping(true);
@@ -35,6 +37,7 @@ class _TutorVideoState extends State<TutorVideo> {
     return SafeArea(
       child: Container(
           width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.25,
           child: FutureBuilder(
             future: _initializeVideoPlayerFuture,
             builder: (context, snapshot) {

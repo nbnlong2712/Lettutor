@@ -1,14 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/api/feedback_request.dart';
+import 'package:flutter_lettutor/home_page.dart';
 import 'package:flutter_lettutor/models/booking.dart';
 import 'package:flutter_lettutor/models/feedback.dart' as FB;
-import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-import '../../home_page.dart';
 
 class FeedbackScreen extends StatefulWidget {
   FeedbackScreen({Key? key, required this.booking}) : super(key: key);
@@ -51,11 +48,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -75,7 +67,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: CircleAvatar(backgroundImage: FileImage(File(mainUser.avatar!)), radius: 35),
+                child: CircleAvatar(backgroundImage: NetworkImage(widget.booking.tutorAvatar!), radius: 35),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -84,7 +76,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: Text(mainUser.name!, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
+                      child: Text(widget.booking.tutorName!, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
                     ),
                     Row(
                       children: <Widget>[
@@ -113,12 +105,14 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             initialRating: 3,
             minRating: 1,
             direction: Axis.horizontal,
-            allowHalfRating: true,
+            allowHalfRating: false,
             itemCount: 5,
             itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
             itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
             onRatingUpdate: (rating) {
-              rate = rating;
+              setState(() {
+                rate = rating;
+              });
             },
           ),
           Padding(
@@ -130,17 +124,20 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             ),
           ),
           LongFloatingButton(
-              onPressed: () {
+              onPressed: () async {
                 if (commentController.text.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(_snackBar("Please filled enough!", Colors.red));
                 } else {
-                  double star = 0;
-                  int length = 0;
-                  star += rate;
-                  length++;
-                  FB.Feedback feedback = FB.Feedback("id", "bookingId", tutor.id, mainUser.id, 5, "content", DateTime.now());
-                  ScaffoldMessenger.of(context).showSnackBar(_snackBar("Feedback sent!", Colors.green));
-                  Navigator.pop(context);
+                  await FeedbackRequest.postFeedback(widget.booking.id!, widget.booking.tutorId!, rate.toInt(), commentController.text).then((value) {
+                    if (value == true) {
+                      ScaffoldMessenger.of(context).showSnackBar(_snackBar("Feedback sent!", Colors.green));
+                      Navigator.pop(context);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(_snackBar("Feedback send failed!", Colors.red));
+                    }
+                  }).catchError((e) {
+                    ScaffoldMessenger.of(context).showSnackBar(_snackBar("Feedback send failed!", Colors.red));
+                  });
                 }
               },
               child: Row(

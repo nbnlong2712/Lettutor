@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/api/feedback_request.dart';
 import 'package:flutter_lettutor/comment/comment_card.dart';
 import 'package:flutter_lettutor/models/feedback.dart' as Fb;
 import 'package:flutter_lettutor/models/tutor.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_lettutor/widget/report_chip.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_video.dart';
 import 'package:flutter_lettutor/widget/skill_chip.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class TutorDetailScreen extends StatefulWidget {
   TutorDetailScreen({Key? key, required this.tutor}) : super(key: key);
@@ -24,6 +26,7 @@ class TutorDetailScreen extends StatefulWidget {
 class _TutorDetailScreenState extends State<TutorDetailScreen> {
   final TextEditingController _controller = TextEditingController();
   String countryName = "";
+  bool isShowIndicator = true;
 
   List<Fb.Feedback> feedbacks = [];
 
@@ -31,6 +34,24 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
   void initState() {
     super.initState();
     countryName = Country.parse(widget.tutor.country!).name;
+    fetchAllFeedbacks();
+  }
+
+  void fetchAllFeedbacks() async {
+    await FeedbackRequest.fetchAllFeedback(widget.tutor.userId).then((value) {
+      feedbacks = value;
+      for (var element in value) {
+        print(element.toString());
+      }
+      setState(() {
+        isShowIndicator = false;
+      });
+    }).catchError((e) {
+      print(e.toString() + "  asdadsdasdsdsadsadasdsadsadassadsdsdssad");
+      setState(() {
+        isShowIndicator = false;
+      });
+    });
   }
 
   @override
@@ -45,7 +66,9 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const TutorVideo(),
+                  TutorVideo(
+                    videoUrl: widget.tutor.video!,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -241,8 +264,17 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                       ],
                     ),
                   ),
-                  Column(
-                    children: feedbacks.map((e) => CommentCard(feedback: e)).toList(),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    width: MediaQuery.of(context).size.width,
+                    child: ModalProgressHUD(
+                      inAsyncCall: isShowIndicator,
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        children: feedbacks.map((e) => CommentCard(feedback: e)).toList(),
+                      ),
+                    ),
                   ),
                 ],
               ),

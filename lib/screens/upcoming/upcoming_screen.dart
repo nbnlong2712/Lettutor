@@ -37,9 +37,11 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
       });
     }).catchError((e) {
       print(e);
-      setState(() {
-        isShowIndicator = false;
-      });
+      if (mounted) {
+        setState(() {
+          isShowIndicator = false;
+        });
+      }
     });
   }
 

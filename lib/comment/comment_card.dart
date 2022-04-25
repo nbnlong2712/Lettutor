@@ -15,8 +15,6 @@ class CommentCard extends StatefulWidget {
 }
 
 class _CommentCardState extends State<CommentCard> {
-  late User user;
-
   @override
   void initState() {
     super.initState();
@@ -44,10 +42,10 @@ class _CommentCardState extends State<CommentCard> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      CircleAvatar(backgroundImage: FileImage(File(user.avatar!)), radius: 22),
+                      CircleAvatar(backgroundImage: NetworkImage(widget.feedback.studentAvatar!), radius: 22),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(user.name!, style: const TextStyle(fontSize: 17)),
+                        child: Text(widget.feedback.studentName!, style: const TextStyle(fontSize: 17)),
                       )
                     ],
                   ),
@@ -73,13 +71,13 @@ class _CommentCardState extends State<CommentCard> {
               ),
               Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: Text(widget.feedback.content, style: const TextStyle(fontSize: 16)),
+                child: Text(widget.feedback.content!, style: const TextStyle(fontSize: 16)),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Text(
-                    "${widget.feedback.createdAt.year}/${widget.feedback.createdAt.month}/${widget.feedback.createdAt.day} ${widget.feedback.createdAt.hour}:${widget.feedback.createdAt.minute}",
+                    "${widget.feedback.createdAt!.year}/${widget.feedback.createdAt!.month}/${widget.feedback.createdAt!.day} ${widget.feedback.createdAt!.hour}:${widget.feedback.createdAt!.minute}",
                     style: const TextStyle(color: Colors.black38),
                   ),
                 ],
