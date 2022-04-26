@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "433250602483",
+    "project_id": "let-tutor-3d3ef",
+    "storage_bucket": "let-tutor-3d3ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433250602483:android:9fa17a716b3985fd44d686",
+        "android_client_info": {
+          "package_name": "com.example.flutter_lettutor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433250602483-uakeg0si80hmqq9pvl3m7g6nj56ul3t5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC71arjCDBadR1IBR6y2q2OOpn8TRfnIMU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433250602483-uakeg0si80hmqq9pvl3m7g6nj56ul3t5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

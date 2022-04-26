@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_lettutor/api/auth_request.dart';
 import 'package:flutter_lettutor/api/user_request.dart';
 import 'package:flutter_lettutor/auth/forget_password_screen.dart';
 import 'package:flutter_lettutor/auth/register_screen.dart';
 import 'package:flutter_lettutor/home_page.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'components/auth_button.dart';
@@ -29,9 +31,17 @@ class _LoginScreenState extends State<LoginScreen> {
     return SnackBar(content: Text(content, style: const TextStyle(color: Colors.white)), backgroundColor: color);
   }
 
+  late GoogleSignIn _googleSignIn;
+
   @override
   void initState() {
     super.initState();
+    _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
     getUserFromAccessToken();
   }
 
@@ -203,11 +213,70 @@ class _LoginScreenState extends State<LoginScreen> {
                                 children: <Widget>[
                                   ThirdAuthButton(
                                     thirdParty: ThirdParty.Google,
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      setState(() {
+                                        showIndicator = true;
+                                      });
+                                      try {
+                                        final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+                                        final GoogleSignInAuthentication? googleAuth = await googleUser!.authentication;
+                                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                                        await AuthRequest.loginGoogle(googleAuth!.accessToken!).then((value) async {
+                                          prefs.setString("access", value.tokens!.access!.token!);
+                                          prefs.setString("refresh", value.tokens!.refresh!.token!);
+                                          await UserRequest.fetchUser().then((value1) {
+                                            mainUser = value1;
+                                          });
+                                          setState(() {
+                                            showIndicator = false;
+                                          });
+                                          ScaffoldMessenger.of(context).showSnackBar(_snackBar("Login success!", Colors.green));
+                                          Navigator.popAndPushNamed(context, HomePage.router);
+                                        });
+                                      } catch (e) {
+                                        print(e);
+                                        if (await GoogleSignIn().isSignedIn()) {
+                                          await GoogleSignIn().signOut();
+                                        }
+                                        setState(() {
+                                          showIndicator = false;
+                                        });
+                                        ScaffoldMessenger.of(context).showSnackBar(_snackBar("Login by Google failed!", Colors.red));
+                                      }
+                                    },
                                   ),
                                   ThirdAuthButton(
                                     thirdParty: ThirdParty.Facebook,
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      setState(() {
+                                        showIndicator = true;
+                                      });
+                                      final LoginResult result = await FacebookAuth.instance.login();
+                                      if (result.status == LoginStatus.success) {
+                                        final AccessToken accessToken = result.accessToken!;
+                                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                                        await AuthRequest.loginFacebook(accessToken.token).then((value) async {
+                                          prefs.setString("access", value.tokens!.access!.token!);
+                                          prefs.setString("refresh", value.tokens!.refresh!.token!);
+                                          await UserRequest.fetchUser().then((value1) {
+                                            mainUser = value1;
+                                          });
+                                          setState(() {
+                                            showIndicator = false;
+                                          });
+                                          ScaffoldMessenger.of(context).showSnackBar(_snackBar("Login success!", Colors.green));
+                                          Navigator.popAndPushNamed(context, HomePage.router);
+                                        }).catchError((e) {
+                                          setState(() {
+                                            showIndicator = false;
+                                          });
+                                          ScaffoldMessenger.of(context).showSnackBar(_snackBar("Login by Facebook failed!", Colors.red));
+                                        });
+                                      } else {
+                                        print("${result.status} STATUSHE");
+                                        print(result.message! + " MESSAGEEH");
+                                      }
+                                    },
                                   )
                                 ],
                               ),

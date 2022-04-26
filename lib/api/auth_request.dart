@@ -76,6 +76,32 @@ class AuthRequest {
     return parseMessage(response.body, response.statusCode);
   }
 
+  //Login with Facebook
+  static Future<Token> loginFacebook(String accessToken) async {
+    final body = {'access_token': accessToken};
+    final jsonBody = json.encode(body);
+    final response = await http.post(Uri.parse('$url/auth/facebook'), headers: header, body: jsonBody);
+    if (response.statusCode == 200) {
+      return parseToken(response.body);
+    } else {
+      navigateToLogin(response.body);
+      throw Exception('Error ${response.statusCode}');
+    }
+  }
+
+  //Login with Google
+  static Future<Token> loginGoogle(String accessToken) async {
+    final body = {'access_token': accessToken};
+    final jsonBody = json.encode(body);
+    final response = await http.post(Uri.parse('$url/auth/google'), headers: header, body: jsonBody);
+    if (response.statusCode == 200) {
+      return parseToken(response.body);
+    } else {
+      navigateToLogin(response.body);
+      throw Exception('Error ${response.statusCode}');
+    }
+  }
+
   static void navigateToLogin(statusCode) {
     if (statusCode == 401) {
       navigatorKey.currentState!.pushNamed(LoginScreen.router);

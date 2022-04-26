@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
 import 'package:flutter_lettutor/screens/setting/advanced_setting_screen.dart';
 import 'package:flutter_lettutor/screens/setting/become_teacher_screen.dart';
 import 'package:flutter_lettutor/screens/setting/change_password_screen.dart';
 import 'package:flutter_lettutor/screens/setting/history_screen.dart';
 import 'package:flutter_lettutor/widget/long_floating_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../home_page.dart';
@@ -90,6 +92,12 @@ class SettingScreen extends StatelessWidget {
                     SharedPreferences prefs = await SharedPreferences.getInstance();
                     prefs.setString("access", "");
                     prefs.setString("refresh", "");
+                    if (FacebookAuth.instance != null) {
+                      await FacebookAuth.instance.logOut();
+                    }
+                    if (await GoogleSignIn().isSignedIn()) {
+                      await GoogleSignIn().signOut();
+                    }
                     Navigator.pushNamedAndRemoveUntil(context, LoginScreen.router, (route) => false);
                   },
                   child: const Text("Logout", style: TextStyle(color: Colors.white)),

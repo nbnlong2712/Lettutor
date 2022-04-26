@@ -32,36 +32,37 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => ThemeModel(),
       child: Consumer<ThemeModel>(
-          builder: (context, ThemeModel themeNotifier, child) {
-            return MaterialApp(
-              title: 'Flutter Demo',
-              navigatorKey: navigatorKey,
-              theme: themeNotifier.isDark ? ThemeData.dark() : ThemeData.light(),
-              debugShowCheckedModeBanner: false,
-              home: LoginScreen(),
-              initialRoute: LoginScreen.router,
-              routes: {
-                //home page
-                HomePage.router: (context) => HomePage(),
-                //auth
-                LoginScreen.router: (context) => LoginScreen(),
-                RegisterScreen.router: (context) => RegisterScreen(),
-                ForgetPasswordScreen.router: (context) => ForgetPasswordScreen(),
-                ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
-                //main
-                HomeScreen.router: (context) => HomeScreen(),
-                CoursePage.router: (context) => CoursePage(),
-                SettingScreen.router: (context) => SettingScreen(),
-                TutorsScreen.router: (context) => TutorsScreen(),
-                UpcomingScreen.router: (context) => UpcomingScreen(),
-                //setting
-                ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
-                HistoryScreen.router: (context) => HistoryScreen(),
-                AdvancedSettingScreen.router: (context) => AdvancedSettingScreen(),
-                BecomeTeacherScreen.router: (context) => BecomeTeacherScreen(),
-              },
-            );
-          }),
+        builder: (context, ThemeModel themeNotifier, child) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            navigatorKey: navigatorKey,
+            theme: themeNotifier.isDark ? ThemeData.dark() : ThemeData.light(),
+            debugShowCheckedModeBanner: false,
+            home: LoginScreen(),
+            initialRoute: LoginScreen.router,
+            routes: {
+              //home page
+              HomePage.router: (context) => HomePage(),
+              //auth
+              LoginScreen.router: (context) => LoginScreen(),
+              RegisterScreen.router: (context) => RegisterScreen(),
+              ForgetPasswordScreen.router: (context) => ForgetPasswordScreen(),
+              ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
+              //main
+              HomeScreen.router: (context) => HomeScreen(),
+              CoursePage.router: (context) => CoursePage(),
+              SettingScreen.router: (context) => SettingScreen(),
+              TutorsScreen.router: (context) => TutorsScreen(),
+              UpcomingScreen.router: (context) => UpcomingScreen(),
+              //setting
+              ChangePasswordScreen.router: (context) => ChangePasswordScreen(),
+              HistoryScreen.router: (context) => HistoryScreen(),
+              AdvancedSettingScreen.router: (context) => AdvancedSettingScreen(),
+              BecomeTeacherScreen.router: (context) => BecomeTeacherScreen(),
+            },
+          );
+        },
+      ),
     );
   }
 }

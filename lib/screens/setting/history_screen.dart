@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/api/booking_request.dart';
-import 'package:flutter_lettutor/auth/login_screen.dart';
-import 'package:flutter_lettutor/main.dart';
 import 'package:flutter_lettutor/models/booking.dart';
-import 'package:flutter_lettutor/models/schedule.dart';
 import 'package:flutter_lettutor/screens/setting/history_card.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:lazy_loading_list/lazy_loading_list.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class HistoryScreen extends StatefulWidget {
