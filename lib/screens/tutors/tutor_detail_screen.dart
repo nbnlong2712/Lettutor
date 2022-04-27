@@ -40,9 +40,6 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
   void fetchAllFeedbacks() async {
     await FeedbackRequest.fetchAllFeedback(widget.tutor.userId).then((value) {
       feedbacks = value;
-      for (var element in value) {
-        print(element.toString());
-      }
       setState(() {
         isShowIndicator = false;
       });

@@ -1,3 +1,5 @@
+import 'package:flutter_lettutor/models/schedule_detail.dart';
+
 class Schedule {
   String? id;
   String? tutorId;
@@ -6,17 +8,24 @@ class Schedule {
   DateTime? startTimestamp;
   DateTime? endTimestamp;
   bool? isBooked;
+  List<ScheduleDetail>? scheduleDetails;
 
-  Schedule(this.id, this.tutorId, this.startTime, this.endTime, this.startTimestamp, this.endTimestamp, this.isBooked);
+  Schedule(this.id, this.tutorId, this.startTime, this.endTime, this.startTimestamp, this.endTimestamp, this.isBooked, this.scheduleDetails);
 
-  Schedule.fromJson(Map map)
-      : id = map['id'],
-        tutorId = map['tutorId'],
-        startTime = map['startTime'],
-        endTime = map['endTime'],
-        startTimestamp = DateTime.fromMillisecondsSinceEpoch(map['startTimestamp'] * 1000),
-        endTimestamp = DateTime.fromMillisecondsSinceEpoch(map['endTimestamp'] * 1000),
-        isBooked = map['isBooked'];
+  Schedule.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    tutorId = json['tutorId'];
+    startTime = json['startTime'];
+    endTime = json['endTime'];
+    startTimestamp = DateTime.fromMicrosecondsSinceEpoch(json['startTimestamp'] * 1000);
+    endTimestamp = DateTime.fromMicrosecondsSinceEpoch(json['endTimestamp'] * 1000);
+    if (json['scheduleDetails'] != null) {
+      scheduleDetails = <ScheduleDetail>[];
+      json['scheduleDetails'].forEach((v) {
+        scheduleDetails!.add(ScheduleDetail.fromJson(v));
+      });
+    }
+  }
 
   Map toJson() {
     return {
