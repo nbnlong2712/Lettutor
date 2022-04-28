@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/api/feedback_request.dart';
+import 'package:flutter_lettutor/api/tutor_request.dart';
 import 'package:flutter_lettutor/comment/comment_card.dart';
 import 'package:flutter_lettutor/models/feedback.dart' as Fb;
 import 'package:flutter_lettutor/models/tutor.dart';
@@ -100,8 +101,19 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                               ),
                             ),
                             GestureDetector(
-                              child: Icon(true ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
-                              onTap: () {},
+                              child: Icon(widget.tutor.isFavorite! ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
+                              onTap: () async {
+                                if (widget.tutor.isFavorite!) {
+                                  setState(() {
+                                    widget.tutor.isFavorite = false;
+                                  });
+                                } else {
+                                  setState(() {
+                                    widget.tutor.isFavorite = true;
+                                  });
+                                }
+                                await TutorRequest.addFavouriteTeacher(widget.tutor.userId);
+                              },
                             ),
                           ],
                         )

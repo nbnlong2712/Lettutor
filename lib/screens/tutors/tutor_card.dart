@@ -15,6 +15,7 @@ class TutorCard extends StatefulWidget {
 
 class _TutorCardState extends State<TutorCard> {
   double avgRating = 0.0;
+  bool isFavourite = false;
 
   @override
   void initState() {
@@ -22,11 +23,18 @@ class _TutorCardState extends State<TutorCard> {
     fetchRating();
   }
 
-  void fetchRating() async{
-    await TutorRequest.fetchTutorRating(widget.tutor.userId).then((value){
+  void fetchRating() async {
+    await TutorRequest.fetchTutorRating(widget.tutor.userId).then((value) {
       if (mounted) {
         setState(() {
           avgRating = value;
+        });
+      }
+    });
+    await TutorRequest.fetchTutorFavourite(widget.tutor.userId).then((value) {
+      if (mounted) {
+        setState(() {
+          isFavourite = value;
         });
       }
     });
@@ -70,12 +78,31 @@ class _TutorCardState extends State<TutorCard> {
                                     padding: const EdgeInsets.symmetric(horizontal: 5),
                                     child: Row(
                                       children: [
-                                        Text("${double.parse((avgRating).toStringAsFixed(1))}", style: const TextStyle(fontSize: 17, color: Colors.red)),
+                                        Text("${double.parse((avgRating).toStringAsFixed(1))}",
+                                            style: const TextStyle(fontSize: 17, color: Colors.red)),
                                         const Icon(Icons.star, color: Colors.orangeAccent)
                                       ],
                                     ),
                                   ),
                                 ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  child: Icon(isFavourite ? Icons.favorite : Icons.favorite_border, color: Colors.red, size: 30),
+                                  onTap: () async{
+                                    if (isFavourite) {
+                                      setState(() {
+                                        isFavourite = false;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        isFavourite = true;
+                                      });
+                                    }
+                                    await TutorRequest.addFavouriteTeacher(widget.tutor.userId);
+                                  },
+                                ),
                               ),
                             ],
                           ),

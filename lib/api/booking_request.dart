@@ -9,20 +9,20 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 
 class BookingRequest {
-  static const String url = "https://sandbox.api.lettutor.com";
+  static const String _url = "https://sandbox.api.lettutor.com";
 
-  static const Map<String, String> header = {
+  static const Map<String, String> _header = {
     "Content-Type": "application/json",
   };
 
-  static Future<Map<String, String>> headers() async {
+  static Future<Map<String, String>> _headers() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, String> head = {"Content-Type": "application/json", "Authorization": "Bearer ${prefs.getString("access")}"};
     return head;
   }
 
   //Book a class
-  static Message parseMessage(String responseBody, int code) {
+  static Message _parseMessage(String responseBody, int code) {
     var jsonMap = json.decode(responseBody);
     Message message = Message.fromJson(jsonMap, code);
     return message;
@@ -31,19 +31,19 @@ class BookingRequest {
   static Future<Message> bookMeeting(String scheduleDetailId, String note) async {
     final body = {"scheduleDetailIds": [scheduleDetailId], "note": note};
     final bodyJson = json.encode(body);
-    final response = await http.post(Uri.parse('$url/booking'), headers: await headers(), body: bodyJson);
+    final response = await http.post(Uri.parse('$_url/booking'), headers: await _headers(), body: bodyJson);
     if(response.statusCode == 200)
       {
-        return parseMessage(response.body, response.statusCode);
+        return _parseMessage(response.body, response.statusCode);
       }
     else{
-      navigateToLogin(response.statusCode);
+      _navigateToLogin(response.statusCode);
       throw Exception('Booking failed!');
     }
   }
 
   //Fetch all Schedule by tutorId
-  static List<Schedule> parseListSchedule(String responseBody) {
+  static List<Schedule> _parseListSchedule(String responseBody) {
     var list = json.decode(responseBody);
     List<Schedule> schedules = List.empty(growable: true);
     if (list['data'] != null) {
@@ -57,17 +57,17 @@ class BookingRequest {
   static Future<List<Schedule>> fetchSchedulesByTutorId(String tutorId) async {
     final body = {"tutorId": tutorId};
     final bodyJson = json.encode(body);
-    final response = await http.post(Uri.parse('$url/schedule'), headers: await headers(), body: bodyJson);
+    final response = await http.post(Uri.parse('$_url/schedule'), headers: await _headers(), body: bodyJson);
     if (response.statusCode == 200) {
-      return parseListSchedule(response.body);
+      return _parseListSchedule(response.body);
     } else {
-      navigateToLogin(response.statusCode);
+      _navigateToLogin(response.statusCode);
       throw Exception('Cant get schedule');
     }
   }
 
   //Fetch Booked class from server by History
-  static List<Booking> parseListBookingsHistory(String responseBody) {
+  static List<Booking> _parseListBookingsHistory(String responseBody) {
     var list = json.decode(responseBody);
     List<Booking> bookings = List.empty(growable: true);
     if (list['data']['rows'] != null) {
@@ -79,18 +79,18 @@ class BookingRequest {
   }
 
   static Future<List<Booking>> fetchAllBookingsHistory() async {
-    final response = await http.get(Uri.parse('$url/booking/list/student?orderBy=meeting&sortBy=desc&dateTimeLte=3642805436469&page=1&perPage=500'),
-        headers: await headers());
+    final response = await http.get(Uri.parse('$_url/booking/list/student?orderBy=meeting&sortBy=desc&dateTimeLte=3642805436469&page=1&perPage=500'),
+        headers: await _headers());
     if (response.statusCode == 200) {
-      return parseListBookingsHistory(response.body);
+      return _parseListBookingsHistory(response.body);
     } else {
-      navigateToLogin(response.statusCode);
+      _navigateToLogin(response.statusCode);
       throw Exception('Cant get booking');
     }
   }
 
   //Fetch Booked class from server by Upcoming
-  static List<Booking> parseListBookingsUpcoming(String responseBody) {
+  static List<Booking> _parseListBookingsUpcoming(String responseBody) {
     var list = json.decode(responseBody);
     List<Booking> bookings = List.empty(growable: true);
     if (list['data']['rows'] != null) {
@@ -102,17 +102,17 @@ class BookingRequest {
   }
 
   static Future<List<Booking>> fetchAllBookingsUpcoming() async {
-    final response = await http.get(Uri.parse('$url/booking/list/student?orderBy=meeting&sortBy=desc&dateTimeLte=3642805436469&page=1&perPage=500'),
-        headers: await headers());
+    final response = await http.get(Uri.parse('$_url/booking/list/student?orderBy=meeting&sortBy=desc&dateTimeLte=3642805436469&page=1&perPage=500'),
+        headers: await _headers());
     if (response.statusCode == 200) {
-      return parseListBookingsUpcoming(response.body);
+      return _parseListBookingsUpcoming(response.body);
     } else {
-      navigateToLogin(response.statusCode);
+      _navigateToLogin(response.statusCode);
       throw Exception('Cant get booking');
     }
   }
 
-  static void navigateToLogin(statusCode) {
+  static void _navigateToLogin(statusCode) {
     if (statusCode == 401) {
       navigatorKey.currentState!.pushNamed(LoginScreen.router);
     }

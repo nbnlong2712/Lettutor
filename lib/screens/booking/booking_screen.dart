@@ -29,7 +29,7 @@ class _BookingScreenState extends State<BookingScreen> {
   void fetchSchedules() async {
     await BookingRequest.fetchSchedulesByTutorId(widget.tutor.userId).then((value) {
       for (var element in value) {
-        if (element.endTimestamp!.isAfter(DateTime(2022,4,27,DateTime.now().hour, DateTime.now().minute,0))) {
+        if (element.endTimestamp!.isAfter(DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,DateTime.now().hour, DateTime.now().minute,0))) {
           schedules.add(element);
         }
       }

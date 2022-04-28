@@ -23,9 +23,10 @@ class Tutor {
   List<String>? specialties;
   int? price;
   double? avgRating;
+  bool? isFavorite;
 
   Tutor(this.id, this.userId, this.email, this.name, this.avatar, this.country, this.phone, this.level, this.video, this.bio, this.education,
-      this.experience, this.profession, this.targetStudent, this.interests, this.languages, this.specialties, this.price, this.avgRating);
+      this.experience, this.profession, this.targetStudent, this.interests, this.languages, this.specialties, this.price, this.avgRating, this.isFavorite);
 
   Tutor.fromJson(Map json) {
     id = json['id'];
@@ -65,11 +66,17 @@ class Tutor {
     specialties =
         ReCase(json['specialties'].replaceAll("-", "+").replaceAll(",", " ")).titleCase.replaceAll(" ", ",").replaceAll("+", " ").split(',');
     avgRating = json['avgRating'];
+    isFavorite = json['isFavorite'];
   }
 
   Tutor.fromJsonForRating(Map json)
   {
     avgRating = json['avgRating'].toDouble();
+  }
+
+  Tutor.fromJsonForFavourite(Map json)
+  {
+    isFavorite = json['isFavorite'];
   }
 
   Map toJson() {

@@ -7,15 +7,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class UserRequest {
-  static const String url = "https://sandbox.api.lettutor.com";
+  static const String _url = "https://sandbox.api.lettutor.com";
 
-  static Future<Map<String, String>> header() async {
+  static Future<Map<String, String>> _header() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, String> head = {"Content-Type": "application/json", "Authorization": "Bearer ${prefs.getString("access")}"};
     return head;
   }
 
-  static User parseUser(String responseBody) {
+  static User _parseUser(String responseBody) {
     var userJson = json.decode(responseBody);
     User user = User.fromJson(userJson['user']);
     return user;
@@ -23,30 +23,30 @@ class UserRequest {
 
   //Get user
   static Future<User> fetchUser() async {
-    Map<String, String> map = await header();
-    final response = await http.get(Uri.parse('$url/user/info'), headers: map);
+    Map<String, String> map = await _header();
+    final response = await http.get(Uri.parse('$_url/user/info'), headers: map);
     if (response.statusCode == 200) {
-      return parseUser(response.body);
+      return _parseUser(response.body);
     } else {
-      navigateToLogin(response.statusCode);
+      _navigateToLogin(response.statusCode);
       throw Exception('Error ${response.statusCode}');
     }
   }
 
   //Update User
   static Future<bool> updateUser(User user) async {
-    Map<String, String> map = await header();
+    Map<String, String> map = await _header();
     final jsonBody = json.encode(user.toJsonForUpdate());
-    final response = await http.put(Uri.parse('$url/user/info'), headers: map, body: jsonBody);
+    final response = await http.put(Uri.parse('$_url/user/info'), headers: map, body: jsonBody);
     if (response.statusCode == 200) {
       return true;
     } else {
-      navigateToLogin(response.statusCode);
+      _navigateToLogin(response.statusCode);
       return false;
     }
   }
 
-  static void navigateToLogin(statusCode)
+  static void _navigateToLogin(statusCode)
   {
     if(statusCode == 401)
       {

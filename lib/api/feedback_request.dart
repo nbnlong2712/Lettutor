@@ -7,16 +7,16 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 
 class FeedbackRequest {
-  static const String url = "https://sandbox.api.lettutor.com";
+  static const String _url = "https://sandbox.api.lettutor.com";
 
-  static Future<Map<String, String>> header() async {
+  static Future<Map<String, String>> _header() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, String> head = {"Content-Type": "application/json", "Authorization": "Bearer ${prefs.getString("access")}"};
     return head;
   }
 
   //Fetch all Feedback from server
-  static List<Feedback> parseListFeedbacks(String responseBody) {
+  static List<Feedback> _parseListFeedbacks(String responseBody) {
     var list = json.decode(responseBody);
     List<Feedback> feedbacks = List.empty(growable: true);
     if (list['User']['feedbacks'] != null) {
@@ -28,11 +28,11 @@ class FeedbackRequest {
   }
 
   static Future<List<Feedback>> fetchAllFeedback(String tutorId) async {
-    final response = await http.get(Uri.parse('$url/tutor/$tutorId'), headers: await header());
+    final response = await http.get(Uri.parse('$_url/tutor/$tutorId'), headers: await _header());
     if (response.statusCode == 200) {
-      return parseListFeedbacks(response.body);
+      return _parseListFeedbacks(response.body);
     } else {
-      navigateToLogin(response.statusCode);
+      _navigateToLogin(response.statusCode);
       throw Exception('Cant get tutor list');
     }
   }
@@ -41,16 +41,16 @@ class FeedbackRequest {
   static Future<bool> postFeedback(String bookingId, String userId, int rating, String content) async {
     final body = {"bookingId": bookingId, "userId": userId, "rating": rating, "content": content};
     final bodyJson = json.encode(body);
-    final response = await http.post(Uri.parse('$url/user/feedbackTutor'), headers: await header(), body: bodyJson);
-    if(response.statusCode == 200)
+    final response = await http.post(Uri.parse('$_url/user/feedbackTutor'), headers: await _header(), body: bodyJson);
+    if(response.statusCode == 200) {
       return true;
-    else{
-      navigateToLogin(response.statusCode);
+    } else{
+      _navigateToLogin(response.statusCode);
       return false;
     }
   }
 
-  static void navigateToLogin(statusCode) {
+  static void _navigateToLogin(statusCode) {
     if (statusCode == 401) {
       navigatorKey.currentState!.pushNamed(LoginScreen.router);
     }
