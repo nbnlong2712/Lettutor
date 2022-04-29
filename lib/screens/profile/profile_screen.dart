@@ -94,21 +94,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          GestureDetector(
-                            onTap: () async {
-                              FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image, allowMultiple: false);
-                              if (result != null) {
-                                setState(() {
-                                  mainUser.avatar = result.files.single.path!;
-                                });
-                              } else {
-                                print("NULLLLLLLLLLLLLLLLLLLLLLL");
-                              }
-                            },
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(mainUser.avatar!),
-                              radius: 55,
-                            ),
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(mainUser.avatar!),
+                            radius: 55,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(4.0),

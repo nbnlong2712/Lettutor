@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
               showIndicator = false;
             });
           }
-          Navigator.pushNamedAndRemoveUntil(context, HomePage.router, ModalRoute.withName(HomePage.router));
+          Navigator.popAndPushNamed(context, HomePage.router);
         }).catchError((e) {
           if (mounted) {
             setState(() {
@@ -191,6 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   setState(() {
                                     showIndicator = false;
                                   });
+                                  print("${e.toString()} kakakakakak");
                                   ScaffoldMessenger.of(context).showSnackBar(_snackBar("Email or password is incorrect!", Colors.red));
                                 });
                               } else {

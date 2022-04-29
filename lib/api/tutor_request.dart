@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter_lettutor/auth/login_screen.dart';
+import 'package:flutter_lettutor/models/message.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +15,83 @@ class TutorRequest {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, String> head = {"Content-Type": "application/json", "Authorization": "Bearer ${prefs.getString("access")}"};
     return head;
+  }
+
+  static Future<Map<String, String>> _header2() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, String> head = {
+      "Authorization": "Bearer ${prefs.getString("access")}",
+      "Content-Type": "multipart/form-data; boundary=<calculated when request is sent>"
+    };
+    return head;
+  }
+
+  //Become a tutor
+  static Message _parseMessage(String responseBody, int code) {
+    var jsonMap = json.decode(responseBody);
+    Message message = Message.fromJson(jsonMap, code);
+    return message;
+  }
+
+  static Future<Message> becomeTeacher(String name, String country, String birthday, String interests, String education, String experience,
+      String profession, String languages, String bio, String targetStudent, String specialties, File avatar, File video, int price) async {
+    final body = {
+      'name': name,
+      'country': country,
+      'birthday': birthday,
+      'interests': interests,
+      'education': education,
+      'experience': experience,
+      'profession': profession,
+      'languages': languages,
+      'bio': bio,
+      'targetStudent': targetStudent,
+      'specialties': specialties,
+      'avatar': avatar,
+      'video': video,
+      'price': price
+    };
+    final bodyJson = json.encode(body);
+    final response = await http.post(Uri.parse('$_url/tutor/register'), headers: await _header2(), body: bodyJson);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return _parseMessage("Become a teacher success!", 200);
+    } else {
+      return _parseMessage(response.body, response.statusCode);
+    }
+  }
+
+  static Future<Message> becomeTutor(String name, String country, String birthday, String interests, String education, String experience,
+      String profession, String languages, String bio, String targetStudent, String specialties, File avatar, File video, int price) async {
+    FormData formData = FormData.fromMap({
+      'name': name,
+      'country': country,
+      'birthday': birthday,
+      'interests': interests,
+      'education': education,
+      'experience': experience,
+      'profession': profession,
+      'languages': languages,
+      'bio': bio,
+      'targetStudent': targetStudent,
+      'specialties': specialties,
+      'avatar': await MultipartFile.fromFile(avatar.path, filename: avatar.path.split('/').last),
+      'video': await MultipartFile.fromFile(video.path, filename: video.path.split('/').last),
+      'price': price
+    });
+
+    Dio dio = Dio();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    dio.options.headers["Content-Type"] = "multipart/form-data; boundary=<calculated when request is sent>";
+    dio.options.headers["Authorization"] = "Bearer ${prefs.getString("access")}";
+
+    final response = await dio.postUri(Uri.parse('$_url/tutor/register'), data: formData);
+    if (response.statusCode == 200) {
+      return _parseMessage("Become a teacher success!", 200);
+    } else {
+      return _parseMessage(response.data, response.statusCode!);
+    }
   }
 
   //Fetch all Tutor from server

@@ -14,21 +14,34 @@ class User {
   String? level;
   List<Subject>? learnTopics;
   List<Subject>? testPreparations;
+  String? tutorInfoId;
 
   User(this.id, this.email, this.name, this.avatar, this.country, this.phone, this.language, this.birthday, this.isActivated, this.level,
-      this.learnTopics, this.testPreparations);
+      this.learnTopics, this.testPreparations, this.tutorInfoId);
 
   User.fromJson(Map map) {
     id = map['id'];
     email = map['email'];
     name = map['name'];
     avatar = map['avatar'];
-    country = map['country'];
+    if (map['country'] == null) {
+      country = "VN";
+    } else {
+      country = map['country'];
+    }
     phone = map['phone'];
     language = map['language'];
-    birthday = DateFormat("yyyy-MM-dd").parse(map['birthday']);
+    if (map['birthday'] == null) {
+      birthday = DateTime(2000, 03, 12);
+    } else {
+      birthday = DateFormat("yyyy-MM-dd").parse(map['birthday']);
+    }
     isActivated = map['isActivated'];
-    level = map['level'];
+    if (map['level'] == null) {
+      level = "BEGINNER";
+    } else {
+      level = map['level'];
+    }
     if (map['learnTopics'] != null) {
       learnTopics = List<Subject>.empty(growable: true);
       map['learnTopics'].forEach((v) {
@@ -40,6 +53,11 @@ class User {
       map['testPreparations'].forEach((v) {
         testPreparations!.add(Subject.fromJson(v));
       });
+    }
+    if (map['tutorInfo'] == null) {
+      tutorInfoId = null;
+    } else {
+      tutorInfoId = map['tutorInfo']['id'];
     }
   }
 
@@ -60,7 +78,7 @@ class User {
     };
   }
 
-  Map toJsonForUpdate(){
+  Map toJsonForUpdate() {
     List<String> lt = [];
     List<String> tp = [];
     for (var element in learnTopics!) {

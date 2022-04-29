@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/api/auth_request.dart';
-import 'package:flutter_lettutor/auth/login_screen.dart';
-import 'package:flutter_lettutor/main.dart';
-import 'package:flutter_lettutor/models/tutor.dart';
-import 'package:flutter_lettutor/models/user.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'components/auth_button.dart';
 import 'components/auth_textfield.dart';
