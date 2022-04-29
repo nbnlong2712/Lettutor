@@ -29,14 +29,15 @@ class BookingRequest {
   }
 
   static Future<Message> bookMeeting(String scheduleDetailId, String note) async {
-    final body = {"scheduleDetailIds": [scheduleDetailId], "note": note};
+    final body = {
+      "scheduleDetailIds": [scheduleDetailId],
+      "note": note
+    };
     final bodyJson = json.encode(body);
     final response = await http.post(Uri.parse('$_url/booking'), headers: await _headers(), body: bodyJson);
-    if(response.statusCode == 200)
-      {
-        return _parseMessage(response.body, response.statusCode);
-      }
-    else{
+    if (response.statusCode == 200) {
+      return _parseMessage(response.body, response.statusCode);
+    } else {
       _navigateToLogin(response.statusCode);
       throw Exception('Booking failed!');
     }
@@ -109,6 +110,19 @@ class BookingRequest {
     } else {
       _navigateToLogin(response.statusCode);
       throw Exception('Cant get booking');
+    }
+  }
+
+  static Future<Message> cancelBooking(String scheduleDetailId) async {
+    final body = {
+      'scheduleDetailIds': [scheduleDetailId]
+    };
+    final bodyJson = json.encode(body);
+    final response = await http.delete(Uri.parse('$_url/booking'), headers: await _headers(), body: bodyJson);
+    if (response.statusCode == 200) {
+      return Message(response.statusCode, "Cancel booking successful!");
+    } else {
+      return _parseMessage(response.body, response.statusCode);
     }
   }
 

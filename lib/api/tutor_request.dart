@@ -33,34 +33,6 @@ class TutorRequest {
     return message;
   }
 
-  static Future<Message> becomeTeacher(String name, String country, String birthday, String interests, String education, String experience,
-      String profession, String languages, String bio, String targetStudent, String specialties, File avatar, File video, int price) async {
-    final body = {
-      'name': name,
-      'country': country,
-      'birthday': birthday,
-      'interests': interests,
-      'education': education,
-      'experience': experience,
-      'profession': profession,
-      'languages': languages,
-      'bio': bio,
-      'targetStudent': targetStudent,
-      'specialties': specialties,
-      'avatar': avatar,
-      'video': video,
-      'price': price
-    };
-    final bodyJson = json.encode(body);
-    final response = await http.post(Uri.parse('$_url/tutor/register'), headers: await _header2(), body: bodyJson);
-    if (response.statusCode == 200) {
-      print(response.body);
-      return _parseMessage("Become a teacher success!", 200);
-    } else {
-      return _parseMessage(response.body, response.statusCode);
-    }
-  }
-
   static Future<Message> becomeTutor(String name, String country, String birthday, String interests, String education, String experience,
       String profession, String languages, String bio, String targetStudent, String specialties, File avatar, File video, int price) async {
     FormData formData = FormData.fromMap({

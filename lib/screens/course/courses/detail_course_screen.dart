@@ -95,7 +95,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                           Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Column(
-                              children: widget.course.topics!.map((e) => TopicCard(orderNumber: e.orderCourse!, topicName: e.name!)).toList(),
+                              children: widget.course.topics!.map((e) => TopicCard(topic: e,)).toList(),
                             ),
                           ),
                         ],

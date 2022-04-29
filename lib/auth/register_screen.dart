@@ -119,28 +119,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onPressed: () async {
                               if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty && reEnterController.text.isNotEmpty) {
                                 if (passwordController.text.compareTo(reEnterController.text) == 0) {
-                                  setState(() {
-                                    isShowIndicator = true;
-                                  });
-                                  await AuthRequest.register(emailController.text, passwordController.text).then((value) {
-                                    if (value.statusCode!~/100 == 2) {
-                                      ScaffoldMessenger.of(context).showSnackBar(_snackBar("${value.message}!", Colors.green));
-                                      setState(() {
-                                        isShowIndicator = false;
-                                      });
-                                      Navigator.pop(context);
-                                    } else {
-                                      ScaffoldMessenger.of(context).showSnackBar(_snackBar("${value.message}!", Colors.red));
-                                      setState(() {
-                                        isShowIndicator = false;
-                                      });
-                                    }
-                                  }).catchError((e){
-                                    print(e);
+                                  if (emailController.text.contains("@") && passwordController.text.length >= 6) {
                                     setState(() {
-                                      isShowIndicator = false;
+                                      isShowIndicator = true;
                                     });
-                                  });
+                                    await AuthRequest.register(emailController.text, passwordController.text).then((value) {
+                                      if (value.statusCode! ~/ 100 == 2) {
+                                        ScaffoldMessenger.of(context).showSnackBar(_snackBar("${value.message}!", Colors.green));
+                                        setState(() {
+                                          isShowIndicator = false;
+                                        });
+                                        Navigator.pop(context);
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(_snackBar("${value.message}!", Colors.red));
+                                        setState(() {
+                                          isShowIndicator = false;
+                                        });
+                                      }
+                                    }).catchError((e) {
+                                      print(e);
+                                      setState(() {
+                                        isShowIndicator = false;
+                                      });
+                                    });
+                                  }
+                                  else{
+                                    ScaffoldMessenger.of(context).showSnackBar(_snackBar("Email or password invalid!", Colors.red));
+                                  }
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(_snackBar("Please re-enter new password!", Colors.red));
                                 }

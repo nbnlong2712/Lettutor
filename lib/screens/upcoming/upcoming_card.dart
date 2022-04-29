@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_lettutor/api/booking_request.dart';
 import 'package:flutter_lettutor/home_page.dart';
 import 'package:flutter_lettutor/models/booking.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -9,6 +8,10 @@ class UpcomingCard extends StatelessWidget {
   UpcomingCard({Key? key, required this.booking}) : super(key: key);
 
   Booking booking;
+
+  SnackBar _snackBar(String content, Color color) {
+    return SnackBar(content: Text(content, style: const TextStyle(color: Colors.white)), backgroundColor: color);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +74,20 @@ class UpcomingCard extends StatelessWidget {
                 children: <Widget>[
                   NeumorphicButton(
                     style: NeumorphicStyle(depth: 3, shape: NeumorphicShape.flat, intensity: 0.9, color: Colors.red.shade100),
-                    onPressed: () {
-                      Navigator.popAndPushNamed(context, HomePage.router);
+                    onPressed: () async {
+                      await BookingRequest.cancelBooking(booking.scheduleDetailId!).then((value) {
+                        if(value.statusCode == 200)
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(_snackBar("Login success!", Colors.green));
+                            Navigator.popAndPushNamed(context, HomePage.router);
+                          }
+                        else{
+                          ScaffoldMessenger.of(context).showSnackBar(_snackBar("${value.message}!", Colors.red));
+                        }
+                      }).catchError((e){
+                        print("${e.toString()} error cancel booking");
+                        ScaffoldMessenger.of(context).showSnackBar(_snackBar("Cancel booking failed!", Colors.red));
+                      });
                     },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.32,
