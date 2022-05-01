@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/api/booking_request.dart';
 import 'package:flutter_lettutor/home_page.dart';
 import 'package:flutter_lettutor/models/booking.dart';
+import 'package:flutter_lettutor/screens/meeting/meeting_screen.dart';
+import 'package:flutter_lettutor/screens/meeting/waiting_screen.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class UpcomingCard extends StatelessWidget {
@@ -78,7 +80,7 @@ class UpcomingCard extends StatelessWidget {
                       await BookingRequest.cancelBooking(booking.scheduleDetailId!).then((value) {
                         if(value.statusCode == 200)
                           {
-                            ScaffoldMessenger.of(context).showSnackBar(_snackBar("Login success!", Colors.green));
+                            ScaffoldMessenger.of(context).showSnackBar(_snackBar("Cancel booking success!", Colors.green));
                             Navigator.popAndPushNamed(context, HomePage.router);
                           }
                         else{
@@ -98,7 +100,10 @@ class UpcomingCard extends StatelessWidget {
                   ),
                   NeumorphicButton(
                     style: NeumorphicStyle(depth: 3, shape: NeumorphicShape.flat, intensity: 0.9, color: Colors.green.shade100),
-                    onPressed: () {},
+                    onPressed: () {
+                      print(booking.studentMeetingLink);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => WaitingScreen(booking: booking)));
+                    },
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.32,
                       child: const Center(

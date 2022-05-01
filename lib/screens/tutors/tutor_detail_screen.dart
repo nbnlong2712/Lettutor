@@ -230,7 +230,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
-                            children: widget.tutor.languages!.map((e) => SkillChip(skillName: Constant.IsoLangs[e]['name'])).toList(),
+                            children: widget.tutor.languages!.map((e) => SkillChip(skillName: Constant.IsoLangs[e])).toList(),
                           ),
                         ),
                       ],
