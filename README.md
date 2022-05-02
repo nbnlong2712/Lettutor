@@ -1,6 +1,6 @@
 # flutter_lettutor
 
-A new Flutter application.
+A Flutter Tutor application. Link Youtube demo: https://www.youtube.com/watch?v=Wowh6A8Rz8g
 
 ## Getting Started
 
