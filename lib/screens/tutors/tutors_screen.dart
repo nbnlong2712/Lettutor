@@ -8,6 +8,7 @@ import 'package:flutter_lettutor/widget/app_search_bar.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorsScreen extends StatefulWidget {
   static const router = "/tutor-screen";
@@ -108,7 +109,7 @@ class _TutorsScreenState extends State<TutorsScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Tutors", style: TextStyle(color: Colors.black)),
+        title: Text(AppLocalizations.of(context)!.tutors, style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: <Widget>[
@@ -132,7 +133,7 @@ class _TutorsScreenState extends State<TutorsScreen> {
               direction: Axis.vertical,
               children: <Widget>[
                 AppSearchBar(
-                    hint: "Search tutors...",
+                    hint: AppLocalizations.of(context)!.searchTutors,
                     onQueryChanged: (query) {
                       setState(() {
                         queryStr = query;

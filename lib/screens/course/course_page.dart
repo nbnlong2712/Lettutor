@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/screens/course/courses/course_screen.dart';
 import 'package:flutter_lettutor/screens/course/ebook/ebook_screen.dart';
 import 'package:flutter_lettutor/utils/constant.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CoursePage extends StatefulWidget {
   static const router = "/course-page";
@@ -48,9 +49,9 @@ class _CoursePageState extends State<CoursePage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Courses",
-            style: TextStyle(color: Colors.black),
+          title: Text(
+            AppLocalizations.of(context)!.courses,
+            style: const TextStyle(color: Colors.black),
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -85,7 +86,7 @@ class _CoursePageState extends State<CoursePage> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             CourseScreen(),
             EbookScreen(),

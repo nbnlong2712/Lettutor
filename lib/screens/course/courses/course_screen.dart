@@ -8,6 +8,7 @@ import 'package:flutter_lettutor/utils/constant.dart';
 import 'package:flutter_lettutor/widget/app_search_bar.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseScreen extends StatefulWidget {
   const CourseScreen({Key? key}) : super(key: key);
@@ -115,7 +116,7 @@ class _CourseScreenState extends State<CourseScreen> {
                     SizedBox(
                         width: MediaQuery.of(context).size.width * 0.87,
                         child: AppSearchBar(
-                          hint: "Search courses...",
+                          hint: AppLocalizations.of(context)!.searchCourses,
                           onQueryChanged: (query) {
                             setState(() {
                               queryStr = query;

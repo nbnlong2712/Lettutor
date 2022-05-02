@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lettutor/api/tutor_request.dart';
 import 'package:flutter_lettutor/models/tutor.dart';
-import 'package:flutter_lettutor/screens/home/recommend_tutor_card.dart';
 import 'package:flutter_lettutor/screens/home/upcoming_banner.dart';
 import 'package:flutter_lettutor/screens/profile/profile_screen.dart';
 import 'package:flutter_lettutor/screens/tutors/tutor_card.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../home_page.dart';
 
@@ -49,9 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text(
-          "Home",
-          style: TextStyle(color: Colors.green, fontWeight: FontWeight.w800),
+        title: Text(
+            AppLocalizations.of(context)!.home,
+          style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w800),
         ),
         elevation: 0,
         actions: <Widget>[
@@ -81,8 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.all(12.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const <Widget>[
-                        Text("Recommend tutors", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
+                      children: <Widget>[
+                        Text(AppLocalizations.of(context)!.recommendTutors, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
                       ],
                     ),
                   ),

@@ -1,0 +1,55 @@
+{
+  "language": "Language",
+  "home": "Home",
+  "@language":{
+    "description": "The current Language"
+  },
+  "helloWorld": "Xin chao",
+  "@helloWorld": {
+    "description": "A programmer greeting"
+  },
+  "hello": "Hello {username}",
+  "@hello": {
+    "description": "A welcome message",
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "loginScreen": "-----------------------",
+  "login": "Login",
+  "password": "Password",
+  "notAMemberYet": "Not a member yet?",
+  "signUp": "Sign up",
+  "forgotPassword": "Forgot password",
+  "orContinueWith": "Or continue with",
+
+  "homeScreen": "-------------------------",
+  "recommendTutors": "Recommend Tutors",
+  "enterLessonRoom": "Enter a room",
+  "upcommingLesson": "Upcomming Lesson",
+
+  "courseScreen": "------------------------",
+  "courses": "Courses",
+  "course": "Course",
+  "searchCourses": "Search courses...",
+
+  "upcomingScreen": "------------------------",
+  "upcoming": "Upcoming",
+
+  "tutorsScreen": "-------------------------",
+  "tutors": "Tutors",
+  "searchTutors": "Search tutors...",
+
+  "settingScreen": "------------------------",
+  "setting": "Setting",
+  "changePassword": "Change password",
+  "sessionHistory": "Session History",
+  "advancedSetting": "Advanced setting",
+  "becomeATeacher": "Become a teacher",
+  "ourWebsite": "Our website",
+  "facebook": "Facebook",
+  "logout": "Logout"
+}

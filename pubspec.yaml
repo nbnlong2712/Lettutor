@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^1.0.2
   video_player: ^2.2.19
@@ -52,7 +54,9 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
-
+  generate: true
   assets:
     - assets/images/
     - assets/videos/
+flutter_intl:
+  enabled: true

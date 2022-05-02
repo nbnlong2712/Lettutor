@@ -1,0 +1,55 @@
+{
+  "language": "Ngôn ngữ",
+  "home":"Trang chủ",
+  "@language":{
+    "description": "The current Language"
+  },
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "A programmer greeting"
+  },
+  "hello": "Hello {username}",
+  "@hello": {
+    "description": "A welcome message",
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+
+  "loginScreen": "-----------------------",
+  "login": "Đăng nhập",
+  "password": "Mật khẩu",
+  "notAMemberYet": "Chưa đăng ký thành viên?",
+  "signUp": "Đăng ký",
+  "forgotPassword": "Quên mật khẩu",
+  "orContinueWith": "Hoặc tiếp tục với",
+
+  "homeScreen": "-------------------------",
+  "recommendTutors": "Giáo viên hàng đầu",
+  "enterLessonRoom": "Tham gia meeting",
+  "upcommingLesson": "Bài học tiếp theo",
+
+  "courseScreen": "------------------------",
+  "courses": "Khóa học",
+  "course": "Khóa học",
+  "searchCourses": "Tìm kiếm khóa học...",
+
+  "upcomingScreen": "------------------------",
+  "upcoming": "Sắp tới",
+
+  "tutorsScreen": "-------------------------",
+  "tutors": "Giảng viên",
+  "searchTutors": "Tìm kiếm giảng viên...",
+
+  "settingScreen": "------------------------",
+  "setting": "Cài đặt",
+  "changePassword": "Đổi mật khẩu",
+  "sessionHistory": "Lịch sử học",
+  "advancedSetting": "Cài đặt nâng cao",
+  "becomeATeacher": "Trở thành giảng viên",
+  "ourWebsite": "Website của chúng tôi",
+  "facebook": "Facebook",
+  "logout": "Đăng xuất"
+}

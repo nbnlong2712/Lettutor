@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class UpcomingBanner extends StatelessWidget {
   UpcomingBanner({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class UpcomingBanner extends StatelessWidget {
                 backgroundColor: Colors.white,
                 onPressed: () {},
                 label: Text(
-                  "Enter lesson room",
+                  AppLocalizations.of(context)!.enterLessonRoom,
                   style: TextStyle(color: Colors.green),
                 ),
               ),

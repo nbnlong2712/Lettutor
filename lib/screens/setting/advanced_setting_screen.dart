@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lettutor/auth/components/auth_button.dart';
+import 'package:flutter_lettutor/provider/language/language_provider.dart';
+import 'package:flutter_lettutor/provider/theme/theme_model.dart';
 import 'package:flutter_lettutor/screens/profile/profile_dropdown.dart';
-import 'package:flutter_lettutor/theme/theme_model.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../home_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdvancedSettingScreen extends StatefulWidget {
   static const String router = "/advanced-setting-screen";
@@ -18,6 +15,8 @@ class AdvancedSettingScreen extends StatefulWidget {
 }
 
 class _AdvancedSettingScreenState extends State<AdvancedSettingScreen> {
+  String language = "English";
+
   @override
   void initState() {
     super.initState();
@@ -29,8 +28,8 @@ class _AdvancedSettingScreenState extends State<AdvancedSettingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Advanced setting",
+        title: Text(
+          "Advanced Setting",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.transparent,
@@ -58,8 +57,18 @@ class _AdvancedSettingScreenState extends State<AdvancedSettingScreen> {
                 ),
                 ProfileDropDown(
                   listItem: const ["Vietnamese", "English"],
-                  value: "English",
-                  onChanged: (value) {},
+                  value: language,
+                  onChanged: (value) {
+                    setState(() {
+                      language = value!;
+                      final provider = Provider.of<LanguageProvider>(context, listen: false);
+                      if (value == "English") {
+                        provider.setLocale(const Locale('en'));
+                      }
+                      provider.setLocale(const Locale('vi'));
+                    });
+
+                  },
                 ),
               ],
             ),
